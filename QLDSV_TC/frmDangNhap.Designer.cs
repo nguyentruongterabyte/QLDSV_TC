@@ -170,7 +170,7 @@
             // 
             // btnThoat
             // 
-            this.btnThoat.BackColor = System.Drawing.Color.Transparent;
+            this.btnThoat.BackColor = System.Drawing.Color.White;
             this.btnThoat.Font = new System.Drawing.Font("Tahoma", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnThoat.ForeColor = System.Drawing.Color.Black;
             this.btnThoat.Location = new System.Drawing.Point(840, 382);

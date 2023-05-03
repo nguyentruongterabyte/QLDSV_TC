@@ -74,9 +74,7 @@ namespace QLDSV_TC
         {
 
             if (KetNoi_CSDLGOC() == 0)
-            {
-                return;
-            }
+                { return; }
             LayDSPM("SELECT * FROM V_Get_Subscribers");
             cmbKhoa.SelectedIndex = 1;
             cmbKhoa.SelectedIndex = 0;
