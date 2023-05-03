@@ -65,6 +65,8 @@ namespace QLDSV_TC
 
         }
 
+        // Cho phép xem, xóa, sửa, thêm.
+        // Nhược điểm: tải dữ liệu chậm hơn so với datareader
         public static DataTable ExecSqlDataTable(string cmd)
         {
             DataTable dt = new DataTable();
@@ -78,6 +80,8 @@ namespace QLDSV_TC
             return dt;
         }
 
+        // Tải dữ liệu chỉ cho phép đọc, không cho hiệu chỉnh.
+        // Ưu điểm tải dữ về rất nhanh
         public  static SqlDataReader ExecSqlDataReader(string cmd)
         {
             SqlDataReader myReader;
@@ -101,6 +105,7 @@ namespace QLDSV_TC
             }
         }
 
+        // Thực thi câu lệnh cập nhật trên sp đó không trả về Số liệu
         public static int ExecSqlNonQuery(String cmd)
         {
             SqlCommand sqlCommand = new SqlCommand(cmd, conn);
