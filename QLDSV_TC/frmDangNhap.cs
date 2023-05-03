@@ -15,8 +15,8 @@ namespace QLDSV_TC
     public partial class frmDangNhap : DevExpress.XtraEditors.XtraForm
     {
         private SqlConnection conn_publisher = new SqlConnection();
-        
-       
+
+
 
         private void LayDSPM(string cmd)
         {
@@ -63,14 +63,16 @@ namespace QLDSV_TC
 
         private void cmbKhoa_SelectedIndexChanged(object sender, EventArgs e)
         {
-            try {
+            try
+            {
                 Program.servername = cmbKhoa.SelectedValue.ToString();
-            } catch(Exception) { }
+            }
+            catch (Exception) { }
         }
 
         private void frmDangNhap_Load(object sender, EventArgs e)
         {
-       
+
             if (KetNoi_CSDLGOC() == 0)
             {
                 return;
@@ -79,13 +81,14 @@ namespace QLDSV_TC
             cmbKhoa.SelectedIndex = 1;
             cmbKhoa.SelectedIndex = 0;
 
+            txtPass.PasswordChar = '*';
         }
 
         private void btnDangNhap_Click(object sender, EventArgs e)
         {
             if (txtLogin.Text.Trim() == "" || txtPass.Text.Trim() == "")
             {
-                MessageBox.Show("Tên tài khoản và mật khẩu không được bỏ trống!","Thông báo", MessageBoxButtons.OK);
+                MessageBox.Show("Tên tài khoản và mật khẩu không được bỏ trống!", "Thông báo", MessageBoxButtons.OK);
                 return;
             }
 
@@ -101,7 +104,9 @@ namespace QLDSV_TC
             Program.mlogin = txtLogin.Text;
             Program.password = txtPass.Text;
 
-            if (Program.KetNoi() == 0) {
+
+            if (Program.KetNoi() == 0)
+            {
                 return;
             };
 
@@ -109,18 +114,22 @@ namespace QLDSV_TC
             Program.mloginDN = Program.mlogin;
             Program.passwordDN = Program.password;
 
+           
+
             string strLenh = "";
             if (radGiangVien.Checked)
             {
                 strLenh = "EXEC SP_LAY_THONG_TIN_GV_TU_LOGIN '" + Program.mlogin + "'";
+               
             }
 
             if (radSinhVien.Checked)
             {
                 strLenh = "EXEC SP_LAY_THONG_TIN_SV_TU_LOGIN '" + Program.mlogin + "'";
+               
             }
             Program.myReader = Program.ExecSqlDataReader(strLenh);
-            if (Program.myReader == null )
+            if (Program.myReader == null)
             {
                 MessageBox.Show("Lỗi chạy lệnh lấy thông tin đăng nhập.\n" + strLenh);
                 return;
@@ -129,7 +138,7 @@ namespace QLDSV_TC
             Program.myReader.Read();
 
             Program.username = Program.myReader.GetString(0);
-            // Test username
+          
             if (Convert.IsDBNull(Program.username))
             {
                 MessageBox.Show("Login bạn nhập không có quyền truy cập dữ liệu\nBạn xem lại username, password", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
@@ -141,22 +150,31 @@ namespace QLDSV_TC
             Program.myReader.Close();
             Program.conn.Close();
 
-            // Test username, mHoTen, mGroup
-            
-
             Program.frmChinh.btnDangNhap.Enabled = false;
 
-            Program.frmChinh.MAGV.Text = "Mã NV = " + Program.username;
-            Program.frmChinh.HOTEN.Text = "Họ tên = " + Program.mHoTen;
-            Program.frmChinh.NHOM.Text = "Nhóm = " + Program.mGroup;
-            
-            
+            Program.frmChinh.MAGV.Text = $"Mã NV: {Program.username} - ";
+            Program.frmChinh.HOTEN.Text = $"Họ tên: {Program.mHoTen} - ";
+            Program.frmChinh.NHOM.Text = $"Nhóm: {Program.mGroup}";
+           
+
         }
 
         private void btnThoat_Click(object sender, EventArgs e)
         {
             Close();
             Program.frmChinh.Close();
+        }
+
+        private void chkHienThi_CheckedChanged(object sender, EventArgs e)
+        {
+            if (chkHienThi.Checked)
+            {
+                txtPass.PasswordChar = default;
+            }
+            else
+            {
+                txtPass.PasswordChar = '*';
+            }
         }
     }
 }

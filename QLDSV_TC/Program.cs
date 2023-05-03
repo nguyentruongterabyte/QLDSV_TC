@@ -136,7 +136,7 @@ namespace QLDSV_TC
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            frmMain frmChinh = new frmMain();
+            frmChinh = new frmMain();
             Application.Run(frmChinh);
 
             //Application.Run(new frmDangNhap());

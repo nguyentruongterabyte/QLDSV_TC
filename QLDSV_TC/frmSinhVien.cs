@@ -47,7 +47,13 @@ namespace QLDSV_TC
             this.dANGKYTableAdapter.Fill(this.DS.DANGKY);
 
             cmbKhoa.DataSource = Program.bds_dspm; // sao chép bds_dspm đã load ở form đăng nhập
-            cmbKhoa.DisplayMember = "TENKHOA"
+            cmbKhoa.DisplayMember = "TENKHOA";
+            cmbKhoa.ValueMember = "TENSERVER";
+            cmbKhoa.SelectedIndex = Program.mKhoa;
+            if (Program.mGroup == "PGV") 
+                cmbKhoa.Enabled = true;
+            else 
+                cmbKhoa.Enabled = false;
         }
     }
 }
