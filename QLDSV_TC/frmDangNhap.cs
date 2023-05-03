@@ -127,7 +127,7 @@ namespace QLDSV_TC
             {
                 strLenh = "EXEC SP_LAY_THONG_TIN_SV_TU_LOGIN '" + Program.mlogin + "'";
                
-            }
+           }
             Program.myReader = Program.ExecSqlDataReader(strLenh);
             if (Program.myReader == null)
             {
@@ -141,7 +141,8 @@ namespace QLDSV_TC
           
             if (Convert.IsDBNull(Program.username))
             {
-                MessageBox.Show("Login bạn nhập không có quyền truy cập dữ liệu\nBạn xem lại username, password", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                MessageBox.Show("Login bạn nhập không có quyền truy cập dữ liệu\nBạn xem lại username, password",
+                    "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 return;
             }
 
@@ -151,19 +152,15 @@ namespace QLDSV_TC
             Program.conn.Close();
 
             Program.frmChinh.btnDangNhap.Enabled = false;
+            Program.frmChinh.btnDangXuat.Enabled = true;
 
-            Program.frmChinh.MAGV.Text = $"Mã NV: {Program.username} - ";
-            Program.frmChinh.HOTEN.Text = $"Họ tên: {Program.mHoTen} - ";
-            Program.frmChinh.NHOM.Text = $"Nhóm: {Program.mGroup}";
+            MessageBox.Show($"Đăng nhập thành công vào tài khoản {Program.mloginDN}", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
+
+            Program.frmChinh.HienThiMenu();
            
 
         }
 
-        private void btnThoat_Click(object sender, EventArgs e)
-        {
-            Close();
-            Program.frmChinh.Close();
-        }
 
         private void chkHienThi_CheckedChanged(object sender, EventArgs e)
         {
@@ -175,6 +172,12 @@ namespace QLDSV_TC
             {
                 txtPass.PasswordChar = '*';
             }
+        }
+
+        private void btnThoat_Click(object sender, EventArgs e)
+        {
+            Close();
+            Program.frmChinh.Close();
         }
     }
 }
