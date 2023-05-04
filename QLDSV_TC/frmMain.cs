@@ -17,6 +17,15 @@ namespace QLDSV_TC
             InitializeComponent();
         }
 
+        public static void SetEnableOfButton(Form frm, Boolean Active)
+        {
+
+            foreach (Control ctl in frm.Controls)
+                if ((ctl) is Button)
+                    ctl.Enabled = Active;
+        }
+
+
         public void HienThiMenu()
         {
             if (Program.mGroup == "SV")
@@ -38,10 +47,44 @@ namespace QLDSV_TC
             }
             NHOM.Text = $"Nhóm: {Program.mGroup}";
 
-            // Phân quyền
             ribBaoCao.Visible = ribDanhMuc.Visible = true;
-            if (Program.mGroup == "PGV") { }
-            
+            SetEnableOfButton(Program.frmChinh, true);
+
+
+            // Phân quyền
+            switch (Program.mGroup)
+            {
+                case "PGV":
+                    {
+                        //TO DO 
+                        btnHocPhi.Enabled = btnDangKy.Enabled = false;
+                        break;
+                    }
+                case "PKT":
+                    {
+                        //TO DO
+                        btnSinhVien.Enabled = btnLopHoc.Enabled = 
+                        btnMonHoc.Enabled = btnLopTinChi.Enabled =
+                        btnDiem.Enabled = btnDangKy.Enabled = false;
+                        break;
+                    }
+                case "KHOA":
+                    {
+                        //TO DO
+                        btnHocPhi.Enabled = btnDangKy.Enabled = false;
+                        break;
+                    }
+                case "SV":
+                    {
+                        //TO DO
+                        ribBaoCao.Visible = false;
+
+                        btnSinhVien.Enabled = btnLopHoc.Enabled = 
+                        btnMonHoc.Enabled = btnLopTinChi.Enabled =
+                        btnDiem.Enabled = btnHocPhi.Enabled = false;
+                        break;
+                    }
+            }
            
         }
 
@@ -127,6 +170,11 @@ namespace QLDSV_TC
                 Program.frmChinh.MAGV.Text = Program.frmChinh.HOTEN.Text
                 = Program.frmChinh.NHOM.Text = "";
  
+                // Đóng kết nối database nếu nó đang được mở
+                if (Program.conn.State == ConnectionState.Open)
+                {
+                    Program.conn.Close();
+                }
             }
             
 

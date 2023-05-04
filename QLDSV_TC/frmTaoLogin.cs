@@ -14,6 +14,25 @@ namespace QLDSV_TC
     public partial class frmTaoLogin : DevExpress.XtraEditors.XtraForm
     {
 
+        private void TaoLogin(string lgName, string pass, string username, string role)
+        {
+            if (Program.KetNoi() == 0)
+            {
+                MessageBox.Show("Lỗi kết nối cơ sở dữ liệu!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
+
+            int state = Program.ExecSqlNonQuery($"EXEC SP_TAOLOGIN '{lgName}', N'{pass}', '{username}', '{role}'");
+
+            if (state == 0)
+            {
+                MessageBox.Show("Tạo login thành công!"
+                    + $"\nBạn nên ghi nhớ - tên tài khoản: '{lgName}' - mật khẩu: '{pass}'"
+                    , "Thành công", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
+
+        }
+        
 
         private void LayUsernameLogin(String cmd)
         {
@@ -38,20 +57,19 @@ namespace QLDSV_TC
             InitializeComponent();
         }
 
-
         private void frmTaoLogin_Load(object sender, EventArgs e)
         {
-
             if (Program.KetNoi() == 0)
-                { return; }
+            { return; }
             // Lấy dữ liệu về đổ vào combo box username là MAGV
             // và display member là HOTEN của giảng viên
             LayUsernameLogin("SELECT * FROM V_Lay_MAGV_HOTEN");
             cmbUsername.SelectedIndex = 1;
             cmbUsername.SelectedIndex = 0;
-        
-            switch (Program.mGroup) {
-                
+
+            switch (Program.mGroup)
+            {
+
                 case "PGV":
                     cmbRole.DataSource = new Dictionary<String, String>()
                     {
@@ -60,17 +78,17 @@ namespace QLDSV_TC
                         {"KHOA", "Khoa"},
                     }.ToList();
                     break;
-                
+
                 case "KHOA":
-                // Login này được tạo tài khoản cho nhóm Khoa. 
+                    // Login này được tạo tài khoản cho nhóm Khoa. 
                     cmbRole.DataSource = new Dictionary<String, String>()
                     {
                         {"KHOA", "Khoa"}
                     }.ToList();
                     break;
-                
+
                 case "PKT":
-                // Phòng kết toán chỉ được tạo tài khoản mới thuộc cùng nhóm. 
+                    // Phòng kết toán chỉ được tạo tài khoản mới thuộc cùng nhóm. 
                     cmbRole.DataSource = new Dictionary<String, String>()
                     {
                         {"PKT", "Phòng kế toán"}
@@ -83,8 +101,14 @@ namespace QLDSV_TC
             cmbRole.ValueMember = "Key";
             cmbRole.DisplayMember = "Value";
 
-            cmbRole.SelectedIndex = 1;
-            cmbRole.SelectedIndex = 0;
+            if (cmbRole.Items.Count > 1)
+            {
+                cmbRole.SelectedIndex = 1;
+                cmbRole.SelectedIndex = 0;
+            } else
+            {
+                cmbRole.SelectedIndex = 0;
+            }
 
             txtPass.PasswordChar = '*';
             txtRetype.PasswordChar = '*';
@@ -95,7 +119,8 @@ namespace QLDSV_TC
             if (chkHienThi.Checked)
             {
                 txtPass.PasswordChar = default;
-            } else
+            }
+            else
             {
                 txtPass.PasswordChar = '*';
             }
@@ -106,16 +131,18 @@ namespace QLDSV_TC
             if (chkRetypeHienThi.Checked)
             {
                 txtRetype.PasswordChar = default;
-            } else
+            }
+            else
             {
                 txtRetype.PasswordChar = '*';
-            } 
-                
+            }
+
         }
 
         private void btnTao_Click(object sender, EventArgs e)
         {
-            if (txtLogin.Text.Trim() == "" || txtPass.Text.Trim() == "" || txtRetype.Text)
+            // Validate
+            if (txtLogin.Text.Trim() == "" || txtPass.Text.Trim() == "")
             {
                 MessageBox.Show("Tên tài khoản và mật khẩu không được bỏ trống!", "Thông báo", MessageBoxButtons.OK);
                 return;
@@ -125,10 +152,19 @@ namespace QLDSV_TC
                 MessageBox.Show("Vui lòng nhập lại mật khẩu!", "Thông báo", MessageBoxButtons.OK);
                 return;
             }
-            if (txtPass.Text != txtRetype.Text) { 
+            if (txtPass.Text != txtRetype.Text)
+            {
                 MessageBox.Show("Mật khẩu nhập lại không khớp!", "Thông báo", MessageBoxButtons.OK);
                 return;
             }
+
+            string lgName = txtLogin.Text.Trim();
+            string pass = txtPass.Text.Trim();
+            string username = cmbUsername.SelectedValue.ToString();
+            string role = cmbRole.SelectedValue.ToString();
+            TaoLogin(lgName, pass, username, role);
+
+            
         }
     }
 }

@@ -80,6 +80,7 @@ namespace QLDSV_TC
             cmbKhoa.SelectedIndex = 0;
 
             txtPass.PasswordChar = '*';
+            btnDangNhap.Enabled = true;
         }
 
         private void btnDangNhap_Click(object sender, EventArgs e)
@@ -153,10 +154,10 @@ namespace QLDSV_TC
             Program.frmChinh.btnDangXuat.Enabled = true;
 
             MessageBox.Show($"Đăng nhập thành công vào tài khoản {Program.mloginDN}", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
-
+            
             Program.frmChinh.HienThiMenu();
-           
 
+            btnDangNhap.Enabled = false;
         }
 
 

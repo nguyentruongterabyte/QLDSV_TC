@@ -65,6 +65,16 @@ namespace QLDSV_TC
 
         }
 
+
+        public static void SetEnableOfButton(Form frm, Boolean Active)
+        {
+
+            foreach (Control ctl in frm.Controls)
+                if ((ctl) is Button)
+                    ctl.Enabled = Active;
+        }
+
+
         // Cho phép xem, xóa, sửa, thêm.
         // Nhược điểm: tải dữ liệu chậm hơn so với datareader
         public static DataTable ExecSqlDataTable(string cmd)

@@ -211,21 +211,18 @@
             this.ribbonPageGroup2.ItemLinks.Add(this.btnLopHoc);
             this.ribbonPageGroup2.ItemLinks.Add(this.btnMonHoc);
             this.ribbonPageGroup2.Name = "ribbonPageGroup2";
-            this.ribbonPageGroup2.Text = "ribbonPageGroup2";
             // 
             // ribbonPageGroup5
             // 
             this.ribbonPageGroup5.ItemLinks.Add(this.btnLopTinChi);
             this.ribbonPageGroup5.ItemLinks.Add(this.btnDiem);
             this.ribbonPageGroup5.Name = "ribbonPageGroup5";
-            this.ribbonPageGroup5.Text = "ribbonPageGroup5";
             // 
             // ribbonPageGroup6
             // 
             this.ribbonPageGroup6.ItemLinks.Add(this.btnHocPhi);
             this.ribbonPageGroup6.ItemLinks.Add(this.btnDangKy);
             this.ribbonPageGroup6.Name = "ribbonPageGroup6";
-            this.ribbonPageGroup6.Text = "ribbonPageGroup6";
             // 
             // ribBaoCao
             // 
