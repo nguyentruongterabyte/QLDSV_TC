@@ -17,12 +17,18 @@ namespace QLDSV_TC
             InitializeComponent();
         }
 
-        public static void SetEnableOfButton(Form frm, Boolean Active)
+        public void SetEnableOfButton(Form frm, Boolean Active)
         {
 
             foreach (Control ctl in frm.Controls)
                 if ((ctl) is Button)
+                    // ctl.Enabled = Active
                     ctl.Enabled = Active;
+        }
+
+        private void EnableButton(bool b)
+        {
+            btnLopHoc.Enabled = b;
         }
 
 
@@ -48,7 +54,7 @@ namespace QLDSV_TC
             NHOM.Text = $"Nhóm: {Program.mGroup}";
 
             ribBaoCao.Visible = ribDanhMuc.Visible = true;
-            SetEnableOfButton(Program.frmChinh, true);
+            
 
 
             // Phân quyền
@@ -56,6 +62,8 @@ namespace QLDSV_TC
             {
                 case "PGV":
                     {
+                        SetEnableOfButton(Program.frmChinh, true);
+                        EnableButton(true);
                         //TO DO 
                         btnHocPhi.Enabled = btnDangKy.Enabled = false;
                         break;
@@ -63,9 +71,7 @@ namespace QLDSV_TC
                 case "PKT":
                     {
                         //TO DO
-                        btnSinhVien.Enabled = btnLopHoc.Enabled = 
-                        btnMonHoc.Enabled = btnLopTinChi.Enabled =
-                        btnDiem.Enabled = btnDangKy.Enabled = false;
+                        btnDangKy.Enabled = btnHocPhi.Enabled = false; 
                         break;
                     }
                 case "KHOA":
@@ -82,6 +88,7 @@ namespace QLDSV_TC
                         btnSinhVien.Enabled = btnLopHoc.Enabled = 
                         btnMonHoc.Enabled = btnLopTinChi.Enabled =
                         btnDiem.Enabled = btnHocPhi.Enabled = false;
+
                         break;
                     }
             }
@@ -169,12 +176,18 @@ namespace QLDSV_TC
                 // Set các label của statusStrip về trạng thái default
                 Program.frmChinh.MAGV.Text = Program.frmChinh.HOTEN.Text
                 = Program.frmChinh.NHOM.Text = "";
- 
+
+                // Set tất cả các button của frmChinh về Enable
+                SetEnableOfButton(Program.frmChinh, true);
+                EnableButton(true);
+
                 // Đóng kết nối database nếu nó đang được mở
                 if (Program.conn.State == ConnectionState.Open)
                 {
                     Program.conn.Close();
                 }
+
+
             }
             
 
