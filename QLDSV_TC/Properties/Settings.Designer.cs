@@ -43,5 +43,38 @@ namespace QLDSV_TC.Properties {
                 return ((string)(this["QLDSV_TCConnectionString"]));
             }
         }
+        
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.SpecialSettingAttribute(global::System.Configuration.SpecialSetting.ConnectionString)]
+        [global::System.Configuration.DefaultSettingValueAttribute("Data Source=DELLLATITUDEE65\\MSSQLSERVER02;Initial Catalog=QLDSV_TC;Persist Securi" +
+            "ty Info=True;User ID=sa")]
+        public string QLDSV_TCConnectionString1 {
+            get {
+                return ((string)(this["QLDSV_TCConnectionString1"]));
+            }
+        }
+        
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.SpecialSettingAttribute(global::System.Configuration.SpecialSetting.ConnectionString)]
+        [global::System.Configuration.DefaultSettingValueAttribute("Data Source=DELLLATITUDEE65\\MSSQLSERVER02;Initial Catalog=QLDSV_TC;Integrated Sec" +
+            "urity=True;Persist Security Info=False;User ID=sa;Trust Server Certificate=True")]
+        public string QLDSV_TCConnectionString2 {
+            get {
+                return ((string)(this["QLDSV_TCConnectionString2"]));
+            }
+        }
+        
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.SpecialSettingAttribute(global::System.Configuration.SpecialSetting.ConnectionString)]
+        [global::System.Configuration.DefaultSettingValueAttribute("Data Source=DELLLATITUDEE65\\MSSQLSERVER01;Initial Catalog=QLDSV_TC;User ID=HTKN;T" +
+            "rust Server Certificate=True")]
+        public string QLDSV_TCConnectionString3 {
+            get {
+                return ((string)(this["QLDSV_TCConnectionString3"]));
+            }
+        }
     }
 }

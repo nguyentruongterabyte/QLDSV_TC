@@ -17,20 +17,14 @@ namespace QLDSV_TC
             InitializeComponent();
         }
 
-        public void SetEnableOfButton(Form frm, Boolean Active)
+        public void SetEnableOfButtons(Boolean Active)
         {
-
-            foreach (Control ctl in frm.Controls)
-                if ((ctl) is Button)
-                    // ctl.Enabled = Active
-                    ctl.Enabled = Active;
+            btnSinhVien.Enabled = btnLopHoc.Enabled = btnMonHoc.Enabled
+                = btnLopTinChi.Enabled = btnDiem.Enabled = btnHocPhi.Enabled
+                = btnDangKy.Enabled = Active;
         }
 
-        private void EnableButton(bool b)
-        {
-            btnLopHoc.Enabled = b;
-        }
-
+        
 
         public void HienThiMenu()
         {
@@ -62,33 +56,31 @@ namespace QLDSV_TC
             {
                 case "PGV":
                     {
-                        SetEnableOfButton(Program.frmChinh, true);
-                        EnableButton(true);
-                        //TO DO 
-                        btnHocPhi.Enabled = btnDangKy.Enabled = false;
+                        btnSinhVien.Enabled = btnLopHoc.Enabled
+                            = btnMonHoc.Enabled = btnLopTinChi.Enabled
+                            = btnDiem.Enabled = true;
+          
                         break;
                     }
                 case "PKT":
                     {
-                        //TO DO
-                        btnDangKy.Enabled = btnHocPhi.Enabled = false; 
+                    
+                        btnHocPhi.Enabled = true; 
                         break;
                     }
                 case "KHOA":
                     {
-                        //TO DO
+                        btnSinhVien.Enabled = btnLopHoc.Enabled
+                            = btnMonHoc.Enabled = btnLopTinChi.Enabled
+                            = btnDiem.Enabled = true;
                         btnHocPhi.Enabled = btnDangKy.Enabled = false;
                         break;
                     }
                 case "SV":
                     {
-                        //TO DO
+                        
                         ribBaoCao.Visible = false;
-
-                        btnSinhVien.Enabled = btnLopHoc.Enabled = 
-                        btnMonHoc.Enabled = btnLopTinChi.Enabled =
-                        btnDiem.Enabled = btnHocPhi.Enabled = false;
-
+                        btnDangKy.Enabled = true;  
                         break;
                     }
             }
@@ -177,9 +169,8 @@ namespace QLDSV_TC
                 Program.frmChinh.MAGV.Text = Program.frmChinh.HOTEN.Text
                 = Program.frmChinh.NHOM.Text = "";
 
-                // Set tất cả các button của frmChinh về Enable
-                SetEnableOfButton(Program.frmChinh, true);
-                EnableButton(true);
+                // Set tất cả các button của frmMain về Enable = false
+                SetEnableOfButtons(false);
 
                 // Đóng kết nối database nếu nó đang được mở
                 if (Program.conn.State == ConnectionState.Open)
@@ -191,6 +182,20 @@ namespace QLDSV_TC
             }
             
 
+        }
+
+        private void btnSinhVien_ItemClick(object sender, DevExpress.XtraBars.ItemClickEventArgs e)
+        {
+            Form frm = this.CheckExists(typeof(frmSinhVien));
+            if (frm != null)
+            {
+                frm.Activate();
+            } else
+            {
+                frmSinhVien f = new frmSinhVien();
+                f.MdiParent = this;
+                f.Show();
+            }
         }
     }
 }

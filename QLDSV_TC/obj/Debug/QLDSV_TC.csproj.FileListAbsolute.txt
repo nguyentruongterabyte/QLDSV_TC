@@ -47,3 +47,4 @@ C:\Users\Administrator\Source\Repos\QLDSV_TC\QLDSV_TC\bin\Debug\DevExpress.RichE
 C:\Users\Administrator\Source\Repos\QLDSV_TC\QLDSV_TC\bin\Debug\DevExpress.XtraTreeList.v22.2.xml
 C:\Users\Administrator\Source\Repos\QLDSV_TC\QLDSV_TC\bin\Debug\DevExpress.Office.v22.2.Core.xml
 C:\Users\Administrator\Source\Repos\QLDSV_TC\QLDSV_TC\obj\Debug\QLDSV_TC.frmTaoLogin.resources
+C:\Users\Administrator\Source\Repos\QLDSV_TC\QLDSV_TC\obj\Debug\QLDSV_TC.FrmTest.resources
