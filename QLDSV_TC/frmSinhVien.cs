@@ -44,6 +44,7 @@ namespace QLDSV_TC
         private void frmSinhVien_Load(object sender, EventArgs e)
         {
 
+
             DS.EnforceConstraints = false;
 
             // Sau này có trường hợp tài khoản được kết nối với dataset có thể đổi
@@ -67,6 +68,7 @@ namespace QLDSV_TC
             LayThongTinLop("SELECT * FROM V_Lay_MALOP_TENLOP");
             cmbLop.SelectedIndex = 1;
             cmbLop.SelectedIndex = 0;
+            txtMaLop.Text = cmbLop.SelectedValue.ToString();
             // Chỉ có PGV mới được chuyển khoa để thao tác
             if (Program.mGroup == "PGV")
             {
@@ -90,6 +92,9 @@ namespace QLDSV_TC
             bdsSinhVien.AddNew();
 
             dtpNgaySinh.EditValue = "";
+            chkPhai.Checked = false;
+            chkDaNghiHoc.Checked = false;
+ 
 
             btnThem.Enabled = btnHieuChinh.Enabled
                 = btnXoa.Enabled = btnReload.Enabled
@@ -122,7 +127,18 @@ namespace QLDSV_TC
 
         private void btnHieuChinh_ItemClick(object sender, DevExpress.XtraBars.ItemClickEventArgs e)
         {
+            // Lấy vị trí của sinh viên được sửa thông tin
+            // để sau khi sửa xong lưu lại (hoặc nhấn nút phục hồi)
+            // lấy vitri chỉ đến sinh viên vừa được chọn
             vitri = bdsSinhVien.Position;
+
+            //
+            int idxLopHienTai = cmbLop.FindStringExact(txtMaLop.Text);
+            if (idxLopHienTai >= 0)
+            {
+                cmbLop.SelectedIndex = idxLopHienTai;
+            }
+
             panelControl2.Enabled = true;
 
             btnThem.Enabled = btnHieuChinh.Enabled
@@ -169,7 +185,6 @@ namespace QLDSV_TC
                 try
                 {
                     maSV = ((DataRowView)bdsSinhVien[bdsSinhVien.Position])["MASV"].ToString();
-                    MessageBox.Show(maSV.ToString());
                     // Xóa trên giao diện trước
                     bdsSinhVien.RemoveCurrent();
                     
@@ -196,6 +211,98 @@ namespace QLDSV_TC
 
         private void btnGhi_ItemClick(object sender, DevExpress.XtraBars.ItemClickEventArgs e)
         {
+            if (Validator.isEmptyText(txtMaSV.Text))
+            {
+                MessageBox.Show("Không được để trống mã sinh viên!", "", MessageBoxButtons.OK);
+                txtMaSV.Focus();
+                return;
+            }
+            if (Validator.isContainSpecialCharacters(txtMaSV.Text))
+            {
+                MessageBox.Show("Mã sinh viên không được chứa ký tự đặc biệt hoặc khoảng trắng");
+                txtMaSV.Focus();
+                return;
+            }
+            if (Validator.isEmptyText(txtHo.Text))
+            {
+                MessageBox.Show("Không được để trống ô họ, tên lót!", "", MessageBoxButtons.OK);
+                txtHo.Focus();
+                return;
+            }
+            if (Validator.isEmptyText(txtTen.Text))
+            {
+                MessageBox.Show("Không được để trống ô tên!", "", MessageBoxButtons.OK);
+                txtTen.Focus();
+                return;
+            }
+
+            if (Validator.isEmptyText(dtpNgaySinh.EditValue.ToString()))
+            {
+                MessageBox.Show("Giá trị ngày sinh không hợp lệ!", "", MessageBoxButtons.OK);
+                dtpNgaySinh.Focus();
+                return;
+            }
+
+            if (Program.KetNoi() == 0)
+            {
+                MessageBox.Show("Không thể kết nối về cơ sở dữ liệu để kiểm tra tồn tại của mã sinh viên!", "", MessageBoxButtons.OK);
+                return;
+            }
+            // Chạy sp kiểm tra sinh viên đã tồn tại ở 1 trong những phân mảnh hay chưa
+            int state = Program.ExecSqlNonQuery($"EXEC SP_KIEM_TRA_TON_TAI_MASV '{txtMaSV.Text}'");
+            if (state != 0)
+            {
+                // Nếu state = 1 thì có nghĩa là
+                // database đã có sinh viên có mã được nhập 
+                return;
+            }
+
+            // Phải kiểm tra ở những phân mảnh khác xem có tồn tại mã SV đó không
+            // gắn biến tạm cho servername của login đăng nhập
+            string temp = Program.servername;
+
+            // Lấy danh sách servername về để kết nối qua các phân mảnh khác
+            List<string> servernames = Program.LayTenServerTuCmbKhoa(cmbKhoa);
+
+            // Gắn tài khoản kết nối về HTKN
+            Program.mlogin = Program.remotelogin;
+            Program.password = Program.remotepassword;
+
+            // Chạy kết nối trên từng server (Mỗi server nhất định phải có tk HTKN)
+            foreach (string servername in servernames)
+            {
+                if (servername != temp)
+                {
+                    Program.servername = servername;
+                    if (Program.KetNoi() == 0)
+                    {
+                        MessageBox.Show("Lỗi kết nối tới các phân mảnh!", "", MessageBoxButtons.OK);
+                        return;
+                    }
+                    state = Program.ExecSqlNonQuery($"EXEC SP_KIEM_TRA_TON_TAI_MASV '{txtMaSV.Text}'");
+                    if (state != 0)
+                    {
+                        // Nếu đã maSV tồn tại thì messageBox sẽ báo lỗi ở câu lệnh ExecSqlNonQuery
+                        // Gán lại tên mlogin cho người đang sử dụng trước khi return
+                        Program.servername = temp;
+                        Program.mlogin = Program.mloginDN;
+                        Program.password = Program.passwordDN;
+                        return;
+                    }
+                }
+            }
+
+            Program.servername = temp;
+            Program.mlogin = Program.mloginDN;
+            Program.password = Program.passwordDN;
+
+            // Trường hợp người dùng không chọn lớp txtMaLop thì tự động 
+            // lấy mã đã chọn ở cmbLop
+            if (Validator.isEmptyText(txtMaLop.Text))
+            {
+                txtMaLop.Text = cmbLop.SelectedValue.ToString();
+            }
+
             try
             {
                 bdsSinhVien.EndEdit();
@@ -246,6 +353,7 @@ namespace QLDSV_TC
             if (Program.KetNoi() == 0)
             {
                 MessageBox.Show("Lỗi kết nối về chi nhánh mới!", "", MessageBoxButtons.OK);
+                return;
             }
             else
             {
@@ -254,6 +362,13 @@ namespace QLDSV_TC
 
                 this.DANGKYTableAdapter.Connection.ConnectionString = Program.connstr;
                 this.DANGKYTableAdapter.Fill(this.DS.DANGKY);
+
+
+                // Load lại thông tin lớp theo khoa
+                LayThongTinLop("SELECT * FROM V_Lay_MALOP_TENLOP");
+                cmbLop.SelectedIndex = 1;
+                cmbLop.SelectedIndex = 0;
+                txtMaLop.Text = cmbLop.SelectedValue.ToString();
             }
         }
 

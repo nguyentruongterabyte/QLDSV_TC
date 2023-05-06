@@ -41,7 +41,7 @@ namespace QLDSV_TC
 
         public static int KetNoi()
         {
-
+            
             if (conn != null && conn.State == ConnectionState.Open)
             {
                 conn.Close();
@@ -65,6 +65,19 @@ namespace QLDSV_TC
 
         }
 
+
+        public static List<string> LayTenServerTuCmbKhoa(ComboBox cmbKhoa)
+        {
+            List<string> servernames = new List<string>();
+
+            foreach (DataRowView item in cmbKhoa.Items)
+            {
+                servernames.Add(item.Row["TENSERVER"].ToString());
+            }
+
+            return servernames;
+
+        }
 
         public static void XoaItemPKT()
         {
