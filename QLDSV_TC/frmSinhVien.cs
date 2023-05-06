@@ -10,14 +10,17 @@ using System.Windows.Forms;
 
 namespace QLDSV_TC
 {
+
     public partial class frmSinhVien : DevExpress.XtraEditors.XtraForm
     {
+
+        
+        int vitri = 0;
         public frmSinhVien()
         {
             InitializeComponent();
         }
 
-    
         private void frmSinhVien_Load(object sender, EventArgs e)
         {
 
@@ -37,12 +40,86 @@ namespace QLDSV_TC
             cmbKhoa.DisplayMember = "TENKHOA";
             cmbKhoa.ValueMember = "TENSERVER";
             cmbKhoa.SelectedIndex = Program.mKhoa;
-            if (Program.mGroup == "PGV") 
+
+            // Chỉ có PGV mới được chuyển khoa để thao tác
+            if (Program.mGroup == "PGV")
+            {
                 cmbKhoa.Enabled = true;
-            else 
+            } 
+            else
+            {
                 cmbKhoa.Enabled = false;
+            }
         }
 
-  
+
+
+        private void btnThem_ItemClick(object sender, DevExpress.XtraBars.ItemClickEventArgs e)
+        {
+            // Phải giữ lại vị trí để khi thêm mới 
+            // ta nhấn nút undo thì nó sẽ trở lại mẫu 
+            // tin thứ i
+            vitri = bdsSinhVien.Position;
+            panelControl2.Enabled = true;
+            bdsSinhVien.AddNew();
+
+            dtpNgaySinh.EditValue = "";
+
+            btnThem.Enabled = btnHieuChinh.Enabled
+                = btnXoa.Enabled = btnReload.Enabled
+                = btnInDS.Enabled = btnThoat.Enabled = false;
+
+            btnGhi.Enabled = btnPhucHoi.Enabled = true;
+
+            gcSinhVien.Enabled = false;
+        }
+
+        private void btnPhucHoi_ItemClick(object sender, DevExpress.XtraBars.ItemClickEventArgs e)
+        {
+            bdsSinhVien.CancelEdit();
+            if (btnThem.Enabled == false)
+            {
+                bdsSinhVien.Position = vitri;
+            }
+            gcSinhVien.Enabled = true;
+            
+            panelControl2.Enabled = false;
+
+            btnThem.Enabled = btnHieuChinh.Enabled 
+                = btnXoa.Enabled = btnReload.Enabled
+                = btnInDS.Enabled = btnThoat.Enabled = true;
+            
+            btnGhi.Enabled = btnPhucHoi.Enabled = false;
+        }
+
+        private void btnHieuChinh_ItemClick(object sender, DevExpress.XtraBars.ItemClickEventArgs e)
+        {
+            vitri = bdsSinhVien.Position;
+            panelControl2.Enabled = true;
+
+            btnThem.Enabled = btnHieuChinh.Enabled
+                = btnXoa.Enabled = btnReload.Enabled
+                = btnInDS.Enabled = btnThoat.Enabled = false;
+
+            btnGhi.Enabled = btnPhucHoi.Enabled = true;
+
+            gcSinhVien.Enabled = false;
+        }
+
+        private void btnReload_ItemClick(object sender, DevExpress.XtraBars.ItemClickEventArgs e)
+        {
+            // Dữ liệu phân tán được dùng ở nhiều nơi nên
+            // đôi khi ta phải nhấn reload để tải dữ liệu 
+            // mà được người khác sử dụng về
+            try
+            {
+                this.SINHVIENTableAdapter.Connection.ConnectionString = Program.connstr;
+                this.SINHVIENTableAdapter.Fill(this.DS.SINHVIEN);
+            } catch (Exception ex)
+            {
+                MessageBox.Show("Lỗi reload: " + ex.Message, "", MessageBoxButtons.OK);
+                return;
+            }
+        }
     }
 }
