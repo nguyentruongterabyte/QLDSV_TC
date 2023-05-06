@@ -140,6 +140,7 @@
             this.cmbUsername.Name = "cmbUsername";
             this.cmbUsername.Size = new System.Drawing.Size(225, 21);
             this.cmbUsername.TabIndex = 4;
+            this.cmbUsername.SelectedIndexChanged += new System.EventHandler(this.cmbUsername_SelectedIndexChanged);
             // 
             // labelControl2
             // 

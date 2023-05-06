@@ -137,18 +137,18 @@ namespace QLDSV_TC
 
         private void btnDangXuat_ItemClick(object sender, DevExpress.XtraBars.ItemClickEventArgs e)
         {
-            if ((MessageBox.Show("Bạn có chắc muốn đăng xuất tài khoản khỏi thiết bị này?",
+            if (MessageBox.Show("Bạn có chắc muốn đăng xuất tài khoản khỏi thiết bị này?",
                     "Xác nhận", 
                     MessageBoxButtons.YesNo,
                     MessageBoxIcon.Question, 
-                    MessageBoxDefaultButton.Button1))
+                    MessageBoxDefaultButton.Button1)
                 == System.Windows.Forms.DialogResult.Yes) {
                 // Set các ribbon về trạng thái Visible = false
                 Program.frmChinh.ribDanhMuc.Visible = Program.frmChinh.ribBaoCao.Visible = false;
 
                 // Xóa các login, password, ... của người dùng trước và trả về giá trị ban đầu 
-                Program.servername = Program.username = Program.mlogin = Program.password 
-                = Program.mloginDN = Program.passwordDN = Program.mGroup = Program.mHoTen = "";
+                //Program.servername = Program.username = Program.mlogin = Program.password 
+                //= Program.mloginDN = Program.passwordDN = Program.mGroup = Program.mHoTen = "";
                
                 Program.mKhoa = 0;
 

@@ -166,5 +166,10 @@ namespace QLDSV_TC
 
             
         }
+
+        private void cmbUsername_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
+        }
     }
 }

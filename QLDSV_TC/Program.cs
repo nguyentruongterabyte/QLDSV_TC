@@ -66,6 +66,18 @@ namespace QLDSV_TC
         }
 
 
+        public static void XoaItemPKT()
+        {
+            // Tìm kiếm index của item cần xóa trong bds_dspm
+            int index = Program.bds_dspm.Find("TENKHOA", "Phòng kế toán");
+
+            // Nếu item tồn tại trong bds_dspm
+            if (index >= 0)
+            {
+                // Xóa item khỏi bds_dspm
+                Program.bds_dspm.RemoveAt(index);
+            }
+        }
 
         // Cho phép xem, xóa, sửa, thêm.
         // Nhược điểm: tải dữ liệu chậm hơn so với datareader
