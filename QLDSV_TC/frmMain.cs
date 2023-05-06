@@ -99,7 +99,7 @@ namespace QLDSV_TC
             return null;
         }
 
-        private void closeAllFormInFormMain()
+        public void closeAllFormInFormMain()
         {
             foreach(Form f in this.MdiChildren)
             {
@@ -143,45 +143,8 @@ namespace QLDSV_TC
                     MessageBoxIcon.Question, 
                     MessageBoxDefaultButton.Button1)
                 == System.Windows.Forms.DialogResult.Yes) {
-                // Set các ribbon về trạng thái Visible = false
-                Program.frmChinh.ribDanhMuc.Visible = Program.frmChinh.ribBaoCao.Visible = false;
-
-                // Xóa các login, password, ... của người dùng trước và trả về giá trị ban đầu 
-                //Program.servername = Program.username = Program.mlogin = Program.password 
-                //= Program.mloginDN = Program.passwordDN = Program.mGroup = Program.mHoTen = "";
-               
-                Program.mKhoa = 0;
-
-                // Set button đăng nhập ở trạng thái enable = true
-                btnDangNhap.Enabled = true;
-
-                // Set button đăng xuất ở trạng thái enable = false vì tài khoản đã bị
-                // đăng xuất không thể bị đăng xuất lần nữa
-                btnDangXuat.Enabled = false;
-
-                // Enable nút tạo tài khoản
-                btnTaoTK.Enabled = false;
-
-                // Đóng tất cả các form trong form chính (Mdi)
-                closeAllFormInFormMain();
-
-                // Set các label của statusStrip về trạng thái default
-                Program.frmChinh.MAGV.Text = Program.frmChinh.HOTEN.Text
-                = Program.frmChinh.NHOM.Text = "";
-
-                // Set tất cả các button của frmMain về Enable = false
-                SetEnableOfButtons(false);
-
-                // Đóng kết nối database nếu nó đang được mở
-                if (Program.conn.State == ConnectionState.Open)
-                {
-                    Program.conn.Close();
-                }
-
-
+                Program.DangXuat();
             }
-            
-
         }
 
         private void btnSinhVien_ItemClick(object sender, DevExpress.XtraBars.ItemClickEventArgs e)
@@ -197,5 +160,20 @@ namespace QLDSV_TC
                 f.Show();
             }
         }
+
+        private void btnDoiMK_ItemClick(object sender, DevExpress.XtraBars.ItemClickEventArgs e)
+        {
+            Form frm = this.CheckExists(typeof(frmDoiMK));
+            if (frm != null)
+            {
+                frm.Activate();
+            } else
+            {
+                frmDoiMK f = new frmDoiMK();
+                f.MdiParent = this;
+                f.Show();
+            }
+        }
+
     }
 }

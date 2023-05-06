@@ -63,10 +63,9 @@ namespace QLDSV_TC.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap education_icon_vector_male_group_students_person_profile_avatar_mortar_board_hat_symbol_school_college_university_164566234 {
+        internal static System.Drawing.Bitmap DangNhapBack {
             get {
-                object obj = ResourceManager.GetObject("education-icon-vector-male-group-students-person-profile-avatar-mortar-board-hat-" +
-                        "symbol-school-college-university-164566234", resourceCulture);
+                object obj = ResourceManager.GetObject("DangNhapBack", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -74,9 +73,9 @@ namespace QLDSV_TC.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap images {
+        internal static System.Drawing.Bitmap DangNhapBackImage {
             get {
-                object obj = ResourceManager.GetObject("images", resourceCulture);
+                object obj = ResourceManager.GetObject("DangNhapBackImage", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -84,19 +83,9 @@ namespace QLDSV_TC.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap images__1_ {
+        internal static System.Drawing.Bitmap LopHocImage {
             get {
-                object obj = ResourceManager.GetObject("images (1)", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized resource of type System.Drawing.Bitmap.
-        /// </summary>
-        internal static System.Drawing.Bitmap pngwing_com {
-            get {
-                object obj = ResourceManager.GetObject("pngwing.com", resourceCulture);
+                object obj = ResourceManager.GetObject("LopHocImage", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }

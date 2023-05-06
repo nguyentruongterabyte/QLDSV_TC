@@ -48,3 +48,5 @@ C:\Users\Administrator\Source\Repos\QLDSV_TC\QLDSV_TC\bin\Debug\DevExpress.XtraT
 C:\Users\Administrator\Source\Repos\QLDSV_TC\QLDSV_TC\bin\Debug\DevExpress.Office.v22.2.Core.xml
 C:\Users\Administrator\Source\Repos\QLDSV_TC\QLDSV_TC\obj\Debug\QLDSV_TC.frmTaoLogin.resources
 C:\Users\Administrator\Source\Repos\QLDSV_TC\QLDSV_TC\obj\Debug\QLDSV_TC.FrmTest.resources
+C:\Users\Administrator\Source\Repos\QLDSV_TC\QLDSV_TC\obj\Debug\QLDSV_TC.frmDoiMK.resources
+C:\Users\Administrator\Source\Repos\QLDSV_TC\QLDSV_TC\bin\Debug\DevExpress.Images.v22.2.dll

@@ -35,10 +35,9 @@
             this.txtLogin = new System.Windows.Forms.TextBox();
             this.label3 = new System.Windows.Forms.Label();
             this.txtPass = new System.Windows.Forms.TextBox();
-            this.radSinhVien = new System.Windows.Forms.RadioButton();
-            this.radGiangVien = new System.Windows.Forms.RadioButton();
             this.chkHienThi = new System.Windows.Forms.CheckBox();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.cmbVaiTro = new System.Windows.Forms.ComboBox();
             this.btnThoat = new System.Windows.Forms.Button();
             this.groupBox1.SuspendLayout();
             this.SuspendLayout();
@@ -60,7 +59,7 @@
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(36, 63);
+            this.label1.Location = new System.Drawing.Point(94, 63);
             this.label1.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(35, 16);
@@ -73,14 +72,14 @@
             this.cmbKhoa.Location = new System.Drawing.Point(169, 63);
             this.cmbKhoa.Margin = new System.Windows.Forms.Padding(4);
             this.cmbKhoa.Name = "cmbKhoa";
-            this.cmbKhoa.Size = new System.Drawing.Size(228, 24);
+            this.cmbKhoa.Size = new System.Drawing.Size(281, 24);
             this.cmbKhoa.TabIndex = 1;
             this.cmbKhoa.SelectedIndexChanged += new System.EventHandler(this.cmbKhoa_SelectedIndexChanged);
             // 
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(36, 142);
+            this.label2.Location = new System.Drawing.Point(36, 139);
             this.label2.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(93, 16);
@@ -89,16 +88,17 @@
             // 
             // txtLogin
             // 
+            this.txtLogin.ForeColor = System.Drawing.SystemColors.ScrollBar;
             this.txtLogin.Location = new System.Drawing.Point(169, 132);
             this.txtLogin.Margin = new System.Windows.Forms.Padding(4);
             this.txtLogin.Name = "txtLogin";
-            this.txtLogin.Size = new System.Drawing.Size(228, 23);
+            this.txtLogin.Size = new System.Drawing.Size(281, 23);
             this.txtLogin.TabIndex = 3;
             // 
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(36, 213);
+            this.label3.Location = new System.Drawing.Point(70, 213);
             this.label3.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(59, 16);
@@ -107,40 +107,17 @@
             // 
             // txtPass
             // 
+            this.txtPass.ForeColor = System.Drawing.SystemColors.ScrollBar;
             this.txtPass.Location = new System.Drawing.Point(169, 213);
             this.txtPass.Margin = new System.Windows.Forms.Padding(4);
             this.txtPass.Name = "txtPass";
-            this.txtPass.Size = new System.Drawing.Size(228, 23);
+            this.txtPass.Size = new System.Drawing.Size(281, 23);
             this.txtPass.TabIndex = 5;
-            // 
-            // radSinhVien
-            // 
-            this.radSinhVien.AutoSize = true;
-            this.radSinhVien.Location = new System.Drawing.Point(169, 277);
-            this.radSinhVien.Margin = new System.Windows.Forms.Padding(4);
-            this.radSinhVien.Name = "radSinhVien";
-            this.radSinhVien.Size = new System.Drawing.Size(77, 20);
-            this.radSinhVien.TabIndex = 7;
-            this.radSinhVien.TabStop = true;
-            this.radSinhVien.Text = "Sinh viên";
-            this.radSinhVien.UseVisualStyleBackColor = true;
-            // 
-            // radGiangVien
-            // 
-            this.radGiangVien.AutoSize = true;
-            this.radGiangVien.Location = new System.Drawing.Point(298, 277);
-            this.radGiangVien.Margin = new System.Windows.Forms.Padding(4);
-            this.radGiangVien.Name = "radGiangVien";
-            this.radGiangVien.Size = new System.Drawing.Size(84, 20);
-            this.radGiangVien.TabIndex = 8;
-            this.radGiangVien.TabStop = true;
-            this.radGiangVien.Text = "Giảng viên";
-            this.radGiangVien.UseVisualStyleBackColor = true;
             // 
             // chkHienThi
             // 
             this.chkHienThi.AutoSize = true;
-            this.chkHienThi.Location = new System.Drawing.Point(454, 217);
+            this.chkHienThi.Location = new System.Drawing.Point(381, 244);
             this.chkHienThi.Margin = new System.Windows.Forms.Padding(4);
             this.chkHienThi.Name = "chkHienThi";
             this.chkHienThi.Size = new System.Drawing.Size(69, 20);
@@ -151,9 +128,8 @@
             // 
             // groupBox1
             // 
+            this.groupBox1.Controls.Add(this.cmbVaiTro);
             this.groupBox1.Controls.Add(this.chkHienThi);
-            this.groupBox1.Controls.Add(this.radGiangVien);
-            this.groupBox1.Controls.Add(this.radSinhVien);
             this.groupBox1.Controls.Add(this.txtPass);
             this.groupBox1.Controls.Add(this.label3);
             this.groupBox1.Controls.Add(this.txtLogin);
@@ -167,6 +143,14 @@
             this.groupBox1.Size = new System.Drawing.Size(581, 342);
             this.groupBox1.TabIndex = 1;
             this.groupBox1.TabStop = false;
+            // 
+            // cmbVaiTro
+            // 
+            this.cmbVaiTro.FormattingEnabled = true;
+            this.cmbVaiTro.Location = new System.Drawing.Point(169, 278);
+            this.cmbVaiTro.Name = "cmbVaiTro";
+            this.cmbVaiTro.Size = new System.Drawing.Size(106, 24);
+            this.cmbVaiTro.TabIndex = 10;
             // 
             // btnThoat
             // 
@@ -187,6 +171,8 @@
             this.Appearance.Options.UseFont = true;
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.BackgroundImageLayoutStore = System.Windows.Forms.ImageLayout.Tile;
+            this.BackgroundImageStore = global::QLDSV_TC.Properties.Resources.DangNhapBack;
             this.ClientSize = new System.Drawing.Size(1157, 554);
             this.Controls.Add(this.btnThoat);
             this.Controls.Add(this.btnDangNhap);
@@ -211,10 +197,9 @@
         private System.Windows.Forms.TextBox txtLogin;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.TextBox txtPass;
-        private System.Windows.Forms.RadioButton radSinhVien;
-        private System.Windows.Forms.RadioButton radGiangVien;
         private System.Windows.Forms.CheckBox chkHienThi;
         private System.Windows.Forms.GroupBox groupBox1;
         private System.Windows.Forms.Button btnThoat;
+        private System.Windows.Forms.ComboBox cmbVaiTro;
     }
 }

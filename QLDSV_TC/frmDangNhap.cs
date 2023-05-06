@@ -79,25 +79,37 @@ namespace QLDSV_TC
             cmbKhoa.SelectedIndex = 1;
             cmbKhoa.SelectedIndex = 0;
 
+            cmbVaiTro.DataSource = new Dictionary<String, String>
+            {
+                {"GV", "Giảng viên"},
+                {"SV", "Sinh viên"}
+            }.ToList();
+
+            cmbVaiTro.ValueMember = "Key";
+            cmbVaiTro.DisplayMember = "Value";
+
+            cmbVaiTro.SelectedIndex = 1;
+            cmbVaiTro.SelectedIndex = 0;
+
             txtPass.PasswordChar = '*';
             btnDangNhap.Enabled = true;
         }
 
         private void btnDangNhap_Click(object sender, EventArgs e)
         {
-            if (txtLogin.Text.Trim() == "" || txtPass.Text.Trim() == "")
+            if (Validator.isEmptyText(txtLogin.Text))
             {
-                MessageBox.Show("Tên tài khoản và mật khẩu không được bỏ trống!", "Thông báo", MessageBoxButtons.OK);
+                MessageBox.Show("Tên tài khoản không được bỏ trống!", "Thông báo", MessageBoxButtons.OK);
+                txtLogin.Focus();
                 return;
             }
 
-            if (radGiangVien.Checked == false && radSinhVien.Checked == false)
+            if (Validator.isEmptyText(txtPass.Text))
             {
-                MessageBox.Show("Bạn phải chọn vai trò đăng nhập!", "Thông báo", MessageBoxButtons.OK);
+                MessageBox.Show("Mật khẩu không được bỏ trống!", "Thông báo", MessageBoxButtons.OK);
+                txtPass.Focus();
                 return;
             }
-
-
 
             Program.servername = cmbKhoa.SelectedValue.ToString();
             Program.mlogin = txtLogin.Text;
@@ -113,24 +125,14 @@ namespace QLDSV_TC
             Program.mloginDN = Program.mlogin;
             Program.passwordDN = Program.password;
 
-           
 
-            string strLenh = "";
-            if (radGiangVien.Checked)
-            {
-                strLenh = "EXEC SP_LAY_THONG_TIN_GV_TU_LOGIN '" + Program.mlogin + "'";
-               
-            }
-
-            if (radSinhVien.Checked)
-            {
-                strLenh = "EXEC SP_LAY_THONG_TIN_SV_TU_LOGIN '" + Program.mlogin + "'";
-               
-           }
+            string vaiTro = cmbVaiTro.SelectedValue.ToString();
+            string strLenh = $"EXEC SP_LAY_THONG_TIN_{vaiTro}_TU_LOGIN '{Program.mlogin}'";
+            
             Program.myReader = Program.ExecSqlDataReader(strLenh);
             if (Program.myReader == null)
             {
-                MessageBox.Show("Lỗi chạy lệnh lấy thông tin đăng nhập.\n" + strLenh);
+                MessageBox.Show("Lỗi chạy lệnh lấy thông tin đăng nhập!");
                 return;
             }
 
@@ -158,6 +160,8 @@ namespace QLDSV_TC
             Program.frmChinh.HienThiMenu();
 
             btnDangNhap.Enabled = false;
+            Program.frmChinh.btnDoiMK.Enabled = true;
+            this.Close();
         }
 
 
@@ -178,5 +182,6 @@ namespace QLDSV_TC
             Close();
             Program.frmChinh.Close();
         }
+
     }
 }

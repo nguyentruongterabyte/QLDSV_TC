@@ -1,4 +1,5 @@
-﻿using System;
+﻿using DevExpress.XtraPrinting;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -29,5 +30,21 @@ namespace QLDSV_TC
             // trả về false nếu không có ký tự đặc biệt
             return !match.Success;
         }
+
+        public static bool isContainSpaceCharacters(string text)
+        {
+            string pattern = @"\s";
+
+            // Trả về true nếu chứa khoảng trắng
+            return Regex.IsMatch(text, pattern); 
+        }
+
+        public static bool checkConfirmPassword(string pass, string rePass) =>
+            // Trả về true nếu 2 chuỗi khác nhau 
+            pass != rePass;
+
+        public static bool minLengthPassword(string pass, int minLength) =>
+            // Trả về true nếu độ dài password chưa đạt tối thiểu
+            pass.Length < minLength;
     }
 }

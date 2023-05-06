@@ -44,6 +44,7 @@
     <Reference Include="DevExpress.BonusSkins.v22.2" />
     <Reference Include="DevExpress.Data.Desktop.v22.2" />
     <Reference Include="DevExpress.Data.v22.2" />
+    <Reference Include="DevExpress.Images.v22.2, Version=22.2.3.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a" />
     <Reference Include="DevExpress.Printing.v22.2.Core" />
     <Reference Include="DevExpress.Utils.v22.2" />
     <Reference Include="DevExpress.XtraBars.v22.2" />
@@ -65,6 +66,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="frmDoiMK.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmDoiMK.Designer.cs">
+      <DependentUpon>frmDoiMK.cs</DependentUpon>
+    </Compile>
     <Compile Include="Validator.cs" />
     <Compile Include="DS.Designer.cs">
       <AutoGen>True</AutoGen>
@@ -111,6 +118,9 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <EmbeddedResource Include="frmDangNhap.resx">
       <DependentUpon>frmDangNhap.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frmDoiMK.resx">
+      <DependentUpon>frmDoiMK.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="frmMain.resx">
       <DependentUpon>frmMain.cs</DependentUpon>
@@ -161,16 +171,13 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <None Include="Resources\images.png" />
+    <None Include="Resources\images\LopHocImage.png" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Resources\education-icon-vector-male-group-students-person-profile-avatar-mortar-board-hat-symbol-school-college-university-164566234.jpg" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\pngwing.com.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\images %281%29.png" />
+    <Content Include="Resources\images.png" />
+    <Content Include="Resources\images\DangNhapBack.jpg" />
+    <Content Include="Resources\images\DangNhapBackImage.jpg" />
+    <Content Include="Resources\pngwing.com.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it.

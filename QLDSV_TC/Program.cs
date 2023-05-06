@@ -39,6 +39,48 @@ namespace QLDSV_TC
         public static BindingSource bds_dspm = new BindingSource();
         public static frmMain frmChinh;
 
+
+        public static void DangXuat()
+        {
+            // Set các ribbon về trạng thái Visible = false
+            frmChinh.ribDanhMuc.Visible = frmChinh.ribBaoCao.Visible = false;
+
+            // Xóa các login, password, ... của người dùng trước và trả về giá trị ban đầu 
+            //Program.servername = Program.username = Program.mlogin = Program.password 
+            //= Program.mloginDN = Program.passwordDN = Program.mGroup = Program.mHoTen = "";
+
+            mKhoa = 0;
+
+            // Set button đăng nhập ở trạng thái enable = true
+            frmChinh.btnDangNhap.Enabled = true;
+
+            // Set button đăng xuất ở trạng thái enable = false vì tài khoản đã bị
+            // đăng xuất không thể bị đăng xuất lần nữa
+            frmChinh.btnDangXuat.Enabled = false;
+
+            // Disable nút tạo tài khoản
+            frmChinh.btnTaoTK.Enabled = false;
+
+            // Disable nut đổi mật
+            frmChinh.btnDoiMK.Enabled = false;
+
+            // Đóng tất cả các form trong form chính (Mdi)
+            frmChinh.closeAllFormInFormMain();
+
+            // Set các label của statusStrip về trạng thái default
+            frmChinh.MAGV.Text = frmChinh.HOTEN.Text
+            = frmChinh.NHOM.Text = "";
+
+            // Set tất cả các button của frmMain về Enable = false
+            frmChinh.SetEnableOfButtons(false);
+
+            // Đóng kết nối database nếu nó đang được mở
+            if (Program.conn.State == ConnectionState.Open)
+            {
+                Program.conn.Close();
+            }
+
+        }
         public static int KetNoi()
         {
             

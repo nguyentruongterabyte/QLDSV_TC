@@ -142,20 +142,51 @@ namespace QLDSV_TC
         private void btnTao_Click(object sender, EventArgs e)
         {
             // Validate
-            if (txtLogin.Text.Trim() == "" || txtPass.Text.Trim() == "")
+            if (Validator.isEmptyText(txtLogin.Text))
             {
-                MessageBox.Show("Tên tài khoản và mật khẩu không được bỏ trống!", "Thông báo", MessageBoxButtons.OK);
+                MessageBox.Show("Tên tài khoản không được bỏ trống!", "", MessageBoxButtons.OK);
+                txtLogin.Focus();
                 return;
             }
-            if (txtRetype.Text.Trim() == "")
+            if (Validator.isContainSpecialCharacters(txtLogin.Text))
             {
-                MessageBox.Show("Vui lòng nhập lại mật khẩu!", "Thông báo", MessageBoxButtons.OK);
+                MessageBox.Show("Tên tài khoản không được chứa khoảng trắng hoặc ký tự đặc biệt!", "", MessageBoxButtons.OK);
+                txtLogin.Focus();
                 return;
             }
-            if (txtPass.Text != txtRetype.Text)
+
+
+            if (Validator.isEmptyText(txtPass.Text))
             {
-                MessageBox.Show("Mật khẩu nhập lại không khớp!", "Thông báo", MessageBoxButtons.OK);
+                MessageBox.Show("Mật khẩu không được bỏ trống!", "", MessageBoxButtons.OK);
+                txtPass.Focus();
                 return;
+            }
+
+            if (Validator.minLengthPassword(txtPass.Text, 3))
+            {
+                MessageBox.Show("Mật khẩu phải ít nhất 3 ký tự", "", MessageBoxButtons.OK);
+                txtPass.Focus();
+                return;
+            }
+            if (Validator.isEmptyText(txtRetype.Text)) 
+            {
+                MessageBox.Show("Vui lòng nhập lại mật khẩu!", "", MessageBoxButtons.OK);
+                txtRetype.Focus();
+                return;
+            }
+            if (Validator.checkConfirmPassword(txtPass.Text, txtRetype.Text))
+            {
+                
+                MessageBox.Show("Mật khẩu nhập lại không khớp!", "", MessageBoxButtons.OK);
+                txtRetype.Focus();
+                return;
+            }
+
+            if (Validator.isEmptyText(txtPass.Text))
+            {
+                MessageBox.Show("Mật khẩu không được chứa ký tự trắng", "");
+                txtPass.Focus();
             }
 
             string lgName = txtLogin.Text.Trim();
