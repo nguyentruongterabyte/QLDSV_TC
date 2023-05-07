@@ -17,6 +17,7 @@ namespace QLDSV_TC
 
         
         int vitri = 0;
+        string maSV = "";
         public frmSinhVien()
         {
             InitializeComponent();
@@ -91,6 +92,9 @@ namespace QLDSV_TC
             panelControl2.Enabled = true;
             bdsSinhVien.AddNew();
 
+            // Khi click chuột vào nút thêm thì lưu lại sự kiện để 
+            
+
             dtpNgaySinh.EditValue = "";
             chkPhai.Checked = false;
             chkDaNghiHoc.Checked = false;
@@ -98,7 +102,8 @@ namespace QLDSV_TC
 
             btnThem.Enabled = btnHieuChinh.Enabled
                 = btnXoa.Enabled = btnReload.Enabled
-                = btnInDS.Enabled = btnThoat.Enabled = false;
+                = btnInDS.Enabled = btnThoat.Enabled
+                = cmbKhoa.Enabled = false;
 
             btnGhi.Enabled = btnPhucHoi.Enabled = true;
 
@@ -108,6 +113,7 @@ namespace QLDSV_TC
 
         private void btnPhucHoi_ItemClick(object sender, DevExpress.XtraBars.ItemClickEventArgs e)
         {
+            
             bdsSinhVien.CancelEdit();
             if (btnThem.Enabled == false)
             {
@@ -118,9 +124,19 @@ namespace QLDSV_TC
             
             panelControl2.Enabled = false;
 
+            maSV = "";
+
             btnThem.Enabled = btnHieuChinh.Enabled 
                 = btnXoa.Enabled = btnReload.Enabled
                 = btnInDS.Enabled = btnThoat.Enabled = true;
+
+            if (Program.mGroup == "PGV")
+            {
+                cmbKhoa.Enabled = true;
+            } else
+            {
+                cmbKhoa.Enabled = false;
+            }
             
             btnGhi.Enabled = btnPhucHoi.Enabled = false;
         }
@@ -131,7 +147,7 @@ namespace QLDSV_TC
             // để sau khi sửa xong lưu lại (hoặc nhấn nút phục hồi)
             // lấy vitri chỉ đến sinh viên vừa được chọn
             vitri = bdsSinhVien.Position;
-
+            maSV = txtMaSV.Text;
             //
             int idxLopHienTai = cmbLop.FindStringExact(txtMaLop.Text);
             if (idxLopHienTai >= 0)
@@ -143,7 +159,8 @@ namespace QLDSV_TC
 
             btnThem.Enabled = btnHieuChinh.Enabled
                 = btnXoa.Enabled = btnReload.Enabled
-                = btnInDS.Enabled = btnThoat.Enabled = false;
+                = btnInDS.Enabled = btnThoat.Enabled
+                = cmbKhoa.Enabled = false;
 
             btnGhi.Enabled = btnPhucHoi.Enabled = true;
 
@@ -243,61 +260,66 @@ namespace QLDSV_TC
                 return;
             }
 
-            if (Program.KetNoi() == 0)
+            if (maSV != txtMaSV.Text)
             {
-                MessageBox.Show("Không thể kết nối về cơ sở dữ liệu để kiểm tra tồn tại của mã sinh viên!", "", MessageBoxButtons.OK);
-                return;
-            }
-            // Chạy sp kiểm tra sinh viên đã tồn tại ở 1 trong những phân mảnh hay chưa
-            int state = Program.ExecSqlNonQuery($"EXEC SP_KIEM_TRA_TON_TAI_MASV '{txtMaSV.Text}'");
-            if (state != 0)
-            {
-                // Nếu state = 1 thì có nghĩa là
-                // database đã có sinh viên có mã được nhập 
-                return;
-            }
-
-            // Phải kiểm tra ở những phân mảnh khác xem có tồn tại mã SV đó không
-            // gắn biến tạm cho servername của login đăng nhập
-            string temp = Program.servername;
-
-            // Lấy danh sách servername về để kết nối qua các phân mảnh khác
-            List<string> servernames = Program.LayTenServerTuCmbKhoa(cmbKhoa);
-
-            // Gắn tài khoản kết nối về HTKN
-            Program.mlogin = Program.remotelogin;
-            Program.password = Program.remotepassword;
-
-            // Chạy kết nối trên từng server (Mỗi server nhất định phải có tk HTKN)
-            foreach (string servername in servernames)
-            {
-                if (servername != temp)
+                if (Program.KetNoi() == 0)
                 {
-                    Program.servername = servername;
-                    if (Program.KetNoi() == 0)
+                    MessageBox.Show("Không thể kết nối về cơ sở dữ liệu để kiểm tra tồn tại của mã sinh viên!", "", MessageBoxButtons.OK);
+                    return;
+                }
+                // Chạy sp kiểm tra sinh viên đã tồn tại ở 1 trong những phân mảnh hay chưa
+                int state = Program.ExecSqlNonQuery($"EXEC SP_KIEM_TRA_TON_TAI_MASV '{txtMaSV.Text}'");
+                if (state != 0)
+                {
+                    // Nếu state = 1 thì có nghĩa là
+                    // database đã có sinh viên có mã được nhập 
+                    return;
+                }
+
+                // Phải kiểm tra ở những phân mảnh khác xem có tồn tại mã SV đó không
+                // gắn biến tạm cho servername của login đăng nhập
+                string temp = Program.servername;
+
+                // Lấy danh sách servername về để kết nối qua các phân mảnh khác
+                List<string> servernames = Program.LayTenServerTuCmbKhoa(cmbKhoa);
+
+                // Gắn tài khoản kết nối về HTKN
+                Program.mlogin = Program.remotelogin;
+                Program.password = Program.remotepassword;
+
+                // Chạy kết nối trên từng server (Mỗi server nhất định phải có tk HTKN)
+                foreach (string servername in servernames)
+                {
+                    if (servername != temp)
                     {
-                        MessageBox.Show("Lỗi kết nối tới các phân mảnh!", "", MessageBoxButtons.OK);
-                        return;
-                    }
-                    state = Program.ExecSqlNonQuery($"EXEC SP_KIEM_TRA_TON_TAI_MASV '{txtMaSV.Text}'");
-                    if (state != 0)
-                    {
-                        // Nếu đã maSV tồn tại thì messageBox sẽ báo lỗi ở câu lệnh ExecSqlNonQuery
-                        // Gán lại tên mlogin cho người đang sử dụng trước khi return
-                        Program.servername = temp;
-                        Program.mlogin = Program.mloginDN;
-                        Program.password = Program.passwordDN;
-                        return;
+                        Program.servername = servername;
+                        if (Program.KetNoi() == 0)
+                        {
+                            MessageBox.Show("Lỗi kết nối tới các phân mảnh!", "", MessageBoxButtons.OK);
+                            return;
+                        }
+                        state = Program.ExecSqlNonQuery($"EXEC SP_KIEM_TRA_TON_TAI_MASV '{txtMaSV.Text}'");
+                        if (state != 0)
+                        {
+                            // Nếu đã maSV tồn tại thì messageBox sẽ báo lỗi ở câu lệnh ExecSqlNonQuery
+                            // Gán lại tên mlogin cho người đang sử dụng trước khi return
+                            Program.servername = temp;
+                            Program.mlogin = Program.mloginDN;
+                            Program.password = Program.passwordDN;
+                            return;
+                        }
                     }
                 }
+
+                Program.servername = temp;
+                Program.mlogin = Program.mloginDN;
+                Program.password = Program.passwordDN;
+
+                // Trường hợp người dùng không chọn lớp txtMaLop thì tự động 
+                // lấy mã đã chọn ở cmbLop
+
             }
 
-            Program.servername = temp;
-            Program.mlogin = Program.mloginDN;
-            Program.password = Program.passwordDN;
-
-            // Trường hợp người dùng không chọn lớp txtMaLop thì tự động 
-            // lấy mã đã chọn ở cmbLop
             if (Validator.isEmptyText(txtMaLop.Text))
             {
                 txtMaLop.Text = cmbLop.SelectedValue.ToString();
@@ -307,6 +329,10 @@ namespace QLDSV_TC
             {
                 bdsSinhVien.EndEdit();
                 bdsSinhVien.ResetCurrentItem();
+                if (Program.KetNoi() == 0)
+                {
+                    return;
+                }   
                 
                 this.SINHVIENTableAdapter.Connection.ConnectionString = Program.connstr;
                 this.SINHVIENTableAdapter.Update(this.DS.SINHVIEN);
