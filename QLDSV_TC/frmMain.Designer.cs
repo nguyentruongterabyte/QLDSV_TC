@@ -55,6 +55,10 @@
             this.xtraTabbedMdiManager1 = new DevExpress.XtraTabbedMdi.XtraTabbedMdiManager(this.components);
             this.barButtonGroup1 = new DevExpress.XtraBars.BarButtonGroup();
             this.statusStrip1 = new System.Windows.Forms.StatusStrip();
+            this.toolStripStatusLabel1 = new System.Windows.Forms.ToolStripStatusLabel();
+            this.lbHoTen = new System.Windows.Forms.ToolStripStatusLabel();
+            this.lbMa = new System.Windows.Forms.ToolStripStatusLabel();
+            this.lbNhom = new System.Windows.Forms.ToolStripStatusLabel();
             this.MAGV = new System.Windows.Forms.ToolStripStatusLabel();
             this.HOTEN = new System.Windows.Forms.ToolStripStatusLabel();
             this.NHOM = new System.Windows.Forms.ToolStripStatusLabel();
@@ -146,6 +150,7 @@
             this.btnLopHoc.ImageOptions.Image = global::QLDSV_TC.Properties.Resources.LopHocImage;
             this.btnLopHoc.Name = "btnLopHoc";
             this.btnLopHoc.RibbonStyle = DevExpress.XtraBars.Ribbon.RibbonItemStyles.Large;
+            this.btnLopHoc.ItemClick += new DevExpress.XtraBars.ItemClickEventHandler(this.btnLopHoc_ItemClick);
             // 
             // btnMonHoc
             // 
@@ -271,12 +276,40 @@
             // 
             // statusStrip1
             // 
+            this.statusStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.toolStripStatusLabel1,
+            this.lbHoTen,
+            this.lbMa,
+            this.lbNhom});
             this.statusStrip1.Location = new System.Drawing.Point(0, 728);
             this.statusStrip1.Name = "statusStrip1";
             this.statusStrip1.Padding = new System.Windows.Forms.Padding(1, 0, 16, 0);
             this.statusStrip1.Size = new System.Drawing.Size(1314, 22);
             this.statusStrip1.TabIndex = 10;
             this.statusStrip1.Text = "statusStrip1";
+            // 
+            // toolStripStatusLabel1
+            // 
+            this.toolStripStatusLabel1.Name = "toolStripStatusLabel1";
+            this.toolStripStatusLabel1.Size = new System.Drawing.Size(0, 17);
+            // 
+            // lbHoTen
+            // 
+            this.lbHoTen.Name = "lbHoTen";
+            this.lbHoTen.Size = new System.Drawing.Size(43, 17);
+            this.lbHoTen.Text = "Họ tên";
+            // 
+            // lbMa
+            // 
+            this.lbMa.Name = "lbMa";
+            this.lbMa.Size = new System.Drawing.Size(24, 17);
+            this.lbMa.Text = "Mã";
+            // 
+            // lbNhom
+            // 
+            this.lbNhom.Name = "lbNhom";
+            this.lbNhom.Size = new System.Drawing.Size(44, 17);
+            this.lbNhom.Text = "Nhóm ";
             // 
             // MAGV
             // 
@@ -311,6 +344,7 @@
             this.Ribbon = this.ribbonControl1;
             this.Text = "Quản lý điểm sinh viên - Hệ tín chỉ";
             this.WindowState = System.Windows.Forms.FormWindowState.Maximized;
+            this.Load += new System.EventHandler(this.frmMain_Load);
             ((System.ComponentModel.ISupportInitialize)(this.ribbonControl1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.xtraTabbedMdiManager1)).EndInit();
             this.statusStrip1.ResumeLayout(false);
@@ -350,6 +384,10 @@
         public DevExpress.XtraBars.BarButtonItem btnDoiMK;
         public DevExpress.XtraBars.Ribbon.RibbonPage ribDanhMuc;
         public DevExpress.XtraBars.Ribbon.RibbonPage ribBaoCao;
+        private System.Windows.Forms.ToolStripStatusLabel toolStripStatusLabel1;
+        public System.Windows.Forms.ToolStripStatusLabel lbHoTen;
+        public System.Windows.Forms.ToolStripStatusLabel lbMa;
+        public System.Windows.Forms.ToolStripStatusLabel lbNhom;
     }
 }
 

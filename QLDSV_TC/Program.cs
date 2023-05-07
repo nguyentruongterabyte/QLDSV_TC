@@ -68,17 +68,17 @@ namespace QLDSV_TC
             frmChinh.closeAllFormInFormMain();
 
             // Set các label của statusStrip về trạng thái default
-            frmChinh.MAGV.Text = frmChinh.HOTEN.Text
-            = frmChinh.NHOM.Text = "";
+            frmChinh.lbHoTen.Text = "Họ tên: ";
+            frmChinh.lbNhom.Text = "Nhóm: ";
+            frmChinh.lbMa.Text = "Mã: ";
 
             // Set tất cả các button của frmMain về Enable = false
             frmChinh.SetEnableOfButtons(false);
 
-            // Đóng kết nối database nếu nó đang được mở
-            if (Program.conn.State == ConnectionState.Open)
-            {
-                Program.conn.Close();
-            }
+
+            frmDangNhap f = new frmDangNhap();
+            f.MdiParent = frmChinh;
+            f.Show();
 
         }
         public static int KetNoi()
@@ -213,7 +213,7 @@ namespace QLDSV_TC
             frmChinh = new frmMain();
             frmChinh.SetEnableOfButtons(false);
             Application.Run(frmChinh);
-
+           
             //Application.Run(new frmDangNhap());
 
         }

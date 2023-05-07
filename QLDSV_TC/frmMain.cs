@@ -30,22 +30,20 @@ namespace QLDSV_TC
         {
             if (Program.mGroup == "SV")
             {
-                MAGV.Text = $"Mã SV: {Program.username} -";
-                HOTEN.Text = $"Họ tên sinh viên: {Program.mHoTen} -";
-
+                lbHoTen.Text = $"Mã SV: {Program.username} -";
+                lbMa.Text = $"Họ tên sinh viên: {Program.mHoTen} -";
                 // Chỉ có nhóm sinh viên mới không được tạo tài khoản 
                 Program.frmChinh.btnTaoTK.Enabled = false;
 
 
             } else
             {
-                HOTEN.Text = $"Họ tên giảng viên: {Program.mHoTen} -";
-                MAGV.Text = $"Mã GV: {Program.username} -";
-
+                lbHoTen.Text = $"Họ tên giảng viên: {Program.mHoTen} -";
+                lbMa.Text = $"Mã GV: {Program.username} -";
                 // Các nhóm khác "SV" có thể tạo tài khoản theo quyền của mỗi nhóm
                 Program.frmChinh.btnTaoTK.Enabled = true;
             }
-            NHOM.Text = $"Nhóm: {Program.mGroup}";
+            lbNhom.Text = $"Nhóm: {Program.mGroup}";
 
             ribBaoCao.Visible = ribDanhMuc.Visible = true;
             
@@ -170,6 +168,27 @@ namespace QLDSV_TC
             } else
             {
                 frmDoiMK f = new frmDoiMK();
+                f.MdiParent = this;
+                f.Show();
+            }
+        }
+
+        private void frmMain_Load(object sender, EventArgs e)
+        {
+            frmDangNhap f = new frmDangNhap();
+            f.MdiParent = this;
+            f.Show();
+        }
+
+        private void btnLopHoc_ItemClick(object sender, DevExpress.XtraBars.ItemClickEventArgs e)
+        {
+            Form frm = this.CheckExists(typeof(frmLopHoc));
+            if (frm != null)
+            {
+                frm.Activate();
+            } else
+            {
+                frmLopHoc f = new frmLopHoc();
                 f.MdiParent = this;
                 f.Show();
             }

@@ -114,7 +114,7 @@
             // pHAILabel
             // 
             pHAILabel.AutoSize = true;
-            pHAILabel.Location = new System.Drawing.Point(702, 96);
+            pHAILabel.Location = new System.Drawing.Point(752, 99);
             pHAILabel.Name = "pHAILabel";
             pHAILabel.Size = new System.Drawing.Size(34, 13);
             pHAILabel.TabIndex = 6;
@@ -123,7 +123,7 @@
             // dIACHILabel
             // 
             dIACHILabel.AutoSize = true;
-            dIACHILabel.Location = new System.Drawing.Point(312, 205);
+            dIACHILabel.Location = new System.Drawing.Point(362, 208);
             dIACHILabel.Name = "dIACHILabel";
             dIACHILabel.Size = new System.Drawing.Size(46, 13);
             dIACHILabel.TabIndex = 8;
@@ -132,7 +132,7 @@
             // nGAYSINHLabel
             // 
             nGAYSINHLabel.AutoSize = true;
-            nGAYSINHLabel.Location = new System.Drawing.Point(296, 96);
+            nGAYSINHLabel.Location = new System.Drawing.Point(346, 99);
             nGAYSINHLabel.Name = "nGAYSINHLabel";
             nGAYSINHLabel.Size = new System.Drawing.Size(58, 13);
             nGAYSINHLabel.TabIndex = 10;
@@ -141,7 +141,7 @@
             // mASVLabel
             // 
             mASVLabel.AutoSize = true;
-            mASVLabel.Location = new System.Drawing.Point(288, 44);
+            mASVLabel.Location = new System.Drawing.Point(338, 47);
             mASVLabel.Name = "mASVLabel";
             mASVLabel.Size = new System.Drawing.Size(70, 13);
             mASVLabel.TabIndex = 11;
@@ -150,7 +150,7 @@
             // hOLabel
             // 
             hOLabel.AutoSize = true;
-            hOLabel.Location = new System.Drawing.Point(576, 48);
+            hOLabel.Location = new System.Drawing.Point(626, 51);
             hOLabel.Name = "hOLabel";
             hOLabel.Size = new System.Drawing.Size(43, 13);
             hOLabel.TabIndex = 12;
@@ -159,7 +159,7 @@
             // mALOPLabel
             // 
             mALOPLabel.AutoSize = true;
-            mALOPLabel.Location = new System.Drawing.Point(321, 148);
+            mALOPLabel.Location = new System.Drawing.Point(371, 151);
             mALOPLabel.Name = "mALOPLabel";
             mALOPLabel.Size = new System.Drawing.Size(28, 13);
             mALOPLabel.TabIndex = 14;
@@ -168,7 +168,7 @@
             // dANGHIHOCLabel
             // 
             dANGHIHOCLabel.AutoSize = true;
-            dANGHIHOCLabel.Location = new System.Drawing.Point(668, 153);
+            dANGHIHOCLabel.Location = new System.Drawing.Point(718, 156);
             dANGHIHOCLabel.Name = "dANGHIHOCLabel";
             dANGHIHOCLabel.Size = new System.Drawing.Size(68, 13);
             dANGHIHOCLabel.TabIndex = 15;
@@ -183,7 +183,7 @@
             this.gcSinhVien.MainView = this.gridView1;
             this.gcSinhVien.MenuManager = this.barManager1;
             this.gcSinhVien.Name = "gcSinhVien";
-            this.gcSinhVien.Size = new System.Drawing.Size(1208, 639);
+            this.gcSinhVien.Size = new System.Drawing.Size(1208, 319);
             this.gcSinhVien.TabIndex = 18;
             this.gcSinhVien.ViewCollection.AddRange(new DevExpress.XtraGrid.Views.Base.BaseView[] {
             this.gridView1});
@@ -500,15 +500,15 @@
             this.panelControl2.Controls.Add(this.chkPhai);
             this.panelControl2.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panelControl2.Enabled = false;
-            this.panelControl2.Location = new System.Drawing.Point(0, 754);
+            this.panelControl2.Location = new System.Drawing.Point(0, 434);
             this.panelControl2.Name = "panelControl2";
-            this.panelControl2.Size = new System.Drawing.Size(1208, 0);
+            this.panelControl2.Size = new System.Drawing.Size(1208, 320);
             this.panelControl2.TabIndex = 23;
             // 
             // cmbLop
             // 
             this.cmbLop.FormattingEnabled = true;
-            this.cmbLop.Location = new System.Drawing.Point(364, 146);
+            this.cmbLop.Location = new System.Drawing.Point(414, 175);
             this.cmbLop.Name = "cmbLop";
             this.cmbLop.Size = new System.Drawing.Size(255, 21);
             this.cmbLop.TabIndex = 18;
@@ -517,7 +517,7 @@
             // txtMaLop
             // 
             this.txtMaLop.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.bdsSinhVien, "MALOP", true));
-            this.txtMaLop.Location = new System.Drawing.Point(364, 146);
+            this.txtMaLop.Location = new System.Drawing.Point(414, 149);
             this.txtMaLop.Name = "txtMaLop";
             this.txtMaLop.Size = new System.Drawing.Size(255, 21);
             this.txtMaLop.TabIndex = 17;
@@ -525,7 +525,7 @@
             // chkDaNghiHoc
             // 
             this.chkDaNghiHoc.DataBindings.Add(new System.Windows.Forms.Binding("EditValue", this.bdsSinhVien, "DANGHIHOC", true));
-            this.chkDaNghiHoc.Location = new System.Drawing.Point(742, 150);
+            this.chkDaNghiHoc.Location = new System.Drawing.Point(792, 153);
             this.chkDaNghiHoc.MenuManager = this.barManager1;
             this.chkDaNghiHoc.Name = "chkDaNghiHoc";
             this.chkDaNghiHoc.Properties.Caption = "";
@@ -535,7 +535,7 @@
             // txtTen
             // 
             this.txtTen.DataBindings.Add(new System.Windows.Forms.Binding("EditValue", this.bdsSinhVien, "TEN", true));
-            this.txtTen.Location = new System.Drawing.Point(791, 42);
+            this.txtTen.Location = new System.Drawing.Point(841, 45);
             this.txtTen.MenuManager = this.barManager1;
             this.txtTen.Name = "txtTen";
             this.txtTen.Size = new System.Drawing.Size(111, 28);
@@ -544,7 +544,7 @@
             // txtHo
             // 
             this.txtHo.DataBindings.Add(new System.Windows.Forms.Binding("EditValue", this.bdsSinhVien, "HO", true));
-            this.txtHo.Location = new System.Drawing.Point(625, 42);
+            this.txtHo.Location = new System.Drawing.Point(675, 45);
             this.txtHo.MenuManager = this.barManager1;
             this.txtHo.Name = "txtHo";
             this.txtHo.Size = new System.Drawing.Size(160, 28);
@@ -553,7 +553,7 @@
             // txtMaSV
             // 
             this.txtMaSV.DataBindings.Add(new System.Windows.Forms.Binding("EditValue", this.bdsSinhVien, "MASV", true));
-            this.txtMaSV.Location = new System.Drawing.Point(364, 38);
+            this.txtMaSV.Location = new System.Drawing.Point(414, 41);
             this.txtMaSV.MenuManager = this.barManager1;
             this.txtMaSV.Name = "txtMaSV";
             this.txtMaSV.Size = new System.Drawing.Size(140, 28);
@@ -563,7 +563,7 @@
             // 
             this.dtpNgaySinh.DataBindings.Add(new System.Windows.Forms.Binding("EditValue", this.bdsSinhVien, "NGAYSINH", true));
             this.dtpNgaySinh.EditValue = null;
-            this.dtpNgaySinh.Location = new System.Drawing.Point(364, 90);
+            this.dtpNgaySinh.Location = new System.Drawing.Point(414, 93);
             this.dtpNgaySinh.MenuManager = this.barManager1;
             this.dtpNgaySinh.Name = "dtpNgaySinh";
             this.dtpNgaySinh.Properties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
@@ -577,7 +577,7 @@
             // txtDiaChi
             // 
             this.txtDiaChi.DataBindings.Add(new System.Windows.Forms.Binding("EditValue", this.bdsSinhVien, "DIACHI", true));
-            this.txtDiaChi.Location = new System.Drawing.Point(364, 199);
+            this.txtDiaChi.Location = new System.Drawing.Point(414, 202);
             this.txtDiaChi.MenuManager = this.barManager1;
             this.txtDiaChi.Name = "txtDiaChi";
             this.txtDiaChi.Size = new System.Drawing.Size(538, 28);
@@ -586,7 +586,7 @@
             // chkPhai
             // 
             this.chkPhai.DataBindings.Add(new System.Windows.Forms.Binding("EditValue", this.bdsSinhVien, "PHAI", true));
-            this.chkPhai.Location = new System.Drawing.Point(742, 94);
+            this.chkPhai.Location = new System.Drawing.Point(792, 97);
             this.chkPhai.MenuManager = this.barManager1;
             this.chkPhai.Name = "chkPhai";
             this.chkPhai.Properties.Caption = "Nữ";

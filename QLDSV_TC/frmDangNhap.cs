@@ -132,7 +132,7 @@ namespace QLDSV_TC
             Program.myReader = Program.ExecSqlDataReader(strLenh);
             if (Program.myReader == null)
             {
-                MessageBox.Show("Lỗi chạy lệnh lấy thông tin đăng nhập!");
+                MessageBox.Show("Không thể lấy thông tin từ đăng nhập!", "", MessageBoxButtons.OK);
                 return;
             }
 
@@ -140,7 +140,7 @@ namespace QLDSV_TC
 
             Program.username = Program.myReader.GetString(0);
           
-            if (Convert.IsDBNull(Program.username))
+            if (Program.myReader.IsDBNull(1))
             {
                 MessageBox.Show("Login bạn nhập không có quyền truy cập dữ liệu\nBạn xem lại username, password",
                     "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);

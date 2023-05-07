@@ -50,3 +50,4 @@ C:\Users\Administrator\Source\Repos\QLDSV_TC\QLDSV_TC\obj\Debug\QLDSV_TC.frmTaoL
 C:\Users\Administrator\Source\Repos\QLDSV_TC\QLDSV_TC\obj\Debug\QLDSV_TC.FrmTest.resources
 C:\Users\Administrator\Source\Repos\QLDSV_TC\QLDSV_TC\obj\Debug\QLDSV_TC.frmDoiMK.resources
 C:\Users\Administrator\Source\Repos\QLDSV_TC\QLDSV_TC\bin\Debug\DevExpress.Images.v22.2.dll
+C:\Users\Administrator\Source\Repos\QLDSV_TC\QLDSV_TC\obj\Debug\QLDSV_TC.frmLopHoc.resources
