@@ -176,6 +176,7 @@
             this.btnDiem.Id = 10;
             this.btnDiem.ImageOptions.LargeImage = ((System.Drawing.Image)(resources.GetObject("btnDiem.ImageOptions.LargeImage")));
             this.btnDiem.Name = "btnDiem";
+            this.btnDiem.ItemClick += new DevExpress.XtraBars.ItemClickEventHandler(this.btnDiem_ItemClick);
             // 
             // btnHocPhi
             // 

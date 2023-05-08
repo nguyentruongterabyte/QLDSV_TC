@@ -421,6 +421,7 @@
             // 
             // colMALOP
             // 
+            this.colMALOP.Caption = "Mã lớp";
             this.colMALOP.FieldName = "MALOP";
             this.colMALOP.Name = "colMALOP";
             this.colMALOP.Visible = true;
@@ -429,6 +430,7 @@
             // 
             // colTENLOP
             // 
+            this.colTENLOP.Caption = "Tên lớp";
             this.colTENLOP.FieldName = "TENLOP";
             this.colTENLOP.Name = "colTENLOP";
             this.colTENLOP.Visible = true;
@@ -437,6 +439,7 @@
             // 
             // colKHOAHOC
             // 
+            this.colKHOAHOC.Caption = "Khóa học";
             this.colKHOAHOC.FieldName = "KHOAHOC";
             this.colKHOAHOC.Name = "colKHOAHOC";
             this.colKHOAHOC.Visible = true;
@@ -445,10 +448,12 @@
             // 
             // colMAKHOA
             // 
+            this.colMAKHOA.Caption = "Mã khoa";
             this.colMAKHOA.FieldName = "MAKHOA";
             this.colMAKHOA.Name = "colMAKHOA";
             this.colMAKHOA.Visible = true;
             this.colMAKHOA.VisibleIndex = 3;
+            this.colMAKHOA.Width = 72;
             // 
             // panelControl2
             // 
