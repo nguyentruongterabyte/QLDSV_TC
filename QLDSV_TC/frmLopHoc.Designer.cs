@@ -98,7 +98,7 @@
             // mALOPLabel
             // 
             mALOPLabel.AutoSize = true;
-            mALOPLabel.Location = new System.Drawing.Point(516, 60);
+            mALOPLabel.Location = new System.Drawing.Point(103, 40);
             mALOPLabel.Name = "mALOPLabel";
             mALOPLabel.Size = new System.Drawing.Size(45, 13);
             mALOPLabel.TabIndex = 0;
@@ -107,7 +107,7 @@
             // tENLOPLabel
             // 
             tENLOPLabel.AutoSize = true;
-            tENLOPLabel.Location = new System.Drawing.Point(716, 60);
+            tENLOPLabel.Location = new System.Drawing.Point(102, 96);
             tENLOPLabel.Name = "tENLOPLabel";
             tENLOPLabel.Size = new System.Drawing.Size(46, 13);
             tENLOPLabel.TabIndex = 2;
@@ -116,16 +116,16 @@
             // kHOAHOCLabel
             // 
             kHOAHOCLabel.AutoSize = true;
-            kHOAHOCLabel.Location = new System.Drawing.Point(501, 129);
+            kHOAHOCLabel.Location = new System.Drawing.Point(87, 150);
             kHOAHOCLabel.Name = "kHOAHOCLabel";
-            kHOAHOCLabel.Size = new System.Drawing.Size(51, 13);
+            kHOAHOCLabel.Size = new System.Drawing.Size(55, 13);
             kHOAHOCLabel.TabIndex = 4;
-            kHOAHOCLabel.Text = "Khóa học";
+            kHOAHOCLabel.Text = "Khóa học:";
             // 
             // mAKHOALabel
             // 
             mAKHOALabel.AutoSize = true;
-            mAKHOALabel.Location = new System.Drawing.Point(715, 129);
+            mAKHOALabel.Location = new System.Drawing.Point(101, 206);
             mAKHOALabel.Name = "mAKHOALabel";
             mAKHOALabel.Size = new System.Drawing.Size(47, 13);
             mAKHOALabel.TabIndex = 6;
@@ -137,7 +137,7 @@
             this.barDockControlTop.Dock = System.Windows.Forms.DockStyle.Top;
             this.barDockControlTop.Location = new System.Drawing.Point(0, 69);
             this.barDockControlTop.Manager = null;
-            this.barDockControlTop.Size = new System.Drawing.Size(964, 0);
+            this.barDockControlTop.Size = new System.Drawing.Size(1248, 0);
             // 
             // barDockControl1
             // 
@@ -145,7 +145,7 @@
             this.barDockControl1.Dock = System.Windows.Forms.DockStyle.Top;
             this.barDockControl1.Location = new System.Drawing.Point(0, 69);
             this.barDockControl1.Manager = null;
-            this.barDockControl1.Size = new System.Drawing.Size(964, 0);
+            this.barDockControl1.Size = new System.Drawing.Size(1248, 0);
             // 
             // barDockControl2
             // 
@@ -153,7 +153,7 @@
             this.barDockControl2.Dock = System.Windows.Forms.DockStyle.Top;
             this.barDockControl2.Location = new System.Drawing.Point(0, 69);
             this.barDockControl2.Manager = null;
-            this.barDockControl2.Size = new System.Drawing.Size(964, 0);
+            this.barDockControl2.Size = new System.Drawing.Size(1248, 0);
             // 
             // barDockControl4
             // 
@@ -161,7 +161,7 @@
             this.barDockControl4.Dock = System.Windows.Forms.DockStyle.Top;
             this.barDockControl4.Location = new System.Drawing.Point(0, 69);
             this.barDockControl4.Manager = null;
-            this.barDockControl4.Size = new System.Drawing.Size(964, 0);
+            this.barDockControl4.Size = new System.Drawing.Size(1248, 0);
             // 
             // btnThoat
             // 
@@ -188,6 +188,7 @@
             this.cmbKhoa.Name = "cmbKhoa";
             this.cmbKhoa.Size = new System.Drawing.Size(242, 21);
             this.cmbKhoa.TabIndex = 1;
+            this.cmbKhoa.SelectedIndexChanged += new System.EventHandler(this.cmbKhoa_SelectedIndexChanged);
             // 
             // labelControl1
             // 
@@ -316,15 +317,15 @@
             this.barDockControl3.Dock = System.Windows.Forms.DockStyle.Top;
             this.barDockControl3.Location = new System.Drawing.Point(0, 0);
             this.barDockControl3.Manager = this.barManager1;
-            this.barDockControl3.Size = new System.Drawing.Size(964, 69);
+            this.barDockControl3.Size = new System.Drawing.Size(1248, 69);
             // 
             // barDockControlBottom
             // 
             this.barDockControlBottom.CausesValidation = false;
             this.barDockControlBottom.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.barDockControlBottom.Location = new System.Drawing.Point(0, 611);
+            this.barDockControlBottom.Location = new System.Drawing.Point(0, 754);
             this.barDockControlBottom.Manager = this.barManager1;
-            this.barDockControlBottom.Size = new System.Drawing.Size(964, 0);
+            this.barDockControlBottom.Size = new System.Drawing.Size(1248, 0);
             // 
             // barDockControlLeft
             // 
@@ -332,15 +333,15 @@
             this.barDockControlLeft.Dock = System.Windows.Forms.DockStyle.Left;
             this.barDockControlLeft.Location = new System.Drawing.Point(0, 69);
             this.barDockControlLeft.Manager = this.barManager1;
-            this.barDockControlLeft.Size = new System.Drawing.Size(0, 542);
+            this.barDockControlLeft.Size = new System.Drawing.Size(0, 685);
             // 
             // barDockControlRight
             // 
             this.barDockControlRight.CausesValidation = false;
             this.barDockControlRight.Dock = System.Windows.Forms.DockStyle.Right;
-            this.barDockControlRight.Location = new System.Drawing.Point(964, 69);
+            this.barDockControlRight.Location = new System.Drawing.Point(1248, 69);
             this.barDockControlRight.Manager = this.barManager1;
-            this.barDockControlRight.Size = new System.Drawing.Size(0, 542);
+            this.barDockControlRight.Size = new System.Drawing.Size(0, 685);
             // 
             // panelControl1
             // 
@@ -349,7 +350,7 @@
             this.panelControl1.Dock = System.Windows.Forms.DockStyle.Top;
             this.panelControl1.Location = new System.Drawing.Point(0, 69);
             this.panelControl1.Name = "panelControl1";
-            this.panelControl1.Size = new System.Drawing.Size(964, 46);
+            this.panelControl1.Size = new System.Drawing.Size(1248, 46);
             this.panelControl1.TabIndex = 24;
             // 
             // bar3
@@ -397,12 +398,12 @@
             // gcLopHoc
             // 
             this.gcLopHoc.DataSource = this.bdsLopHoc;
-            this.gcLopHoc.Dock = System.Windows.Forms.DockStyle.Top;
+            this.gcLopHoc.Dock = System.Windows.Forms.DockStyle.Left;
             this.gcLopHoc.Location = new System.Drawing.Point(0, 115);
             this.gcLopHoc.MainView = this.gridView1;
             this.gcLopHoc.MenuManager = this.barManager1;
             this.gcLopHoc.Name = "gcLopHoc";
-            this.gcLopHoc.Size = new System.Drawing.Size(964, 237);
+            this.gcLopHoc.Size = new System.Drawing.Size(833, 639);
             this.gcLopHoc.TabIndex = 60;
             this.gcLopHoc.ViewCollection.AddRange(new DevExpress.XtraGrid.Views.Base.BaseView[] {
             this.gridView1});
@@ -424,6 +425,7 @@
             this.colMALOP.Name = "colMALOP";
             this.colMALOP.Visible = true;
             this.colMALOP.VisibleIndex = 0;
+            this.colMALOP.Width = 135;
             // 
             // colTENLOP
             // 
@@ -431,6 +433,7 @@
             this.colTENLOP.Name = "colTENLOP";
             this.colTENLOP.Visible = true;
             this.colTENLOP.VisibleIndex = 1;
+            this.colTENLOP.Width = 385;
             // 
             // colKHOAHOC
             // 
@@ -438,6 +441,7 @@
             this.colKHOAHOC.Name = "colKHOAHOC";
             this.colKHOAHOC.Visible = true;
             this.colKHOAHOC.VisibleIndex = 2;
+            this.colKHOAHOC.Width = 211;
             // 
             // colMAKHOA
             // 
@@ -449,7 +453,6 @@
             // panelControl2
             // 
             this.panelControl2.BorderStyle = DevExpress.XtraEditors.Controls.BorderStyles.Simple;
-            this.panelControl2.ContentImage = global::QLDSV_TC.Properties.Resources.LopHocImage;
             this.panelControl2.ContentImageAlignment = System.Drawing.ContentAlignment.TopLeft;
             this.panelControl2.Controls.Add(mAKHOALabel);
             this.panelControl2.Controls.Add(this.txtMaKhoa);
@@ -460,26 +463,28 @@
             this.panelControl2.Controls.Add(mALOPLabel);
             this.panelControl2.Controls.Add(this.txtMaLop);
             this.panelControl2.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.panelControl2.Location = new System.Drawing.Point(0, 352);
+            this.panelControl2.Enabled = false;
+            this.panelControl2.Location = new System.Drawing.Point(833, 115);
             this.panelControl2.Name = "panelControl2";
-            this.panelControl2.Size = new System.Drawing.Size(964, 259);
+            this.panelControl2.Size = new System.Drawing.Size(415, 639);
             this.panelControl2.TabIndex = 61;
             // 
             // txtMaKhoa
             // 
             this.txtMaKhoa.DataBindings.Add(new System.Windows.Forms.Binding("EditValue", this.bdsLopHoc, "MAKHOA", true));
-            this.txtMaKhoa.Location = new System.Drawing.Point(771, 119);
+            this.txtMaKhoa.Enabled = false;
+            this.txtMaKhoa.Location = new System.Drawing.Point(157, 196);
             this.txtMaKhoa.MenuManager = this.barManager1;
             this.txtMaKhoa.Name = "txtMaKhoa";
             this.txtMaKhoa.Properties.ReadOnly = true;
-            this.txtMaKhoa.Size = new System.Drawing.Size(181, 28);
+            this.txtMaKhoa.Size = new System.Drawing.Size(119, 28);
             this.txtMaKhoa.TabIndex = 7;
             // 
             // cmbKhoaHoc
             // 
             this.cmbKhoaHoc.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.bdsLopHoc, "KHOAHOC", true));
             this.cmbKhoaHoc.FormattingEnabled = true;
-            this.cmbKhoaHoc.Location = new System.Drawing.Point(568, 126);
+            this.cmbKhoaHoc.Location = new System.Drawing.Point(155, 147);
             this.cmbKhoaHoc.Name = "cmbKhoaHoc";
             this.cmbKhoaHoc.Size = new System.Drawing.Size(121, 21);
             this.cmbKhoaHoc.TabIndex = 5;
@@ -487,16 +492,16 @@
             // txtTenLop
             // 
             this.txtTenLop.DataBindings.Add(new System.Windows.Forms.Binding("EditValue", this.bdsLopHoc, "TENLOP", true));
-            this.txtTenLop.Location = new System.Drawing.Point(771, 53);
+            this.txtTenLop.Location = new System.Drawing.Point(157, 89);
             this.txtTenLop.MenuManager = this.barManager1;
             this.txtTenLop.Name = "txtTenLop";
-            this.txtTenLop.Size = new System.Drawing.Size(181, 28);
+            this.txtTenLop.Size = new System.Drawing.Size(246, 28);
             this.txtTenLop.TabIndex = 3;
             // 
             // txtMaLop
             // 
             this.txtMaLop.DataBindings.Add(new System.Windows.Forms.Binding("EditValue", this.bdsLopHoc, "MALOP", true));
-            this.txtMaLop.Location = new System.Drawing.Point(567, 53);
+            this.txtMaLop.Location = new System.Drawing.Point(154, 33);
             this.txtMaLop.MenuManager = this.barManager1;
             this.txtMaLop.Name = "txtMaLop";
             this.txtMaLop.Size = new System.Drawing.Size(122, 28);
@@ -506,7 +511,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(964, 611);
+            this.ClientSize = new System.Drawing.Size(1248, 754);
             this.Controls.Add(this.panelControl2);
             this.Controls.Add(this.gcLopHoc);
             this.Controls.Add(this.panelControl1);

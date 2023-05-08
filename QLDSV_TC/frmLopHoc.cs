@@ -14,10 +14,21 @@ namespace QLDSV_TC
     public partial class frmLopHoc : DevExpress.XtraEditors.XtraForm
     {
         int vitri = 0;
+        string maKhoa = "";
+        string maLop = "";
         
         public frmLopHoc()
         {
             InitializeComponent();
+        }
+
+        private void themKhoaHocVaoCmb()
+        {
+            int year = Program.layNamHienTai();
+            for (int i = year - 2; i < year + 3; i++)
+            {
+                cmbKhoaHoc.Items.Add($"{i}-{i + 4}");
+            }
         }
 
         private void frmLopHoc_Load(object sender, EventArgs e)
@@ -35,6 +46,12 @@ namespace QLDSV_TC
             cmbKhoa.DisplayMember = "TENKHOA";
             cmbKhoa.ValueMember = "TENSERVER";
 
+            themKhoaHocVaoCmb();
+            // Thêm thuộc tính này vào người dùng có thể nhập khoa học khác
+            cmbKhoaHoc.DropDownStyle = ComboBoxStyle.DropDown;
+
+            maKhoa = ((DataRowView)bdsLopHoc[0])["MAKHOA"].ToString();
+
             if (Program.mGroup == "PGV")
             {
                 cmbKhoa.Enabled = true;
@@ -49,6 +66,10 @@ namespace QLDSV_TC
         {
             vitri = bdsLopHoc.Position;
 
+            txtMaKhoa.Text = maKhoa;
+
+            maLop = txtMaLop.Text;
+
             panelControl2.Enabled = true;
             btnThem.Enabled = btnHieuChinh.Enabled
                 = btnXoa.Enabled = btnReload.Enabled
@@ -58,7 +79,7 @@ namespace QLDSV_TC
             btnGhi.Enabled = btnPhucHoi.Enabled = true;
 
             gcLopHoc.Enabled = false;
-            gcLopHoc.Visible = false;
+           
         }
 
         private void btnThem_ItemClick(object sender, DevExpress.XtraBars.ItemClickEventArgs e)
@@ -67,6 +88,9 @@ namespace QLDSV_TC
             panelControl2.Enabled = true;
             bdsLopHoc.AddNew();
 
+            txtMaKhoa.Text = maKhoa;
+
+
             btnThem.Enabled = btnHieuChinh.Enabled
                 = btnXoa.Enabled = btnReload.Enabled
                 = btnInDS.Enabled = btnThoat.Enabled
@@ -76,7 +100,7 @@ namespace QLDSV_TC
             btnGhi.Enabled = btnPhucHoi.Enabled = true;
 
             gcLopHoc.Enabled = false;
-            gcLopHoc.Visible = false;
+
         }
 
         private void btnPhucHoi_ItemClick(object sender, DevExpress.XtraBars.ItemClickEventArgs e)
@@ -87,9 +111,11 @@ namespace QLDSV_TC
                 bdsSinhVien.Position = vitri;
             }
             gcLopHoc.Enabled = true;
-            gcLopHoc.Visible = true;
+
 
             panelControl2.Enabled = false;
+
+            maLop = "";
 
             btnThem.Enabled = btnHieuChinh.Enabled
                 = btnXoa.Enabled = btnReload.Enabled
@@ -121,7 +147,7 @@ namespace QLDSV_TC
 
         private void btnXoa_ItemClick(object sender, DevExpress.XtraBars.ItemClickEventArgs e)
         {
-            String maLop = "";
+           
             if (bdsSinhVien.Count > 0)
             {
                 MessageBox.Show("Không thể xóa lớp học này vì đã có sinh viên!", "", MessageBoxButtons.OK);
@@ -137,7 +163,7 @@ namespace QLDSV_TC
                 try
                 {
                     maLop = ((DataRowView)bdsLopHoc[bdsLopHoc.Position])["MALOP"].ToString();
-                    bdsSinhVien.RemoveCurrent();
+                    bdsLopHoc.RemoveCurrent();
 
                     this.LOPHOCTableAdapter.Connection.ConnectionString = Program.connstr;
                     this.LOPHOCTableAdapter.Update(this.DS.LOP);
@@ -159,7 +185,157 @@ namespace QLDSV_TC
 
         private void btnGhi_ItemClick(object sender, DevExpress.XtraBars.ItemClickEventArgs e)
         {
+            if (Validator.isEmptyText(txtMaLop.Text))
+            {
+                MessageBox.Show("Mã lớp không được để trống!", "", MessageBoxButtons.OK);
+                txtMaLop.Focus();
+                return;
+            }
+            if (Validator.isEmptyText(txtTenLop.Text))
+            {
+                MessageBox.Show("Tên lớp không được để trống!", "", MessageBoxButtons.OK);
+                txtTenLop.Focus();
+                return;
+            }
+            if (!Validator.isValidClassId(txtMaLop.Text.Trim()))
+            {
+                MessageBox.Show("Mã lớp không hợp lệ!\n Ví dụ: D16CQMT01, D15CQMT01, D15CQIS01 là những input hợp lệ", "", MessageBoxButtons.OK);
+                txtTenLop.Focus();
+                return;
+            }
+            if (!Validator.isValidYearRange(cmbKhoaHoc.Text.Trim()))
+            {
+                MessageBox.Show("Khóa học không hợp lệ!", "", MessageBoxButtons.OK);
+                txtTenLop.Focus();
+                return;
+            }
 
+            // begin check malop exist
+            if (maLop != txtMaLop.Text)
+            {
+                if (Program.KetNoi() == 0)
+                {
+                    MessageBox.Show("Không thể kết nối về cơ sở dữ liệu để kiểm tra tồn tại của mã lớp!", "", MessageBoxButtons.OK);
+                    return;
+                }
+                // Chạy sp kiểm tra lớp đã tồn tại ở 1 trong những phân mảnh hay chưa
+                int state = Program.ExecSqlNonQuery($"EXEC SP_KIEM_TRA_TON_TAI_MALOP '{txtMaLop.Text}'");
+                if (state != 0)
+                {
+                    // Nếu state = 1 thì có nghĩa là
+                    // database đã có sinh viên có mã được nhập 
+                    return;
+                }
+
+                // Phải kiểm tra ở những phân mảnh khác xem có tồn tại mã lớp đó không
+                // gắn biến tạm cho servername của login đăng nhập
+                string temp = Program.servername;
+
+                // Lấy danh sách servername về để kết nối qua các phân mảnh khác
+                List<string> servernames = Program.LayTenServerTuCmbKhoa(cmbKhoa);
+
+                // Gắn tài khoản kết nối về HTKN
+                Program.mlogin = Program.remotelogin;
+                Program.password = Program.remotepassword;
+
+                // Chạy kết nối trên từng server (Mỗi server nhất định phải có tk HTKN)
+                foreach (string servername in servernames)
+                {
+                    if (servername != temp)
+                    {
+                        Program.servername = servername;
+                        if (Program.KetNoi() == 0)
+                        {
+                            MessageBox.Show("Lỗi kết nối tới các phân mảnh!", "", MessageBoxButtons.OK);
+                            return;
+                        }
+                        state = Program.ExecSqlNonQuery($"EXEC SP_KIEM_TRA_TON_TAI_MALOP '{txtMaLop.Text}'");
+                        if (state != 0)
+                        {
+                            // Nếu đã maSV tồn tại thì messageBox sẽ báo lỗi ở câu lệnh ExecSqlNonQuery
+                            // Gán lại tên mlogin cho người đang sử dụng trước khi return
+                            Program.servername = temp;
+                            Program.mlogin = Program.mloginDN;
+                            Program.password = Program.passwordDN;
+                            return;
+                        }
+                    }
+                }
+
+                Program.servername = temp;
+                Program.mlogin = Program.mloginDN;
+                Program.password = Program.passwordDN;
+            }
+            // end check maLop exist
+
+            try
+            {
+                bdsLopHoc.EndEdit();
+                bdsSinhVien.ResetCurrentItem();
+                if (Program.KetNoi() == 0)
+                {
+                    return;
+                }
+                this.LOPHOCTableAdapter.Connection.ConnectionString = Program.connstr;
+                this.LOPHOCTableAdapter.Update(this.DS.LOP);
+            } catch (Exception ex)
+            {
+                MessageBox.Show("Lỗi ghi lớp học!\n" + ex.Message, "", MessageBoxButtons.OK);
+                return;
+
+            }
+            gcLopHoc.Enabled = true;
+
+            btnThem.Enabled = btnHieuChinh.Enabled
+                = btnXoa.Enabled = btnReload.Enabled
+                = btnInDS.Enabled = btnThoat.Enabled = true;
+
+            btnGhi.Enabled = btnPhucHoi.Enabled = false;
+
+            panelControl2.Enabled = false;
+        }
+
+        private void cmbKhoa_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (cmbKhoa.SelectedValue.ToString() == "System.Data.DataRowView")
+            {
+                return;
+            }
+              // Lấy dữ liệu servername để kết nối
+            Program.servername = cmbKhoa.SelectedValue.ToString();
+
+            // Nếu servername chưa trùng với vai trò đăng nhập
+            // thì lấy tài khoản hỗ trợ kết nối để kết nối 
+            // sang phân mảnh mới
+            if (cmbKhoa.SelectedIndex != Program.mKhoa)
+            {
+                Program.mlogin = Program.remotelogin;
+                Program.password = Program.remotepassword;
+            } 
+            else
+            {
+                // Còn nếu vai trò đăng nhập hiện tại đã khớp
+                // thì lấy tài khoản đang đăng nhập
+                Program.mlogin = Program.mloginDN;
+                Program.password = Program.passwordDN;
+            }
+
+            if (Program.KetNoi() == 0)
+            {
+                MessageBox.Show("Lỗi kết nối về chi nhánh mới!", "", MessageBoxButtons.OK);
+                return;
+            }
+            else
+            {
+
+                this.LOPHOCTableAdapter.Connection.ConnectionString = Program.connstr;
+                this.LOPHOCTableAdapter.Fill(this.DS.LOP);
+
+                this.SINHVIENTableAdapter.Connection.ConnectionString = Program.connstr;
+                this.SINHVIENTableAdapter.Fill(this.DS.SINHVIEN);
+
+                
+            }
         }
     }
 }

@@ -80,6 +80,12 @@ namespace QLDSV_TC
             f.MdiParent = frmChinh;
             f.Show();
 
+
+        }
+
+        public static int layNamHienTai()
+        {
+            return DateTime.Now.Year;
         }
         public static int KetNoi()
         {

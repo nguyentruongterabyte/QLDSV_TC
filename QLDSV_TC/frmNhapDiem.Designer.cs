@@ -28,25 +28,13 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.btnLoadLTC = new System.Windows.Forms.Button();
             this.SuspendLayout();
-            // 
-            // btnLoadLTC
-            // 
-            this.btnLoadLTC.Location = new System.Drawing.Point(574, 12);
-            this.btnLoadLTC.Name = "btnLoadLTC";
-            this.btnLoadLTC.Size = new System.Drawing.Size(97, 34);
-            this.btnLoadLTC.TabIndex = 0;
-            this.btnLoadLTC.Text = "Tải lớp tín chỉ";
-            this.btnLoadLTC.UseVisualStyleBackColor = true;
-            this.btnLoadLTC.Click += new System.EventHandler(this.btnLoadLTC_Click);
             // 
             // frmNhapDiem
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(976, 461);
-            this.Controls.Add(this.btnLoadLTC);
             this.Name = "frmNhapDiem";
             this.Text = "frmNhapDiem";
             this.ResumeLayout(false);
@@ -54,7 +42,5 @@
         }
 
         #endregion
-
-        private System.Windows.Forms.Button btnLoadLTC;
     }
 }

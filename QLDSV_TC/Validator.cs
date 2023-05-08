@@ -46,5 +46,21 @@ namespace QLDSV_TC
         public static bool minLengthPassword(string pass, int minLength) =>
             // Trả về true nếu độ dài password chưa đạt tối thiểu
             pass.Length < minLength;
+
+        public static bool isValidClassId(string  classId)
+        {
+
+            // Trả về true nếu mã lớp hợp lệ
+            // các mã lớp hợp lệ
+            // D15CQCP01, D15CQIS01, D15CQMT01, D16CQMT01, ..
+            string pattern = @"^D\d{2}CQ[A-Z]{2}\d{2}$";
+            return Regex.IsMatch(classId, pattern);
+        }
+
+        public static bool isValidYearRange(string yearRange)
+        {
+            string pattern = @"^\d{4}-\d{4}$";
+            return Regex.IsMatch(yearRange, pattern);
+        }
     }
 }

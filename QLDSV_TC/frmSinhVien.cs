@@ -186,7 +186,7 @@ namespace QLDSV_TC
 
         private void btnXoa_ItemClick(object sender, DevExpress.XtraBars.ItemClickEventArgs e)
         {
-            String maSV = "";
+         
             if (bdsDangKy.Count > 0)
             {
                 MessageBox.Show("Không thể xóa sinh viên này vì sinh viên đã đăng ký lớp tín chỉ", "", MessageBoxButtons.OK);
@@ -260,6 +260,8 @@ namespace QLDSV_TC
                 return;
             }
 
+
+            // begin check maSV exist
             if (maSV != txtMaSV.Text)
             {
                 if (Program.KetNoi() == 0)
@@ -315,11 +317,10 @@ namespace QLDSV_TC
                 Program.mlogin = Program.mloginDN;
                 Program.password = Program.passwordDN;
 
-                // Trường hợp người dùng không chọn lớp txtMaLop thì tự động 
-                // lấy mã đã chọn ở cmbLop
+
 
             }
-
+            // end check maSV exist
             if (Validator.isEmptyText(txtMaLop.Text))
             {
                 txtMaLop.Text = cmbLop.SelectedValue.ToString();
