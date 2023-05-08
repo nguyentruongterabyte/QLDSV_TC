@@ -219,7 +219,7 @@ namespace QLDSV_TC
             frmChinh = new frmMain();
             frmChinh.SetEnableOfButtons(false);
             Application.Run(frmChinh);
-           
+            
             //Application.Run(new frmDangNhap());
 
         }

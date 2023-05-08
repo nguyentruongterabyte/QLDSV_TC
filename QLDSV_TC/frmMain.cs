@@ -24,7 +24,60 @@ namespace QLDSV_TC
                 = btnDangKy.Enabled = Active;
         }
 
-        
+        public void autoDangNhap(string tk, string password, string vaiTro, string servername, int mKhoa)
+        {
+            Program.servername = servername;
+            Program.mlogin = tk;
+            Program.password = password;
+
+
+            if (Program.KetNoi() == 0)
+            {
+                return;
+            };
+
+            Program.mKhoa = mKhoa;
+            Program.mloginDN = Program.mlogin;
+            Program.passwordDN = Program.password;
+
+
+            
+            string strLenh = $"EXEC SP_LAY_THONG_TIN_{vaiTro}_TU_LOGIN '{Program.mlogin}'";
+
+            Program.myReader = Program.ExecSqlDataReader(strLenh);
+            if (Program.myReader == null)
+            {
+                MessageBox.Show("Không thể lấy thông tin từ đăng nhập!", "", MessageBoxButtons.OK);
+                return;
+            }
+
+            Program.myReader.Read();
+
+            Program.username = Program.myReader.GetString(0);
+
+            if (Program.myReader.IsDBNull(1))
+            {
+                MessageBox.Show("Login bạn nhập không có quyền truy cập dữ liệu\nBạn xem lại username, password",
+                    "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                return;
+            }
+
+            Program.mHoTen = Program.myReader.GetString(1);
+            Program.mGroup = Program.myReader.GetString(2);
+            Program.myReader.Close();
+            Program.conn.Close();
+
+            Program.frmChinh.btnDangNhap.Enabled = false;
+            Program.frmChinh.btnDangXuat.Enabled = true;
+
+            MessageBox.Show($"Đăng nhập thành công vào tài khoản {Program.mloginDN}", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
+
+            Program.frmChinh.HienThiMenu();
+
+            btnDangNhap.Enabled = false;
+            Program.frmChinh.btnDoiMK.Enabled = true;
+            
+        }
 
         public void HienThiMenu()
         {
@@ -175,9 +228,15 @@ namespace QLDSV_TC
 
         private void frmMain_Load(object sender, EventArgs e)
         {
+            
             frmDangNhap f = new frmDangNhap();
             f.MdiParent = this;
             f.Show();
+
+            autoDangNhap("KT", "123456", "GV", "DELLLATITUDEE65\\MSSQLSERVER01", 0);
+            // DELLLATITUDEE65\MSSQLSERVER01
+            // DELLLATITUDEE65\MSSQLSERVER02
+            // DELLLATITUDEE65\MSSQLSERVER03
         }
 
         private void btnLopHoc_ItemClick(object sender, DevExpress.XtraBars.ItemClickEventArgs e)

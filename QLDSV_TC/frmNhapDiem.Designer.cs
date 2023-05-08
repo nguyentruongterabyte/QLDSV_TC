@@ -42,19 +42,23 @@
             this.gridControl1 = new DevExpress.XtraGrid.GridControl();
             this.bdsDSLTC = new System.Windows.Forms.BindingSource(this.components);
             this.DS = new QLDSV_TC.DS();
-            this.gridView1 = new DevExpress.XtraGrid.Views.Grid.GridView();
+            this.gv_DS_DangKy1 = new DevExpress.XtraGrid.Views.Grid.GridView();
             this.colMALTC = new DevExpress.XtraGrid.Columns.GridColumn();
             this.colTENMH = new DevExpress.XtraGrid.Columns.GridColumn();
             this.colNHOM = new DevExpress.XtraGrid.Columns.GridColumn();
             this.colHOTEN = new DevExpress.XtraGrid.Columns.GridColumn();
             this.SP_LAY_DS_LTCTableAdapter = new QLDSV_TC.DSTableAdapters.SP_LAY_DS_LTCTableAdapter();
+            this.gc_DS_DangKy = new DevExpress.XtraGrid.GridControl();
+            this.gv_DS_DangKy2 = new DevExpress.XtraGrid.Views.Grid.GridView();
             ((System.ComponentModel.ISupportInitialize)(this.panelControl1)).BeginInit();
             this.panelControl1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numHocKy)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.gridControl1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.bdsDSLTC)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.DS)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.gridView1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.gv_DS_DangKy1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.gc_DS_DangKy)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.gv_DS_DangKy2)).BeginInit();
             this.SuspendLayout();
             // 
             // panelControl1
@@ -91,6 +95,7 @@
             this.btnNhapDiem.Size = new System.Drawing.Size(104, 30);
             this.btnNhapDiem.TabIndex = 8;
             this.btnNhapDiem.Text = "Nhập điểm";
+            this.btnNhapDiem.Click += new System.EventHandler(this.btnNhapDiem_Click);
             // 
             // btnTaiLTC
             // 
@@ -167,12 +172,12 @@
             this.gridControl1.DataSource = this.bdsDSLTC;
             this.gridControl1.Dock = System.Windows.Forms.DockStyle.Left;
             this.gridControl1.Location = new System.Drawing.Point(0, 43);
-            this.gridControl1.MainView = this.gridView1;
+            this.gridControl1.MainView = this.gv_DS_DangKy1;
             this.gridControl1.Name = "gridControl1";
-            this.gridControl1.Size = new System.Drawing.Size(476, 418);
+            this.gridControl1.Size = new System.Drawing.Size(518, 429);
             this.gridControl1.TabIndex = 1;
             this.gridControl1.ViewCollection.AddRange(new DevExpress.XtraGrid.Views.Base.BaseView[] {
-            this.gridView1});
+            this.gv_DS_DangKy1});
             // 
             // bdsDSLTC
             // 
@@ -184,18 +189,20 @@
             this.DS.DataSetName = "DS";
             this.DS.SchemaSerializationMode = System.Data.SchemaSerializationMode.IncludeSchema;
             // 
-            // gridView1
+            // gv_DS_DangKy1
             // 
-            this.gridView1.Columns.AddRange(new DevExpress.XtraGrid.Columns.GridColumn[] {
+            this.gv_DS_DangKy1.Columns.AddRange(new DevExpress.XtraGrid.Columns.GridColumn[] {
             this.colMALTC,
             this.colTENMH,
             this.colNHOM,
             this.colHOTEN});
-            this.gridView1.GridControl = this.gridControl1;
-            this.gridView1.Name = "gridView1";
+            this.gv_DS_DangKy1.GridControl = this.gridControl1;
+            this.gv_DS_DangKy1.Name = "gv_DS_DangKy1";
+            this.gv_DS_DangKy1.OptionsBehavior.Editable = false;
             // 
             // colMALTC
             // 
+            this.colMALTC.Caption = "Mã LTC";
             this.colMALTC.FieldName = "MALTC";
             this.colMALTC.Name = "colMALTC";
             this.colMALTC.Visible = true;
@@ -204,6 +211,7 @@
             // 
             // colTENMH
             // 
+            this.colTENMH.Caption = "Tên môn học";
             this.colTENMH.FieldName = "TENMH";
             this.colTENMH.Name = "colTENMH";
             this.colTENMH.Visible = true;
@@ -212,6 +220,7 @@
             // 
             // colNHOM
             // 
+            this.colNHOM.Caption = "Nhóm";
             this.colNHOM.FieldName = "NHOM";
             this.colNHOM.Name = "colNHOM";
             this.colNHOM.Visible = true;
@@ -220,6 +229,7 @@
             // 
             // colHOTEN
             // 
+            this.colHOTEN.Caption = "Họ tên giảng viên";
             this.colHOTEN.FieldName = "HOTEN";
             this.colHOTEN.Name = "colHOTEN";
             this.colHOTEN.Visible = true;
@@ -230,11 +240,28 @@
             // 
             this.SP_LAY_DS_LTCTableAdapter.ClearBeforeFill = true;
             // 
+            // gc_DS_DangKy
+            // 
+            this.gc_DS_DangKy.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.gc_DS_DangKy.Location = new System.Drawing.Point(518, 43);
+            this.gc_DS_DangKy.MainView = this.gv_DS_DangKy2;
+            this.gc_DS_DangKy.Name = "gc_DS_DangKy";
+            this.gc_DS_DangKy.Size = new System.Drawing.Size(866, 429);
+            this.gc_DS_DangKy.TabIndex = 2;
+            this.gc_DS_DangKy.ViewCollection.AddRange(new DevExpress.XtraGrid.Views.Base.BaseView[] {
+            this.gv_DS_DangKy2});
+            // 
+            // gv_DS_DangKy2
+            // 
+            this.gv_DS_DangKy2.GridControl = this.gc_DS_DangKy;
+            this.gv_DS_DangKy2.Name = "gv_DS_DangKy2";
+            // 
             // frmNhapDiem
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1384, 461);
+            this.ClientSize = new System.Drawing.Size(1384, 472);
+            this.Controls.Add(this.gc_DS_DangKy);
             this.Controls.Add(this.gridControl1);
             this.Controls.Add(this.panelControl1);
             this.Name = "frmNhapDiem";
@@ -247,7 +274,9 @@
             ((System.ComponentModel.ISupportInitialize)(this.gridControl1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.bdsDSLTC)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.DS)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.gridView1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.gv_DS_DangKy1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.gc_DS_DangKy)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.gv_DS_DangKy2)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -265,7 +294,7 @@
         private System.Windows.Forms.ComboBox cmbKhoa;
         private System.Windows.Forms.Label label1;
         private DevExpress.XtraGrid.GridControl gridControl1;
-        private DevExpress.XtraGrid.Views.Grid.GridView gridView1;
+        private DevExpress.XtraGrid.Views.Grid.GridView gv_DS_DangKy1;
         private DevExpress.XtraGrid.Columns.GridColumn colMALTC;
         private DevExpress.XtraGrid.Columns.GridColumn colTENMH;
         private DevExpress.XtraGrid.Columns.GridColumn colNHOM;
@@ -273,5 +302,7 @@
         private System.Windows.Forms.BindingSource bdsDSLTC;
         private DS DS;
         private DSTableAdapters.SP_LAY_DS_LTCTableAdapter SP_LAY_DS_LTCTableAdapter;
+        private DevExpress.XtraGrid.GridControl gc_DS_DangKy;
+        private DevExpress.XtraGrid.Views.Grid.GridView gv_DS_DangKy2;
     }
 }

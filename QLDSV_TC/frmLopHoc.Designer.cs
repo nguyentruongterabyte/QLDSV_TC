@@ -65,7 +65,7 @@
             this.bdsSinhVien = new System.Windows.Forms.BindingSource(this.components);
             this.SINHVIENTableAdapter = new QLDSV_TC.DSTableAdapters.SINHVIENTableAdapter();
             this.gcLopHoc = new DevExpress.XtraGrid.GridControl();
-            this.gridView1 = new DevExpress.XtraGrid.Views.Grid.GridView();
+            this.gv_DS_DangKy1 = new DevExpress.XtraGrid.Views.Grid.GridView();
             this.colMALOP = new DevExpress.XtraGrid.Columns.GridColumn();
             this.colTENLOP = new DevExpress.XtraGrid.Columns.GridColumn();
             this.colKHOAHOC = new DevExpress.XtraGrid.Columns.GridColumn();
@@ -87,7 +87,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.bdsLopHoc)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.bdsSinhVien)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.gcLopHoc)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.gridView1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.gv_DS_DangKy1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.panelControl2)).BeginInit();
             this.panelControl2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.txtMaKhoa.Properties)).BeginInit();
@@ -400,24 +400,24 @@
             this.gcLopHoc.DataSource = this.bdsLopHoc;
             this.gcLopHoc.Dock = System.Windows.Forms.DockStyle.Left;
             this.gcLopHoc.Location = new System.Drawing.Point(0, 115);
-            this.gcLopHoc.MainView = this.gridView1;
+            this.gcLopHoc.MainView = this.gv_DS_DangKy1;
             this.gcLopHoc.MenuManager = this.barManager1;
             this.gcLopHoc.Name = "gcLopHoc";
             this.gcLopHoc.Size = new System.Drawing.Size(833, 639);
             this.gcLopHoc.TabIndex = 60;
             this.gcLopHoc.ViewCollection.AddRange(new DevExpress.XtraGrid.Views.Base.BaseView[] {
-            this.gridView1});
+            this.gv_DS_DangKy1});
             // 
-            // gridView1
+            // gv_DS_DangKy1
             // 
-            this.gridView1.Columns.AddRange(new DevExpress.XtraGrid.Columns.GridColumn[] {
+            this.gv_DS_DangKy1.Columns.AddRange(new DevExpress.XtraGrid.Columns.GridColumn[] {
             this.colMALOP,
             this.colTENLOP,
             this.colKHOAHOC,
             this.colMAKHOA});
-            this.gridView1.GridControl = this.gcLopHoc;
-            this.gridView1.Name = "gridView1";
-            this.gridView1.OptionsBehavior.Editable = false;
+            this.gv_DS_DangKy1.GridControl = this.gcLopHoc;
+            this.gv_DS_DangKy1.Name = "gv_DS_DangKy1";
+            this.gv_DS_DangKy1.OptionsBehavior.Editable = false;
             // 
             // colMALOP
             // 
@@ -540,7 +540,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.bdsLopHoc)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.bdsSinhVien)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.gcLopHoc)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.gridView1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.gv_DS_DangKy1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.panelControl2)).EndInit();
             this.panelControl2.ResumeLayout(false);
             this.panelControl2.PerformLayout();
@@ -590,7 +590,7 @@
         private DevExpress.XtraEditors.TextEdit txtTenLop;
         private DevExpress.XtraEditors.TextEdit txtMaLop;
         private DevExpress.XtraGrid.GridControl gcLopHoc;
-        private DevExpress.XtraGrid.Views.Grid.GridView gridView1;
+        private DevExpress.XtraGrid.Views.Grid.GridView gv_DS_DangKy1;
         private DevExpress.XtraGrid.Columns.GridColumn colMALOP;
         private DevExpress.XtraGrid.Columns.GridColumn colTENLOP;
         private DevExpress.XtraGrid.Columns.GridColumn colKHOAHOC;
