@@ -51,7 +51,7 @@
             this.btnDangNhap.Margin = new System.Windows.Forms.Padding(4);
             this.btnDangNhap.Name = "btnDangNhap";
             this.btnDangNhap.Size = new System.Drawing.Size(176, 41);
-            this.btnDangNhap.TabIndex = 6;
+            this.btnDangNhap.TabIndex = 5;
             this.btnDangNhap.Text = "Đăng nhập";
             this.btnDangNhap.UseVisualStyleBackColor = false;
             this.btnDangNhap.Click += new System.EventHandler(this.btnDangNhap_Click);
@@ -68,6 +68,7 @@
             // 
             // cmbKhoa
             // 
+            this.cmbKhoa.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cmbKhoa.FormattingEnabled = true;
             this.cmbKhoa.Location = new System.Drawing.Point(169, 63);
             this.cmbKhoa.Margin = new System.Windows.Forms.Padding(4);
@@ -93,7 +94,7 @@
             this.txtLogin.Margin = new System.Windows.Forms.Padding(4);
             this.txtLogin.Name = "txtLogin";
             this.txtLogin.Size = new System.Drawing.Size(281, 23);
-            this.txtLogin.TabIndex = 3;
+            this.txtLogin.TabIndex = 2;
             // 
             // label3
             // 
@@ -112,7 +113,7 @@
             this.txtPass.Margin = new System.Windows.Forms.Padding(4);
             this.txtPass.Name = "txtPass";
             this.txtPass.Size = new System.Drawing.Size(281, 23);
-            this.txtPass.TabIndex = 5;
+            this.txtPass.TabIndex = 3;
             // 
             // chkHienThi
             // 
@@ -146,11 +147,12 @@
             // 
             // cmbVaiTro
             // 
+            this.cmbVaiTro.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cmbVaiTro.FormattingEnabled = true;
             this.cmbVaiTro.Location = new System.Drawing.Point(169, 278);
             this.cmbVaiTro.Name = "cmbVaiTro";
             this.cmbVaiTro.Size = new System.Drawing.Size(106, 24);
-            this.cmbVaiTro.TabIndex = 10;
+            this.cmbVaiTro.TabIndex = 4;
             // 
             // btnThoat
             // 

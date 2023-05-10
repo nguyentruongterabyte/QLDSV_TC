@@ -1,4 +1,5 @@
-﻿using System;
+﻿using DevExpress.DXTemplateGallery.Extensions;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -61,14 +62,13 @@ namespace QLDSV_TC
             cmbKhoa.DataSource = Program.bds_dspm; // sao chép bds_dspm đã load ở form đăng nhập           
             cmbKhoa.DisplayMember = "TENKHOA";
             cmbKhoa.ValueMember = "TENSERVER";
-
+            cmbKhoa.SelectedIndex = Program.mKhoa;
             if (Program.KetNoi() == 0) {
                 MessageBox.Show("Lỗi lấy thông tin lớp!");
                 
             }
             LayThongTinLop("SELECT * FROM V_Lay_MALOP_TENLOP");
-            cmbLop.SelectedIndex = 1;
-            cmbLop.SelectedIndex = 0;
+            
             txtMaLop.Text = cmbLop.SelectedValue.ToString();
             // Chỉ có PGV mới được chuyển khoa để thao tác
             if (Program.mGroup == "PGV")
@@ -98,7 +98,8 @@ namespace QLDSV_TC
             dtpNgaySinh.EditValue = "";
             chkPhai.Checked = false;
             chkDaNghiHoc.Checked = false;
- 
+
+            txtMaLop.Text = cmbLop.SelectedValue.ToString();
 
             btnThem.Enabled = btnHieuChinh.Enabled
                 = btnXoa.Enabled = btnReload.Enabled
@@ -260,86 +261,27 @@ namespace QLDSV_TC
                 return;
             }
 
-
             // begin check maSV exist
             if (maSV != txtMaSV.Text)
             {
-                if (Program.KetNoi() == 0)
-                {
-                    MessageBox.Show("Không thể kết nối về cơ sở dữ liệu để kiểm tra tồn tại của mã sinh viên!", "", MessageBoxButtons.OK);
-                    return;
-                }
+
+                Program.KetNoi();
                 // Chạy sp kiểm tra sinh viên đã tồn tại ở 1 trong những phân mảnh hay chưa
-                int state = Program.ExecSqlNonQuery($"EXEC SP_KIEM_TRA_TON_TAI_MASV '{txtMaSV.Text}'");
+                int state = Program.ExecSqlNonQuery($"EXEC SP_KIEM_TRA_TON_TAI_MASV '{txtMaSV.Text.Trim()}'");
                 if (state != 0)
                 {
                     // Nếu state = 1 thì có nghĩa là
                     // database đã có sinh viên có mã được nhập 
+                    MessageBox.Show("Mã sinh viên đã tồn tại!", "", MessageBoxButtons.OK);
                     return;
                 }
 
-                // Phải kiểm tra ở những phân mảnh khác xem có tồn tại mã SV đó không
-                // gắn biến tạm cho servername của login đăng nhập
-                string temp = Program.servername;
-
-                // Lấy danh sách servername về để kết nối qua các phân mảnh khác
-                List<string> servernames = Program.LayTenServerTuCmbKhoa(cmbKhoa);
-
-                // Gắn tài khoản kết nối về HTKN
-                Program.mlogin = Program.remotelogin;
-                Program.password = Program.remotepassword;
-
-                // Chạy kết nối trên từng server (Mỗi server nhất định phải có tk HTKN)
-                foreach (string servername in servernames)
-                {
-                    if (servername != temp)
-                    {
-                        Program.servername = servername;
-                        if (Program.KetNoi() == 0)
-                        {
-                            MessageBox.Show("Lỗi kết nối tới các phân mảnh!", "", MessageBoxButtons.OK);
-                            return;
-                        }
-                        state = Program.ExecSqlNonQuery($"EXEC SP_KIEM_TRA_TON_TAI_MASV '{txtMaSV.Text}'");
-                        if (state != 0)
-                        {
-                            // Nếu đã maSV tồn tại thì messageBox sẽ báo lỗi ở câu lệnh ExecSqlNonQuery
-                            // Gán lại tên mlogin cho người đang sử dụng trước khi return
-                            Program.servername = temp;
-                            Program.mlogin = Program.mloginDN;
-                            Program.password = Program.passwordDN;
-                            return;
-                        }
-                    }
-                }
-
-                Program.servername = temp;
-                Program.mlogin = Program.mloginDN;
-                Program.password = Program.passwordDN;
-
-
-
-            }
-            // end check maSV exist
-            if (Validator.isEmptyText(txtMaLop.Text))
-            {
-                txtMaLop.Text = cmbLop.SelectedValue.ToString();
             }
 
             try
             {
-                if (Program.KetNoi() == 0)
-                {
-                    MessageBox.Show("Lỗi kết nối về cơ sở dữ liệu!", "", MessageBoxButtons.OK);
-                    return;
-                }
                 bdsSinhVien.EndEdit();
                 bdsSinhVien.ResetCurrentItem();
-                if (Program.KetNoi() == 0)
-                {
-                    return;
-                }   
-                
                 this.SINHVIENTableAdapter.Connection.ConnectionString = Program.connstr;
                 this.SINHVIENTableAdapter.Update(this.DS.SINHVIEN);
             } catch (Exception ex)
@@ -351,9 +293,19 @@ namespace QLDSV_TC
             gcSinhVien.Visible = true;
             btnThem.Enabled = btnHieuChinh.Enabled
                 = btnXoa.Enabled = btnReload.Enabled
-                = btnInDS.Enabled = btnThoat.Enabled = true;
+                = btnInDS.Enabled = btnThoat.Enabled 
+                = true;
 
             btnGhi.Enabled = btnPhucHoi.Enabled = false;
+
+            if (Program.mGroup == "PGV")
+            {
+                cmbKhoa.Enabled = true;
+            }
+            else
+            {
+                cmbKhoa.Enabled = false;
+            }
 
             panelControl2.Enabled = false;
         }

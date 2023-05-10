@@ -49,8 +49,7 @@ namespace QLDSV_TC
             cmbKhoa.DisplayMember = "TENKHOA";
             cmbKhoa.ValueMember = "TENSERVER";
 
-            cmbKhoa.SelectedIndex = 1;
-            cmbKhoa.SelectedIndex = 0;
+            cmbKhoa.SelectedIndex = Program.mKhoa;
 
 
             if (Program.mGroup == "PGV")
@@ -99,6 +98,7 @@ namespace QLDSV_TC
             string strLenh = $"EXEC SP_LAY_DSSV_DANGKY '{maLTC}'";
             dt_DS_DangKy = Program.ExecSqlDataTable(strLenh);
             gc_DS_DangKy.DataSource = dt_DS_DangKy;
+
 
 
             // Lấy đối tượng gv_DS_DangKy từ GridControl
@@ -240,6 +240,11 @@ namespace QLDSV_TC
             {
                 MessageBox.Show("Cập nhật điểm thất bại!\n" + ex.Message, "", MessageBoxButtons.OK);
             }
+        }
+
+        private void cmbKhoa_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            
         }
     }
 }

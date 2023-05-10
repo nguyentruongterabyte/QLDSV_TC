@@ -81,8 +81,8 @@
             this.chkPhai = new DevExpress.XtraEditors.CheckEdit();
             this.tableAdapterManager = new QLDSV_TC.DSTableAdapters.TableAdapterManager();
             this.bdsDangKy = new System.Windows.Forms.BindingSource(this.components);
-            this.DANGKYTableAdapter = new QLDSV_TC.DSTableAdapters.DANGKYTableAdapter();
             this.bar3 = new DevExpress.XtraBars.Bar();
+            this.DANGKYTableAdapter = new QLDSV_TC.DSTableAdapters.DANGKYTableAdapter();
             pHAILabel = new System.Windows.Forms.Label();
             dIACHILabel = new System.Windows.Forms.Label();
             nGAYSINHLabel = new System.Windows.Forms.Label();
@@ -114,7 +114,7 @@
             // pHAILabel
             // 
             pHAILabel.AutoSize = true;
-            pHAILabel.Location = new System.Drawing.Point(752, 98);
+            pHAILabel.Location = new System.Drawing.Point(752, 99);
             pHAILabel.Name = "pHAILabel";
             pHAILabel.Size = new System.Drawing.Size(34, 13);
             pHAILabel.TabIndex = 6;
@@ -123,7 +123,7 @@
             // dIACHILabel
             // 
             dIACHILabel.AutoSize = true;
-            dIACHILabel.Location = new System.Drawing.Point(362, 207);
+            dIACHILabel.Location = new System.Drawing.Point(362, 208);
             dIACHILabel.Name = "dIACHILabel";
             dIACHILabel.Size = new System.Drawing.Size(46, 13);
             dIACHILabel.TabIndex = 8;
@@ -132,7 +132,7 @@
             // nGAYSINHLabel
             // 
             nGAYSINHLabel.AutoSize = true;
-            nGAYSINHLabel.Location = new System.Drawing.Point(346, 98);
+            nGAYSINHLabel.Location = new System.Drawing.Point(346, 99);
             nGAYSINHLabel.Name = "nGAYSINHLabel";
             nGAYSINHLabel.Size = new System.Drawing.Size(58, 13);
             nGAYSINHLabel.TabIndex = 10;
@@ -141,7 +141,7 @@
             // mASVLabel
             // 
             mASVLabel.AutoSize = true;
-            mASVLabel.Location = new System.Drawing.Point(338, 46);
+            mASVLabel.Location = new System.Drawing.Point(338, 47);
             mASVLabel.Name = "mASVLabel";
             mASVLabel.Size = new System.Drawing.Size(70, 13);
             mASVLabel.TabIndex = 11;
@@ -150,7 +150,7 @@
             // hOLabel
             // 
             hOLabel.AutoSize = true;
-            hOLabel.Location = new System.Drawing.Point(626, 50);
+            hOLabel.Location = new System.Drawing.Point(626, 51);
             hOLabel.Name = "hOLabel";
             hOLabel.Size = new System.Drawing.Size(43, 13);
             hOLabel.TabIndex = 12;
@@ -159,7 +159,7 @@
             // mALOPLabel
             // 
             mALOPLabel.AutoSize = true;
-            mALOPLabel.Location = new System.Drawing.Point(371, 150);
+            mALOPLabel.Location = new System.Drawing.Point(371, 151);
             mALOPLabel.Name = "mALOPLabel";
             mALOPLabel.Size = new System.Drawing.Size(28, 13);
             mALOPLabel.TabIndex = 14;
@@ -168,7 +168,7 @@
             // dANGHIHOCLabel
             // 
             dANGHIHOCLabel.AutoSize = true;
-            dANGHIHOCLabel.Location = new System.Drawing.Point(718, 155);
+            dANGHIHOCLabel.Location = new System.Drawing.Point(718, 156);
             dANGHIHOCLabel.Name = "dANGHIHOCLabel";
             dANGHIHOCLabel.Size = new System.Drawing.Size(68, 13);
             dANGHIHOCLabel.TabIndex = 15;
@@ -183,7 +183,7 @@
             this.gcSinhVien.MainView = this.gv_DS_DangKy1;
             this.gcSinhVien.MenuManager = this.barManager1;
             this.gcSinhVien.Name = "gcSinhVien";
-            this.gcSinhVien.Size = new System.Drawing.Size(1208, 639);
+            this.gcSinhVien.Size = new System.Drawing.Size(1208, 331);
             this.gcSinhVien.TabIndex = 18;
             this.gcSinhVien.ViewCollection.AddRange(new DevExpress.XtraGrid.Views.Base.BaseView[] {
             this.gv_DS_DangKy1});
@@ -456,6 +456,7 @@
             // 
             // cmbKhoa
             // 
+            this.cmbKhoa.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cmbKhoa.FormattingEnabled = true;
             this.cmbKhoa.Location = new System.Drawing.Point(154, 12);
             this.cmbKhoa.Name = "cmbKhoa";
@@ -500,15 +501,16 @@
             this.panelControl2.Controls.Add(this.chkPhai);
             this.panelControl2.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panelControl2.Enabled = false;
-            this.panelControl2.Location = new System.Drawing.Point(0, 754);
+            this.panelControl2.Location = new System.Drawing.Point(0, 446);
             this.panelControl2.Name = "panelControl2";
-            this.panelControl2.Size = new System.Drawing.Size(1208, 0);
+            this.panelControl2.Size = new System.Drawing.Size(1208, 308);
             this.panelControl2.TabIndex = 23;
             // 
             // cmbLop
             // 
+            this.cmbLop.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cmbLop.FormattingEnabled = true;
-            this.cmbLop.Location = new System.Drawing.Point(414, 149);
+            this.cmbLop.Location = new System.Drawing.Point(414, 175);
             this.cmbLop.Name = "cmbLop";
             this.cmbLop.Size = new System.Drawing.Size(255, 21);
             this.cmbLop.TabIndex = 18;
@@ -610,10 +612,6 @@
             this.bdsDangKy.DataMember = "FK_CTLTC_SINHVIEN";
             this.bdsDangKy.DataSource = this.bdsSinhVien;
             // 
-            // DANGKYTableAdapter
-            // 
-            this.DANGKYTableAdapter.ClearBeforeFill = true;
-            // 
             // bar3
             // 
             this.bar3.BarName = "Status bar";
@@ -625,6 +623,10 @@
             this.bar3.OptionsBar.DrawDragBorder = false;
             this.bar3.OptionsBar.UseWholeRow = true;
             this.bar3.Text = "Status bar";
+            // 
+            // DANGKYTableAdapter
+            // 
+            this.DANGKYTableAdapter.ClearBeforeFill = true;
             // 
             // frmSinhVien
             // 
@@ -714,9 +716,9 @@
         private DevExpress.XtraEditors.TextEdit txtHo;
         private DevExpress.XtraEditors.TextEdit txtMaSV;
         private System.Windows.Forms.BindingSource bdsDangKy;
-        private DSTableAdapters.DANGKYTableAdapter DANGKYTableAdapter;
         private System.Windows.Forms.ComboBox cmbLop;
         private System.Windows.Forms.TextBox txtMaLop;
         private DevExpress.XtraBars.Bar bar3;
+        private DSTableAdapters.DANGKYTableAdapter DANGKYTableAdapter;
     }
 }

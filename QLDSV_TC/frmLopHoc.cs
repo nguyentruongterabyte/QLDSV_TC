@@ -45,7 +45,7 @@ namespace QLDSV_TC
             cmbKhoa.DataSource = Program.bds_dspm;
             cmbKhoa.DisplayMember = "TENKHOA";
             cmbKhoa.ValueMember = "TENSERVER";
-
+            cmbKhoa.SelectedIndex = Program.mKhoa;
             themKhoaHocVaoCmb();
             // Thêm thuộc tính này vào người dùng có thể nhập khoa học khác
             cmbKhoaHoc.DropDownStyle = ComboBoxStyle.DropDown;
@@ -213,69 +213,23 @@ namespace QLDSV_TC
             // begin check malop exist
             if (maLop != txtMaLop.Text)
             {
-                if (Program.KetNoi() == 0)
-                {
-                    MessageBox.Show("Không thể kết nối về cơ sở dữ liệu để kiểm tra tồn tại của mã lớp!", "", MessageBoxButtons.OK);
-                    return;
-                }
+                Program.KetNoi();
                 // Chạy sp kiểm tra lớp đã tồn tại ở 1 trong những phân mảnh hay chưa
                 int state = Program.ExecSqlNonQuery($"EXEC SP_KIEM_TRA_TON_TAI_MALOP '{txtMaLop.Text}'");
                 if (state != 0)
                 {
                     // Nếu state = 1 thì có nghĩa là
                     // database đã có sinh viên có mã được nhập 
+                    MessageBox.Show("Mã lớp đã tồn tại", "", MessageBoxButtons.OK);
                     return;
                 }
-
-                // Phải kiểm tra ở những phân mảnh khác xem có tồn tại mã lớp đó không
-                // gắn biến tạm cho servername của login đăng nhập
-                string temp = Program.servername;
-
-                // Lấy danh sách servername về để kết nối qua các phân mảnh khác
-                List<string> servernames = Program.LayTenServerTuCmbKhoa(cmbKhoa);
-
-                // Gắn tài khoản kết nối về HTKN
-                Program.mlogin = Program.remotelogin;
-                Program.password = Program.remotepassword;
-
-                // Chạy kết nối trên từng server (Mỗi server nhất định phải có tk HTKN)
-                foreach (string servername in servernames)
-                {
-                    if (servername != temp)
-                    {
-                        Program.servername = servername;
-                        if (Program.KetNoi() == 0)
-                        {
-                            MessageBox.Show("Lỗi kết nối tới các phân mảnh!", "", MessageBoxButtons.OK);
-                            return;
-                        }
-                        state = Program.ExecSqlNonQuery($"EXEC SP_KIEM_TRA_TON_TAI_MALOP '{txtMaLop.Text}'");
-                        if (state != 0)
-                        {
-                            // Nếu đã maSV tồn tại thì messageBox sẽ báo lỗi ở câu lệnh ExecSqlNonQuery
-                            // Gán lại tên mlogin cho người đang sử dụng trước khi return
-                            Program.servername = temp;
-                            Program.mlogin = Program.mloginDN;
-                            Program.password = Program.passwordDN;
-                            return;
-                        }
-                    }
-                }
-
-                Program.servername = temp;
-                Program.mlogin = Program.mloginDN;
-                Program.password = Program.passwordDN;
             }
             // end check maLop exist
-
+           
             try
             {
                 bdsLopHoc.EndEdit();
                 bdsSinhVien.ResetCurrentItem();
-                if (Program.KetNoi() == 0)
-                {
-                    return;
-                }
                 this.LOPHOCTableAdapter.Connection.ConnectionString = Program.connstr;
                 this.LOPHOCTableAdapter.Update(this.DS.LOP);
             } catch (Exception ex)
@@ -292,15 +246,22 @@ namespace QLDSV_TC
 
             btnGhi.Enabled = btnPhucHoi.Enabled = false;
 
+            if (Program.mGroup == "PGV")
+            {
+                cmbKhoa.Enabled = true;
+            } else
+            {
+                cmbKhoa.Enabled = false;
+            }
+
             panelControl2.Enabled = false;
         }
 
         private void cmbKhoa_SelectedIndexChanged(object sender, EventArgs e)
         {
             if (cmbKhoa.SelectedValue.ToString() == "System.Data.DataRowView")
-            {
                 return;
-            }
+            
               // Lấy dữ liệu servername để kết nối
             Program.servername = cmbKhoa.SelectedValue.ToString();
 
@@ -334,7 +295,7 @@ namespace QLDSV_TC
                 this.SINHVIENTableAdapter.Connection.ConnectionString = Program.connstr;
                 this.SINHVIENTableAdapter.Fill(this.DS.SINHVIEN);
 
-                
+                maKhoa = ((DataRowView)bdsLopHoc[0])["MAKHOA"].ToString();
             }
         }
     }

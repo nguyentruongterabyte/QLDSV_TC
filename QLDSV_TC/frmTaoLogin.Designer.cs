@@ -127,6 +127,7 @@
             // 
             // cmbRole
             // 
+            this.cmbRole.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cmbRole.FormattingEnabled = true;
             this.cmbRole.Location = new System.Drawing.Point(229, 141);
             this.cmbRole.Name = "cmbRole";
@@ -135,6 +136,7 @@
             // 
             // cmbUsername
             // 
+            this.cmbUsername.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cmbUsername.FormattingEnabled = true;
             this.cmbUsername.Location = new System.Drawing.Point(229, 91);
             this.cmbUsername.Name = "cmbUsername";

@@ -80,6 +80,8 @@
             // 
             // btnGhiDiem
             // 
+            this.btnGhiDiem.Appearance.BackColor = System.Drawing.Color.Cyan;
+            this.btnGhiDiem.Appearance.Options.UseBackColor = true;
             this.btnGhiDiem.Cursor = System.Windows.Forms.Cursors.Hand;
             this.btnGhiDiem.Location = new System.Drawing.Point(1095, 9);
             this.btnGhiDiem.Name = "btnGhiDiem";
@@ -90,6 +92,8 @@
             // 
             // btnNhapDiem
             // 
+            this.btnNhapDiem.Appearance.BackColor = System.Drawing.Color.Yellow;
+            this.btnNhapDiem.Appearance.Options.UseBackColor = true;
             this.btnNhapDiem.Cursor = System.Windows.Forms.Cursors.Hand;
             this.btnNhapDiem.Location = new System.Drawing.Point(976, 9);
             this.btnNhapDiem.Name = "btnNhapDiem";
@@ -100,8 +104,10 @@
             // 
             // btnTaiLTC
             // 
+            this.btnTaiLTC.Appearance.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(128)))), ((int)(((byte)(255)))), ((int)(((byte)(128)))));
+            this.btnTaiLTC.Appearance.Options.UseBackColor = true;
             this.btnTaiLTC.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.btnTaiLTC.Location = new System.Drawing.Point(854, 7);
+            this.btnTaiLTC.Location = new System.Drawing.Point(855, 9);
             this.btnTaiLTC.Name = "btnTaiLTC";
             this.btnTaiLTC.Size = new System.Drawing.Size(104, 32);
             this.btnTaiLTC.TabIndex = 7;
@@ -136,6 +142,7 @@
             // 
             // cmbNienKhoa
             // 
+            this.cmbNienKhoa.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cmbNienKhoa.FormattingEnabled = true;
             this.cmbNienKhoa.Location = new System.Drawing.Point(577, 11);
             this.cmbNienKhoa.Name = "cmbNienKhoa";
@@ -153,11 +160,13 @@
             // 
             // cmbKhoa
             // 
+            this.cmbKhoa.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cmbKhoa.FormattingEnabled = true;
             this.cmbKhoa.Location = new System.Drawing.Point(312, 11);
             this.cmbKhoa.Name = "cmbKhoa";
             this.cmbKhoa.Size = new System.Drawing.Size(164, 21);
             this.cmbKhoa.TabIndex = 1;
+            this.cmbKhoa.SelectedIndexChanged += new System.EventHandler(this.cmbKhoa_SelectedIndexChanged);
             // 
             // label1
             // 
