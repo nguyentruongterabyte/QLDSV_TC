@@ -9,6 +9,7 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
+using System.Data.SqlClient;
 using System.Drawing;
 using System.Linq;
 using System.Text;
@@ -149,24 +150,7 @@ namespace QLDSV_TC
                 GridColumn colDiemHMH = gv_DS_DangKy.Columns.AddVisible("DIEMHETMON", "Điểm hết môn");
             }
 
-            gv_DS_DangKy.CustomUnboundColumnData += (sder, ev) =>
-            {
-                if (ev.Column.FieldName == "DIEMHETMON" && ev.IsGetData)
-                {
-                    DataRowView row = gv_DS_DangKy.GetRow(ev.ListSourceRowIndex) as DataRowView;
-                    if (row != null)
-                    {
-                        // Lấy giá trị của các cột DIEM_CC, DIEM_GK, DIEM_CK trong cùng dòng
-                        float diemCC = Convert.ToSingle(row["DIEM_CC"]);
-                        float diemGK = Convert.ToSingle(row["DIEM_GK"]);
-                        float diemCK = Convert.ToSingle(row["DIEM_CK"]);
-
-                        // Tính toán giá trị cho cột DIEMHETMON
-                        float diemHM = diemCC * 0.1f + diemGK * 0.3f + diemCK * 0.6f;
-                        ev.Value = diemHM;
-                    }
-                }
-            };
+   
 
             gv_DS_DangKy.CellValueChanged += (sder, ev) =>
             {
@@ -210,5 +194,52 @@ namespace QLDSV_TC
 
         }
 
+        private void btnGhiDiem_Click(object sender, EventArgs e)
+        {
+            DataTable dt = new DataTable();
+            dt.Columns.Add("MALTC", typeof(int));
+            dt.Columns.Add("MASV", typeof(string));
+            dt.Columns.Add("DIEM_CC", typeof(int));
+            dt.Columns.Add("DIEM_GK", typeof(float));
+            dt.Columns.Add("DIEM_CK", typeof(float));
+
+            int maLTCint = int.Parse(maLTC);
+            for (int i = 0; i < dt_DS_DangKy.Rows.Count; i++)
+            {
+                dt.Rows.Add(
+                    maLTCint,
+                    dt_DS_DangKy.Rows[i]["MASV"],
+                    dt_DS_DangKy.Rows[i]["DIEM_CC"],
+                    dt_DS_DangKy.Rows[i]["DIEM_GK"],
+                    dt_DS_DangKy.Rows[i]["DIEM_CK"]
+                    );
+            }
+
+            try
+            {
+                SqlParameter para = new SqlParameter();
+                para.SqlDbType = SqlDbType.Structured;
+                para.TypeName = "dbo.TYPE_DANGKY";
+                para.ParameterName = "@DIEMTHI";
+                para.Value = dt;
+            
+                if (Program.KetNoi() == 0)
+                {
+                    MessageBox.Show("Lỗi kết nối về csdl!", "", MessageBoxButtons.OK);
+                    return;
+                }
+
+                SqlCommand sqlCommand = new SqlCommand("SP_CAP_NHAT_DIEM", Program.conn);
+                sqlCommand.Parameters.Clear();
+                sqlCommand.CommandType = CommandType.StoredProcedure;
+                sqlCommand.Parameters.Add(para);
+                sqlCommand.ExecuteNonQuery();
+                MessageBox.Show("Cập nhật thành công!", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
+
+            } catch (Exception ex)
+            {
+                MessageBox.Show("Cập nhật điểm thất bại!\n" + ex.Message, "", MessageBoxButtons.OK);
+            }
+        }
     }
 }

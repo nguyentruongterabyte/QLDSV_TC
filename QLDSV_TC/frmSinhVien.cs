@@ -328,6 +328,11 @@ namespace QLDSV_TC
 
             try
             {
+                if (Program.KetNoi() == 0)
+                {
+                    MessageBox.Show("Lỗi kết nối về cơ sở dữ liệu!", "", MessageBoxButtons.OK);
+                    return;
+                }
                 bdsSinhVien.EndEdit();
                 bdsSinhVien.ResetCurrentItem();
                 if (Program.KetNoi() == 0)

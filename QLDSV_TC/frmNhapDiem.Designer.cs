@@ -86,6 +86,7 @@
             this.btnGhiDiem.Size = new System.Drawing.Size(104, 31);
             this.btnGhiDiem.TabIndex = 6;
             this.btnGhiDiem.Text = "Ghi điểm";
+            this.btnGhiDiem.Click += new System.EventHandler(this.btnGhiDiem_Click);
             // 
             // btnNhapDiem
             // 
@@ -265,7 +266,7 @@
             this.Controls.Add(this.gridControl1);
             this.Controls.Add(this.panelControl1);
             this.Name = "frmNhapDiem";
-            this.Text = "frmNhapDiem";
+            this.Text = "Nhập điểm";
             this.Load += new System.EventHandler(this.frmNhapDiem_Load);
             ((System.ComponentModel.ISupportInitialize)(this.panelControl1)).EndInit();
             this.panelControl1.ResumeLayout(false);
