@@ -42,6 +42,8 @@
             this.gridControl1 = new DevExpress.XtraGrid.GridControl();
             this.bdsDSLTC = new System.Windows.Forms.BindingSource(this.components);
             this.DS = new QLDSV_TC.DS();
+            this.MenuStrip1 = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.refreshToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.gv_DS_DangKy1 = new DevExpress.XtraGrid.Views.Grid.GridView();
             this.colMALTC = new DevExpress.XtraGrid.Columns.GridColumn();
             this.colTENMH = new DevExpress.XtraGrid.Columns.GridColumn();
@@ -50,15 +52,18 @@
             this.SP_LAY_DS_LTCTableAdapter = new QLDSV_TC.DSTableAdapters.SP_LAY_DS_LTCTableAdapter();
             this.gc_DS_DangKy = new DevExpress.XtraGrid.GridControl();
             this.gv_DS_DangKy2 = new DevExpress.XtraGrid.Views.Grid.GridView();
+            this.panelControl2 = new DevExpress.XtraEditors.PanelControl();
             ((System.ComponentModel.ISupportInitialize)(this.panelControl1)).BeginInit();
             this.panelControl1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numHocKy)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.gridControl1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.bdsDSLTC)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.DS)).BeginInit();
+            this.MenuStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.gv_DS_DangKy1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.gc_DS_DangKy)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.gv_DS_DangKy2)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.panelControl2)).BeginInit();
             this.SuspendLayout();
             // 
             // panelControl1
@@ -75,7 +80,7 @@
             this.panelControl1.Dock = System.Windows.Forms.DockStyle.Top;
             this.panelControl1.Location = new System.Drawing.Point(0, 0);
             this.panelControl1.Name = "panelControl1";
-            this.panelControl1.Size = new System.Drawing.Size(1384, 43);
+            this.panelControl1.Size = new System.Drawing.Size(1384, 52);
             this.panelControl1.TabIndex = 0;
             // 
             // btnGhiDiem
@@ -181,10 +186,10 @@
             // 
             this.gridControl1.DataSource = this.bdsDSLTC;
             this.gridControl1.Dock = System.Windows.Forms.DockStyle.Left;
-            this.gridControl1.Location = new System.Drawing.Point(0, 43);
+            this.gridControl1.Location = new System.Drawing.Point(0, 52);
             this.gridControl1.MainView = this.gv_DS_DangKy1;
             this.gridControl1.Name = "gridControl1";
-            this.gridControl1.Size = new System.Drawing.Size(518, 429);
+            this.gridControl1.Size = new System.Drawing.Size(518, 702);
             this.gridControl1.TabIndex = 1;
             this.gridControl1.ViewCollection.AddRange(new DevExpress.XtraGrid.Views.Base.BaseView[] {
             this.gv_DS_DangKy1});
@@ -198,6 +203,22 @@
             // 
             this.DS.DataSetName = "DS";
             this.DS.SchemaSerializationMode = System.Data.SchemaSerializationMode.IncludeSchema;
+            // 
+            // MenuStrip1
+            // 
+            this.MenuStrip1.AllowDrop = true;
+            this.MenuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.refreshToolStripMenuItem});
+            this.MenuStrip1.Name = "MenuStrip1";
+            this.MenuStrip1.RenderMode = System.Windows.Forms.ToolStripRenderMode.System;
+            this.MenuStrip1.Size = new System.Drawing.Size(181, 48);
+            // 
+            // refreshToolStripMenuItem
+            // 
+            this.refreshToolStripMenuItem.Name = "refreshToolStripMenuItem";
+            this.refreshToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.refreshToolStripMenuItem.Text = "Refresh";
+            this.refreshToolStripMenuItem.Click += new System.EventHandler(this.refreshToolStripMenuItem_Click);
             // 
             // gv_DS_DangKy1
             // 
@@ -253,10 +274,11 @@
             // gc_DS_DangKy
             // 
             this.gc_DS_DangKy.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.gc_DS_DangKy.Location = new System.Drawing.Point(518, 43);
+            this.gc_DS_DangKy.EmbeddedNavigator.ImeMode = System.Windows.Forms.ImeMode.On;
+            this.gc_DS_DangKy.Location = new System.Drawing.Point(518, 52);
             this.gc_DS_DangKy.MainView = this.gv_DS_DangKy2;
             this.gc_DS_DangKy.Name = "gc_DS_DangKy";
-            this.gc_DS_DangKy.Size = new System.Drawing.Size(866, 429);
+            this.gc_DS_DangKy.Size = new System.Drawing.Size(866, 702);
             this.gc_DS_DangKy.TabIndex = 2;
             this.gc_DS_DangKy.ViewCollection.AddRange(new DevExpress.XtraGrid.Views.Base.BaseView[] {
             this.gv_DS_DangKy2});
@@ -266,14 +288,25 @@
             this.gv_DS_DangKy2.GridControl = this.gc_DS_DangKy;
             this.gv_DS_DangKy2.Name = "gv_DS_DangKy2";
             // 
+            // panelControl2
+            // 
+            this.panelControl2.ContextMenuStrip = this.MenuStrip1;
+            this.panelControl2.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.panelControl2.Location = new System.Drawing.Point(0, 0);
+            this.panelControl2.Name = "panelControl2";
+            this.panelControl2.Size = new System.Drawing.Size(1384, 754);
+            this.panelControl2.TabIndex = 4;
+            // 
             // frmNhapDiem
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1384, 472);
+            this.ClientSize = new System.Drawing.Size(1384, 754);
+            this.ContextMenuStrip = this.MenuStrip1;
             this.Controls.Add(this.gc_DS_DangKy);
             this.Controls.Add(this.gridControl1);
             this.Controls.Add(this.panelControl1);
+            this.Controls.Add(this.panelControl2);
             this.Name = "frmNhapDiem";
             this.Text = "Nhập điểm";
             this.Load += new System.EventHandler(this.frmNhapDiem_Load);
@@ -284,9 +317,11 @@
             ((System.ComponentModel.ISupportInitialize)(this.gridControl1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.bdsDSLTC)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.DS)).EndInit();
+            this.MenuStrip1.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.gv_DS_DangKy1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.gc_DS_DangKy)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.gv_DS_DangKy2)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.panelControl2)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -314,5 +349,8 @@
         private DSTableAdapters.SP_LAY_DS_LTCTableAdapter SP_LAY_DS_LTCTableAdapter;
         private DevExpress.XtraGrid.GridControl gc_DS_DangKy;
         private DevExpress.XtraGrid.Views.Grid.GridView gv_DS_DangKy2;
+        private System.Windows.Forms.ContextMenuStrip MenuStrip1;
+        private System.Windows.Forms.ToolStripMenuItem refreshToolStripMenuItem;
+        private DevExpress.XtraEditors.PanelControl panelControl2;
     }
 }

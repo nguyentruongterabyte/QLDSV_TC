@@ -62,7 +62,6 @@
             this.bdsLopHoc = new System.Windows.Forms.BindingSource(this.components);
             this.LOPHOCTableAdapter = new QLDSV_TC.DSTableAdapters.LOPTableAdapter();
             this.tableAdapterManager = new QLDSV_TC.DSTableAdapters.TableAdapterManager();
-            this.bdsSinhVien = new System.Windows.Forms.BindingSource(this.components);
             this.SINHVIENTableAdapter = new QLDSV_TC.DSTableAdapters.SINHVIENTableAdapter();
             this.gcLopHoc = new DevExpress.XtraGrid.GridControl();
             this.gv_DS_DangKy1 = new DevExpress.XtraGrid.Views.Grid.GridView();
@@ -75,6 +74,7 @@
             this.cmbKhoaHoc = new System.Windows.Forms.ComboBox();
             this.txtTenLop = new DevExpress.XtraEditors.TextEdit();
             this.txtMaLop = new DevExpress.XtraEditors.TextEdit();
+            this.bdsSinhVien = new System.Windows.Forms.BindingSource(this.components);
             mALOPLabel = new System.Windows.Forms.Label();
             tENLOPLabel = new System.Windows.Forms.Label();
             kHOAHOCLabel = new System.Windows.Forms.Label();
@@ -85,7 +85,6 @@
             ((System.ComponentModel.ISupportInitialize)(this.panelControl1)).BeginInit();
             this.panelControl1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.bdsLopHoc)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.bdsSinhVien)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.gcLopHoc)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.gv_DS_DangKy1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.panelControl2)).BeginInit();
@@ -93,6 +92,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.txtMaKhoa.Properties)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.txtTenLop.Properties)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.txtMaLop.Properties)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.bdsSinhVien)).BeginInit();
             this.SuspendLayout();
             // 
             // mALOPLabel
@@ -170,6 +170,7 @@
             this.btnThoat.ImageOptions.Image = ((System.Drawing.Image)(resources.GetObject("btnThoat.ImageOptions.Image")));
             this.btnThoat.ImageOptions.LargeImage = ((System.Drawing.Image)(resources.GetObject("btnThoat.ImageOptions.LargeImage")));
             this.btnThoat.Name = "btnThoat";
+            this.btnThoat.ItemClick += new DevExpress.XtraBars.ItemClickEventHandler(this.btnThoat_ItemClick);
             // 
             // bar2
             // 
@@ -387,11 +388,6 @@
             this.tableAdapterManager.SINHVIENTableAdapter = null;
             this.tableAdapterManager.UpdateOrder = QLDSV_TC.DSTableAdapters.TableAdapterManager.UpdateOrderOption.InsertUpdateDelete;
             // 
-            // bdsSinhVien
-            // 
-            this.bdsSinhVien.DataMember = "FK_SINHVIEN_LOP";
-            this.bdsSinhVien.DataSource = this.bdsLopHoc;
-            // 
             // SINHVIENTableAdapter
             // 
             this.SINHVIENTableAdapter.ClearBeforeFill = true;
@@ -513,6 +509,11 @@
             this.txtMaLop.Size = new System.Drawing.Size(122, 28);
             this.txtMaLop.TabIndex = 1;
             // 
+            // bdsSinhVien
+            // 
+            this.bdsSinhVien.DataMember = "FK_SINHVIEN_LOP";
+            this.bdsSinhVien.DataSource = this.bdsLopHoc;
+            // 
             // frmLopHoc
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -539,7 +540,6 @@
             this.panelControl1.ResumeLayout(false);
             this.panelControl1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.bdsLopHoc)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.bdsSinhVien)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.gcLopHoc)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.gv_DS_DangKy1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.panelControl2)).EndInit();
@@ -548,6 +548,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.txtMaKhoa.Properties)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.txtTenLop.Properties)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.txtMaLop.Properties)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.bdsSinhVien)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -583,7 +584,6 @@
         private System.Windows.Forms.BindingSource bdsLopHoc;
         private DSTableAdapters.LOPTableAdapter LOPHOCTableAdapter;
         private DSTableAdapters.TableAdapterManager tableAdapterManager;
-        private System.Windows.Forms.BindingSource bdsSinhVien;
         private DSTableAdapters.SINHVIENTableAdapter SINHVIENTableAdapter;
         private DevExpress.XtraEditors.PanelControl panelControl2;
         private DevExpress.XtraEditors.TextEdit txtMaKhoa;
@@ -596,5 +596,6 @@
         private DevExpress.XtraGrid.Columns.GridColumn colTENLOP;
         private DevExpress.XtraGrid.Columns.GridColumn colKHOAHOC;
         private DevExpress.XtraGrid.Columns.GridColumn colMAKHOA;
+        private System.Windows.Forms.BindingSource bdsSinhVien;
     }
 }

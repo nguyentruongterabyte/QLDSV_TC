@@ -272,7 +272,6 @@ namespace QLDSV_TC
                 {
                     // Nếu state = 1 thì có nghĩa là
                     // database đã có sinh viên có mã được nhập 
-                    MessageBox.Show("Mã sinh viên đã tồn tại!", "", MessageBoxButtons.OK);
                     return;
                 }
 
@@ -361,6 +360,19 @@ namespace QLDSV_TC
             if (cmbLop.SelectedValue.ToString() != "System.Data.DataRowView")
             {
                 txtMaLop.Text = cmbLop.SelectedValue.ToString();
+            }
+        }
+
+        private void btnThoat_ItemClick(object sender, DevExpress.XtraBars.ItemClickEventArgs e)
+        {
+            if (MessageBox.Show("Bạn có chắc muốn đóng cửa sổ sinh viên?",
+                   "Xác nhận",
+                   MessageBoxButtons.YesNo,
+                   MessageBoxIcon.Question,
+                   MessageBoxDefaultButton.Button1)
+                == System.Windows.Forms.DialogResult.Yes)
+            {
+                this.Close();
             }
         }
     }

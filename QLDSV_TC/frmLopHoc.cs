@@ -108,7 +108,7 @@ namespace QLDSV_TC
             bdsLopHoc.CancelEdit();
             if (btnThem.Enabled == false)
             {
-                bdsSinhVien.Position = vitri;
+                bdsLopHoc.Position = vitri;
             }
             gcLopHoc.Enabled = true;
 
@@ -139,6 +139,8 @@ namespace QLDSV_TC
             {
                 this.LOPHOCTableAdapter.Connection.ConnectionString = Program.connstr;
                 this.LOPHOCTableAdapter.Fill(this.DS.LOP);
+
+
             } catch(Exception ex)
             {
                 MessageBox.Show("Lỗi reload: " + ex.Message, "", MessageBoxButtons.OK);
@@ -220,7 +222,6 @@ namespace QLDSV_TC
                 {
                     // Nếu state = 1 thì có nghĩa là
                     // database đã có sinh viên có mã được nhập 
-                    MessageBox.Show("Mã lớp đã tồn tại", "", MessageBoxButtons.OK);
                     return;
                 }
             }
@@ -229,7 +230,7 @@ namespace QLDSV_TC
             try
             {
                 bdsLopHoc.EndEdit();
-                bdsSinhVien.ResetCurrentItem();
+                bdsLopHoc.ResetCurrentItem();
                 this.LOPHOCTableAdapter.Connection.ConnectionString = Program.connstr;
                 this.LOPHOCTableAdapter.Update(this.DS.LOP);
             } catch (Exception ex)
@@ -296,6 +297,19 @@ namespace QLDSV_TC
                 this.SINHVIENTableAdapter.Fill(this.DS.SINHVIEN);
 
                 maKhoa = ((DataRowView)bdsLopHoc[0])["MAKHOA"].ToString();
+            }
+        }
+
+        private void btnThoat_ItemClick(object sender, DevExpress.XtraBars.ItemClickEventArgs e)
+        {
+            if (MessageBox.Show("Bạn có chắc muốn đóng cửa sổ lớp học?",
+                 "Xác nhận",
+                 MessageBoxButtons.YesNo,
+                 MessageBoxIcon.Question,
+                 MessageBoxDefaultButton.Button1)
+              == System.Windows.Forms.DialogResult.Yes)
+            {
+                this.Close();
             }
         }
     }

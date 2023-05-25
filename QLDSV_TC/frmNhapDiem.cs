@@ -1,5 +1,6 @@
 ﻿using DevExpress.LookAndFeel.Helpers;
 using DevExpress.Utils.Gesture;
+using DevExpress.Utils.MVVM;
 using DevExpress.XtraEditors;
 using DevExpress.XtraEditors.Repository;
 using DevExpress.XtraExport.Helpers;
@@ -10,6 +11,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Data.SqlClient;
+using System.Diagnostics.Eventing.Reader;
 using System.Drawing;
 using System.Linq;
 using System.Text;
@@ -84,7 +86,7 @@ namespace QLDSV_TC
             }
 
         }
-
+        GridView gv_DS_DangKy = new GridView();
         private void btnNhapDiem_Click(object sender, EventArgs e)
         {
             if (bdsDSLTC.Position == -1)
@@ -97,12 +99,20 @@ namespace QLDSV_TC
             
             string strLenh = $"EXEC SP_LAY_DSSV_DANGKY '{maLTC}'";
             dt_DS_DangKy = Program.ExecSqlDataTable(strLenh);
+
+            // Thêm cột DIEMHETMON vào data table dt_DS_DangKy
+            dt_DS_DangKy.Columns.Add("DIEMHETMON", typeof(float));
             gc_DS_DangKy.DataSource = dt_DS_DangKy;
 
 
-
             // Lấy đối tượng gv_DS_DangKy từ GridControl
-            GridView gv_DS_DangKy = gc_DS_DangKy.MainView as GridView;
+            gv_DS_DangKy = gc_DS_DangKy.MainView as GridView;
+
+            // Thiết lập chế độ chỉ đọc cho cột điểm hết môn
+            gv_DS_DangKy.Columns["DIEMHETMON"].OptionsColumn.ReadOnly = true;
+            
+            // Thiết lập caption cho cột DIEMHETMON là Điểm hết môn
+            gv_DS_DangKy.Columns["DIEMHETMON"].Caption = "Điểm hết môn";
 
             // Thêm cột "MASV" và "HOTENSV" vào danh sách ReadOnlyColumns
             gv_DS_DangKy.Columns["MASV"].OptionsColumn.ReadOnly = true; // Bỏ chế độ ReadOnly cho cột "MASV"
@@ -135,65 +145,25 @@ namespace QLDSV_TC
             spnDiemCK.MaxValue = 10;
             colDiemCK.ColumnEdit = spnDiemCK;
 
-            bool diemHetMonExists = false;
-            foreach(GridColumn column in gv_DS_DangKy.Columns)
+
+            gv_DS_DangKy.Columns["DIEMHETMON"].OptionsColumn.ReadOnly = false;
+            for (int rowHandle = 0; rowHandle < gv_DS_DangKy.RowCount; rowHandle++)
             {
-                if (column.FieldName == "DIEMHETMON")
-                {
-                    diemHetMonExists = true;
-                    break;
-                }
+                object diemCCValue = gv_DS_DangKy.GetRowCellValue(rowHandle, "DIEM_CC");
+                object diemGKValue = gv_DS_DangKy.GetRowCellValue(rowHandle, "DIEM_GK");
+                object diemCKValue = gv_DS_DangKy.GetRowCellValue(rowHandle, "DIEM_CK");
+
+                float diemCC = (diemCCValue != DBNull.Value) ? Convert.ToSingle(diemCCValue) : 0;
+                float diemGK = (diemGKValue != DBNull.Value) ? Convert.ToSingle(diemGKValue) : 0;
+                float diemCK = (diemCKValue != DBNull.Value) ? Convert.ToSingle(diemCKValue) : 0;
+
+                float diemHMH = diemCC * 0.1f + diemGK * 0.3f + diemCK * 0.6f;
+
+                gv_DS_DangKy.SetRowCellValue(rowHandle, "DIEMHETMON", Math.Round(diemHMH, 1).ToString());
             }
-            if (!diemHetMonExists)
-            {
-                
-                GridColumn colDiemHMH = gv_DS_DangKy.Columns.AddVisible("DIEMHETMON", "Điểm hết môn");
-            }
-
-   
-
-            gv_DS_DangKy.CellValueChanged += (sder, ev) =>
-            {
-                float diemHMH;
-                if (ev.Column.FieldName == "DIEM_CC" || ev.Column.FieldName == "DIEM_GK" || ev.Column.FieldName == "DIEM_CK")
-                {
-                    float diemCC = 0;
-                    float diemGK = 0;
-                    float diemCK = 0;
-
-                    // Lấy giá trị từ các ô trong cột DIEM_CC, DIEM_GK, DIEM_CK tương ứng với hàng được thay đổi
-                    object diemCCObj = gv_DS_DangKy.GetRowCellValue(ev.RowHandle, "DIEM_CC");
-                    if (diemCCObj != DBNull.Value)
-                    {
-                        diemCC = Convert.ToSingle(diemCCObj);
-                    }
-
-                    object diemGKObj = gv_DS_DangKy.GetRowCellValue(ev.RowHandle, "DIEM_GK");
-                    if (diemGKObj != DBNull.Value)
-                    {
-                        diemGK = Convert.ToSingle(diemGKObj);
-                    }
-
-                    object diemCKObj = gv_DS_DangKy.GetRowCellValue(ev.RowHandle, "DIEM_CK");
-                    if (diemCKObj != DBNull.Value)
-                    {
-                        diemCK = Convert.ToSingle(diemCKObj);
-                    }
-
-                    // Tính điểm hết môn và gán giá trị vào cột DIEMHETMON
-                    
-                    diemHMH = diemCC * 0.1f + diemGK * 0.3f + diemCK * 0.6f;
-                    
-                    gv_DS_DangKy.SetRowCellValue(ev.RowHandle, "DIEMHETMON", "0");
-                   
-                    
-                }
-
-
-            };
-
+            gv_DS_DangKy.Columns["DIEMHETMON"].OptionsColumn.ReadOnly = true;
         }
-
+        
         private void btnGhiDiem_Click(object sender, EventArgs e)
         {
             DataTable dt = new DataTable();
@@ -244,7 +214,49 @@ namespace QLDSV_TC
 
         private void cmbKhoa_SelectedIndexChanged(object sender, EventArgs e)
         {
+            if (cmbKhoa.SelectedValue.ToString() == "System.Data.DataRowView")
+                return;
+            Program.servername = cmbKhoa.SelectedValue.ToString();
+
+            if (cmbKhoa.SelectedIndex != Program.mKhoa)
+            {
+                Program.mlogin = Program.remotelogin;
+                Program.password = Program.remotepassword;
+            } else
+            {
+                Program.mlogin = Program.mloginDN;
+                Program.password = Program.passwordDN;
+            }
             
+            if (Program.KetNoi() == 0)
+            {
+                MessageBox.Show("Lỗi kết nối về chi nhánh mới", "", MessageBoxButtons.OK);
+                return;
+            } else
+            {
+                this.SP_LAY_DS_LTCTableAdapter.Connection.ConnectionString = Program.connstr;
+                this.SP_LAY_DS_LTCTableAdapter.Fill(this.DS.SP_LAY_DS_LTC, cmbNienKhoa.Text, int.Parse(numHocKy.Text));
+            }
+        }
+
+        private void refreshToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            gv_DS_DangKy.Columns["DIEMHETMON"].OptionsColumn.ReadOnly = false;
+            for (int rowHandle = 0; rowHandle < gv_DS_DangKy.RowCount; rowHandle++)
+            {
+                object diemCCValue = gv_DS_DangKy.GetRowCellValue(rowHandle, "DIEM_CC");
+                object diemGKValue = gv_DS_DangKy.GetRowCellValue(rowHandle, "DIEM_GK");
+                object diemCKValue = gv_DS_DangKy.GetRowCellValue(rowHandle, "DIEM_CK");
+
+                float diemCC = (diemCCValue != DBNull.Value) ? Convert.ToSingle(diemCCValue) : 0;
+                float diemGK = (diemGKValue != DBNull.Value) ? Convert.ToSingle(diemGKValue) : 0;
+                float diemCK = (diemCKValue != DBNull.Value) ? Convert.ToSingle(diemCKValue) : 0;
+
+                float diemHMH = diemCC * 0.1f + diemGK * 0.3f + diemCK * 0.6f;
+
+                gv_DS_DangKy.SetRowCellValue(rowHandle, "DIEMHETMON", Math.Round(diemHMH, 1).ToString());
+            }
+            gv_DS_DangKy.Columns["DIEMHETMON"].OptionsColumn.ReadOnly = true;
         }
     }
 }

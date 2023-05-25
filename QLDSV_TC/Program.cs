@@ -39,7 +39,20 @@ namespace QLDSV_TC
         public static BindingSource bds_dspm = new BindingSource();
         public static frmMain frmChinh;
 
+        public static int CheckDataHelper(String query) // dùng để check dữ liệu 1 kết quả số nguyên
+        {
+            SqlDataReader dataReader = Program.ExecSqlDataReader(query);
 
+            // nếu null thì thoát luôn  ==> lỗi kết nối
+            if (dataReader == null)
+            {
+                return -1;
+            }
+            dataReader.Read();
+            int result = int.Parse(dataReader.GetValue(0).ToString());
+            dataReader.Close();
+            return result;
+        }
         public static void DangXuat()
         {
             // Set các ribbon về trạng thái Visible = false
