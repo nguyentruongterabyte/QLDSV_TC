@@ -628,6 +628,23 @@
             // 
             // panelControl3
             // 
+
+            // lOPTINCHIGridControl
+            // 
+            this.lOPTINCHIGridControl.DataSource = this.LtcBindingSource;
+            this.lOPTINCHIGridControl.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.lOPTINCHIGridControl.EmbeddedNavigator.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.lOPTINCHIGridControl.Location = new System.Drawing.Point(3, 16);
+            this.lOPTINCHIGridControl.MainView = this.gridView1;
+            this.lOPTINCHIGridControl.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.lOPTINCHIGridControl.MenuManager = this.barManager1;
+            this.lOPTINCHIGridControl.Name = "lOPTINCHIGridControl";
+            this.lOPTINCHIGridControl.Size = new System.Drawing.Size(1006, 238);
+            this.lOPTINCHIGridControl.TabIndex = 0;
+            this.lOPTINCHIGridControl.ViewCollection.AddRange(new DevExpress.XtraGrid.Views.Base.BaseView[] {
+            this.gridView1});
+            // 
+
             this.panelControl3.Controls.Add(this.cbxNienKhoa);
             this.panelControl3.Controls.Add(nIENKHOALabel);
             this.panelControl3.Controls.Add(this.label3);
@@ -740,5 +757,6 @@
         private System.Windows.Forms.CheckBox cbLtcDaHuy;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.ComboBox cbxCN;
+        private DevExpress.XtraGrid.GridControl lOPTINCHIGridControl;
     }
 }
