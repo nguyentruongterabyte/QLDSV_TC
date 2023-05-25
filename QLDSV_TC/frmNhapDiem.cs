@@ -91,7 +91,7 @@ namespace QLDSV_TC
         {
             if (bdsDSLTC.Position == -1)
             {
-                MessageBox.Show("Học kỳ thuộc niên khóa chưa có lớp tín chỉ!", "", MessageBoxButtons.OK);
+                MessageBox.Show("Học kỳ thuộc niên khóa chưa có lớp tín chỉ!\nHoặc chưa nhấn nút tải lớp tín chỉ", "", MessageBoxButtons.OK);
                 return;
             }
 
@@ -99,7 +99,11 @@ namespace QLDSV_TC
             
             string strLenh = $"EXEC SP_LAY_DSSV_DANGKY '{maLTC}'";
             dt_DS_DangKy = Program.ExecSqlDataTable(strLenh);
-
+            if (dt_DS_DangKy.Rows.Count == 0)
+            {
+                MessageBox.Show("Chưa có sinh viên trong lớp tín chỉ này!");
+                return;
+            }
             // Thêm cột DIEMHETMON vào data table dt_DS_DangKy
             dt_DS_DangKy.Columns.Add("DIEMHETMON", typeof(float));
             gc_DS_DangKy.DataSource = dt_DS_DangKy;
@@ -166,6 +170,8 @@ namespace QLDSV_TC
         
         private void btnGhiDiem_Click(object sender, EventArgs e)
         {
+            if (bdsDSLTC.Count == 0)
+                return;
             DataTable dt = new DataTable();
             dt.Columns.Add("MALTC", typeof(int));
             dt.Columns.Add("MASV", typeof(string));
@@ -241,22 +247,27 @@ namespace QLDSV_TC
 
         private void refreshToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            gv_DS_DangKy.Columns["DIEMHETMON"].OptionsColumn.ReadOnly = false;
-            for (int rowHandle = 0; rowHandle < gv_DS_DangKy.RowCount; rowHandle++)
+
+            if (bdsDSLTC.Count > 0)
             {
-                object diemCCValue = gv_DS_DangKy.GetRowCellValue(rowHandle, "DIEM_CC");
-                object diemGKValue = gv_DS_DangKy.GetRowCellValue(rowHandle, "DIEM_GK");
-                object diemCKValue = gv_DS_DangKy.GetRowCellValue(rowHandle, "DIEM_CK");
 
-                float diemCC = (diemCCValue != DBNull.Value) ? Convert.ToSingle(diemCCValue) : 0;
-                float diemGK = (diemGKValue != DBNull.Value) ? Convert.ToSingle(diemGKValue) : 0;
-                float diemCK = (diemCKValue != DBNull.Value) ? Convert.ToSingle(diemCKValue) : 0;
+                gv_DS_DangKy.Columns["DIEMHETMON"].OptionsColumn.ReadOnly = false;
+                for (int rowHandle = 0; rowHandle < gv_DS_DangKy.RowCount; rowHandle++)
+                {
+                    object diemCCValue = gv_DS_DangKy.GetRowCellValue(rowHandle, "DIEM_CC");
+                    object diemGKValue = gv_DS_DangKy.GetRowCellValue(rowHandle, "DIEM_GK");
+                    object diemCKValue = gv_DS_DangKy.GetRowCellValue(rowHandle, "DIEM_CK");
 
-                float diemHMH = diemCC * 0.1f + diemGK * 0.3f + diemCK * 0.6f;
+                    float diemCC = (diemCCValue != DBNull.Value) ? Convert.ToSingle(diemCCValue) : 0;
+                    float diemGK = (diemGKValue != DBNull.Value) ? Convert.ToSingle(diemGKValue) : 0;
+                    float diemCK = (diemCKValue != DBNull.Value) ? Convert.ToSingle(diemCKValue) : 0;
 
-                gv_DS_DangKy.SetRowCellValue(rowHandle, "DIEMHETMON", Math.Round(diemHMH, 1).ToString());
+                    float diemHMH = diemCC * 0.1f + diemGK * 0.3f + diemCK * 0.6f;
+
+                    gv_DS_DangKy.SetRowCellValue(rowHandle, "DIEMHETMON", Math.Round(diemHMH, 1).ToString());
+                }
+                gv_DS_DangKy.Columns["DIEMHETMON"].OptionsColumn.ReadOnly = true;
             }
-            gv_DS_DangKy.Columns["DIEMHETMON"].OptionsColumn.ReadOnly = true;
         }
     }
 }

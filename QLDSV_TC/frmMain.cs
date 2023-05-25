@@ -280,5 +280,20 @@ namespace QLDSV_TC
                 f.Show();
             }
         }
+
+        private void btnChuyenLop_ItemClick(object sender, DevExpress.XtraBars.ItemClickEventArgs e)
+        {
+            Form frm = this.CheckExists(typeof(frmChuyenLop));
+            if (frm != null)
+            {
+                frm.Activate();
+
+            } else
+            {
+                frmChuyenLop f = new frmChuyenLop();
+                f.MdiParent = this;
+                f.Show();
+            }
+        }
     }
 }

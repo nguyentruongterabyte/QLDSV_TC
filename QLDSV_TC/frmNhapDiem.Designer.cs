@@ -29,6 +29,7 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(frmNhapDiem));
             this.panelControl1 = new DevExpress.XtraEditors.PanelControl();
             this.btnGhiDiem = new DevExpress.XtraEditors.SimpleButton();
             this.btnNhapDiem = new DevExpress.XtraEditors.SimpleButton();
@@ -42,13 +43,13 @@
             this.gridControl1 = new DevExpress.XtraGrid.GridControl();
             this.bdsDSLTC = new System.Windows.Forms.BindingSource(this.components);
             this.DS = new QLDSV_TC.DS();
-            this.MenuStrip1 = new System.Windows.Forms.ContextMenuStrip(this.components);
-            this.refreshToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.gv_DS_DangKy1 = new DevExpress.XtraGrid.Views.Grid.GridView();
             this.colMALTC = new DevExpress.XtraGrid.Columns.GridColumn();
             this.colTENMH = new DevExpress.XtraGrid.Columns.GridColumn();
             this.colNHOM = new DevExpress.XtraGrid.Columns.GridColumn();
             this.colHOTEN = new DevExpress.XtraGrid.Columns.GridColumn();
+            this.MenuStrip1 = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.refreshToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.SP_LAY_DS_LTCTableAdapter = new QLDSV_TC.DSTableAdapters.SP_LAY_DS_LTCTableAdapter();
             this.gc_DS_DangKy = new DevExpress.XtraGrid.GridControl();
             this.gv_DS_DangKy2 = new DevExpress.XtraGrid.Views.Grid.GridView();
@@ -59,8 +60,8 @@
             ((System.ComponentModel.ISupportInitialize)(this.gridControl1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.bdsDSLTC)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.DS)).BeginInit();
-            this.MenuStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.gv_DS_DangKy1)).BeginInit();
+            this.MenuStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.gc_DS_DangKy)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.gv_DS_DangKy2)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.panelControl2)).BeginInit();
@@ -80,7 +81,7 @@
             this.panelControl1.Dock = System.Windows.Forms.DockStyle.Top;
             this.panelControl1.Location = new System.Drawing.Point(0, 0);
             this.panelControl1.Name = "panelControl1";
-            this.panelControl1.Size = new System.Drawing.Size(1384, 52);
+            this.panelControl1.Size = new System.Drawing.Size(1384, 62);
             this.panelControl1.TabIndex = 0;
             // 
             // btnGhiDiem
@@ -88,9 +89,10 @@
             this.btnGhiDiem.Appearance.BackColor = System.Drawing.Color.Cyan;
             this.btnGhiDiem.Appearance.Options.UseBackColor = true;
             this.btnGhiDiem.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.btnGhiDiem.Location = new System.Drawing.Point(1095, 9);
+            this.btnGhiDiem.ImageOptions.Image = ((System.Drawing.Image)(resources.GetObject("btnGhiDiem.ImageOptions.Image")));
+            this.btnGhiDiem.Location = new System.Drawing.Point(1095, 12);
             this.btnGhiDiem.Name = "btnGhiDiem";
-            this.btnGhiDiem.Size = new System.Drawing.Size(104, 31);
+            this.btnGhiDiem.Size = new System.Drawing.Size(104, 40);
             this.btnGhiDiem.TabIndex = 6;
             this.btnGhiDiem.Text = "Ghi điểm";
             this.btnGhiDiem.Click += new System.EventHandler(this.btnGhiDiem_Click);
@@ -100,9 +102,10 @@
             this.btnNhapDiem.Appearance.BackColor = System.Drawing.Color.Yellow;
             this.btnNhapDiem.Appearance.Options.UseBackColor = true;
             this.btnNhapDiem.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.btnNhapDiem.ImageOptions.Image = ((System.Drawing.Image)(resources.GetObject("btnNhapDiem.ImageOptions.Image")));
             this.btnNhapDiem.Location = new System.Drawing.Point(976, 9);
             this.btnNhapDiem.Name = "btnNhapDiem";
-            this.btnNhapDiem.Size = new System.Drawing.Size(104, 30);
+            this.btnNhapDiem.Size = new System.Drawing.Size(104, 43);
             this.btnNhapDiem.TabIndex = 8;
             this.btnNhapDiem.Text = "Nhập điểm";
             this.btnNhapDiem.Click += new System.EventHandler(this.btnNhapDiem_Click);
@@ -112,9 +115,10 @@
             this.btnTaiLTC.Appearance.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(128)))), ((int)(((byte)(255)))), ((int)(((byte)(128)))));
             this.btnTaiLTC.Appearance.Options.UseBackColor = true;
             this.btnTaiLTC.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.btnTaiLTC.ImageOptions.Image = ((System.Drawing.Image)(resources.GetObject("btnTaiLTC.ImageOptions.Image")));
             this.btnTaiLTC.Location = new System.Drawing.Point(855, 9);
             this.btnTaiLTC.Name = "btnTaiLTC";
-            this.btnTaiLTC.Size = new System.Drawing.Size(104, 32);
+            this.btnTaiLTC.Size = new System.Drawing.Size(104, 43);
             this.btnTaiLTC.TabIndex = 7;
             this.btnTaiLTC.Text = "Tải lớp tín chỉ";
             this.btnTaiLTC.Click += new System.EventHandler(this.btnTaiLTC_Click);
@@ -186,10 +190,10 @@
             // 
             this.gridControl1.DataSource = this.bdsDSLTC;
             this.gridControl1.Dock = System.Windows.Forms.DockStyle.Left;
-            this.gridControl1.Location = new System.Drawing.Point(0, 52);
+            this.gridControl1.Location = new System.Drawing.Point(0, 62);
             this.gridControl1.MainView = this.gv_DS_DangKy1;
             this.gridControl1.Name = "gridControl1";
-            this.gridControl1.Size = new System.Drawing.Size(518, 702);
+            this.gridControl1.Size = new System.Drawing.Size(518, 692);
             this.gridControl1.TabIndex = 1;
             this.gridControl1.ViewCollection.AddRange(new DevExpress.XtraGrid.Views.Base.BaseView[] {
             this.gv_DS_DangKy1});
@@ -203,22 +207,6 @@
             // 
             this.DS.DataSetName = "DS";
             this.DS.SchemaSerializationMode = System.Data.SchemaSerializationMode.IncludeSchema;
-            // 
-            // MenuStrip1
-            // 
-            this.MenuStrip1.AllowDrop = true;
-            this.MenuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.refreshToolStripMenuItem});
-            this.MenuStrip1.Name = "MenuStrip1";
-            this.MenuStrip1.RenderMode = System.Windows.Forms.ToolStripRenderMode.System;
-            this.MenuStrip1.Size = new System.Drawing.Size(181, 48);
-            // 
-            // refreshToolStripMenuItem
-            // 
-            this.refreshToolStripMenuItem.Name = "refreshToolStripMenuItem";
-            this.refreshToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
-            this.refreshToolStripMenuItem.Text = "Refresh";
-            this.refreshToolStripMenuItem.Click += new System.EventHandler(this.refreshToolStripMenuItem_Click);
             // 
             // gv_DS_DangKy1
             // 
@@ -267,6 +255,23 @@
             this.colHOTEN.VisibleIndex = 3;
             this.colHOTEN.Width = 176;
             // 
+            // MenuStrip1
+            // 
+            this.MenuStrip1.AllowDrop = true;
+            this.MenuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.refreshToolStripMenuItem});
+            this.MenuStrip1.Name = "MenuStrip1";
+            this.MenuStrip1.RenderMode = System.Windows.Forms.ToolStripRenderMode.System;
+            this.MenuStrip1.Size = new System.Drawing.Size(181, 48);
+            // 
+            // refreshToolStripMenuItem
+            // 
+            this.refreshToolStripMenuItem.Image = global::QLDSV_TC.Properties.Resources.icons8_refresh_48;
+            this.refreshToolStripMenuItem.Name = "refreshToolStripMenuItem";
+            this.refreshToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.refreshToolStripMenuItem.Text = "Refresh";
+            this.refreshToolStripMenuItem.Click += new System.EventHandler(this.refreshToolStripMenuItem_Click);
+            // 
             // SP_LAY_DS_LTCTableAdapter
             // 
             this.SP_LAY_DS_LTCTableAdapter.ClearBeforeFill = true;
@@ -275,10 +280,10 @@
             // 
             this.gc_DS_DangKy.Dock = System.Windows.Forms.DockStyle.Fill;
             this.gc_DS_DangKy.EmbeddedNavigator.ImeMode = System.Windows.Forms.ImeMode.On;
-            this.gc_DS_DangKy.Location = new System.Drawing.Point(518, 52);
+            this.gc_DS_DangKy.Location = new System.Drawing.Point(518, 62);
             this.gc_DS_DangKy.MainView = this.gv_DS_DangKy2;
             this.gc_DS_DangKy.Name = "gc_DS_DangKy";
-            this.gc_DS_DangKy.Size = new System.Drawing.Size(866, 702);
+            this.gc_DS_DangKy.Size = new System.Drawing.Size(866, 692);
             this.gc_DS_DangKy.TabIndex = 2;
             this.gc_DS_DangKy.ViewCollection.AddRange(new DevExpress.XtraGrid.Views.Base.BaseView[] {
             this.gv_DS_DangKy2});
@@ -317,8 +322,8 @@
             ((System.ComponentModel.ISupportInitialize)(this.gridControl1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.bdsDSLTC)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.DS)).EndInit();
-            this.MenuStrip1.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.gv_DS_DangKy1)).EndInit();
+            this.MenuStrip1.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.gc_DS_DangKy)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.gv_DS_DangKy2)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.panelControl2)).EndInit();

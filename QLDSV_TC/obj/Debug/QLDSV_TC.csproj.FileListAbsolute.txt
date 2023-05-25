@@ -53,3 +53,4 @@ C:\Users\Administrator\Source\Repos\QLDSV_TC\QLDSV_TC\bin\Debug\DevExpress.Image
 C:\Users\Administrator\Source\Repos\QLDSV_TC\QLDSV_TC\obj\Debug\QLDSV_TC.frmLopHoc.resources
 C:\Users\Administrator\Source\Repos\QLDSV_TC\QLDSV_TC\obj\Debug\QLDSV_TC.frmHocPhi.resources
 C:\Users\Administrator\Source\Repos\QLDSV_TC\QLDSV_TC\obj\Debug\QLDSV_TC.frmLtc.resources
+C:\Users\Administrator\Source\Repos\QLDSV_TC\QLDSV_TC\obj\Debug\QLDSV_TC.frmChuyenLop.resources

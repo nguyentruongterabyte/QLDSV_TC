@@ -43,6 +43,7 @@
             this.btnHocPhi = new DevExpress.XtraBars.BarButtonItem();
             this.btnDangKy = new DevExpress.XtraBars.BarButtonItem();
             this.btnDoiMK = new DevExpress.XtraBars.BarButtonItem();
+            this.btnChuyenLop = new DevExpress.XtraBars.BarButtonItem();
             this.ribHeThong = new DevExpress.XtraBars.Ribbon.RibbonPage();
             this.ribbonPageGroup1 = new DevExpress.XtraBars.Ribbon.RibbonPageGroup();
             this.ribbonPageGroup3 = new DevExpress.XtraBars.Ribbon.RibbonPageGroup();
@@ -85,10 +86,11 @@
             this.btnDiem,
             this.btnHocPhi,
             this.btnDangKy,
-            this.btnDoiMK});
+            this.btnDoiMK,
+            this.btnChuyenLop});
             this.ribbonControl1.Location = new System.Drawing.Point(0, 0);
             this.ribbonControl1.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
-            this.ribbonControl1.MaxItemId = 14;
+            this.ribbonControl1.MaxItemId = 15;
             this.ribbonControl1.Name = "ribbonControl1";
             this.ribbonControl1.OptionsMenuMinWidth = 385;
             this.ribbonControl1.Pages.AddRange(new DevExpress.XtraBars.Ribbon.RibbonPage[] {
@@ -205,6 +207,15 @@
             this.btnDoiMK.Name = "btnDoiMK";
             this.btnDoiMK.ItemClick += new DevExpress.XtraBars.ItemClickEventHandler(this.btnDoiMK_ItemClick);
             // 
+            // btnChuyenLop
+            // 
+            this.btnChuyenLop.Caption = "Chuyển lớp";
+            this.btnChuyenLop.Id = 14;
+            this.btnChuyenLop.ImageOptions.Image = ((System.Drawing.Image)(resources.GetObject("btnChuyenLop.ImageOptions.Image")));
+            this.btnChuyenLop.ImageOptions.LargeImage = ((System.Drawing.Image)(resources.GetObject("btnChuyenLop.ImageOptions.LargeImage")));
+            this.btnChuyenLop.Name = "btnChuyenLop";
+            this.btnChuyenLop.ItemClick += new DevExpress.XtraBars.ItemClickEventHandler(this.btnChuyenLop_ItemClick);
+            // 
             // ribHeThong
             // 
             this.ribHeThong.Groups.AddRange(new DevExpress.XtraBars.Ribbon.RibbonPageGroup[] {
@@ -246,6 +257,7 @@
             // 
             this.ribbonPageGroup5.ItemLinks.Add(this.btnLopTinChi);
             this.ribbonPageGroup5.ItemLinks.Add(this.btnDiem);
+            this.ribbonPageGroup5.ItemLinks.Add(this.btnChuyenLop);
             this.ribbonPageGroup5.Name = "ribbonPageGroup5";
             // 
             // ribbonPageGroup6
@@ -390,6 +402,7 @@
         public System.Windows.Forms.ToolStripStatusLabel lbHoTen;
         public System.Windows.Forms.ToolStripStatusLabel lbMa;
         public System.Windows.Forms.ToolStripStatusLabel lbNhom;
+        private DevExpress.XtraBars.BarButtonItem btnChuyenLop;
     }
 }
 

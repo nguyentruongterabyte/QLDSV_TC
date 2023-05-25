@@ -1,9 +1,8 @@
-﻿using DevExpress.DXTemplateGallery.Extensions;
+﻿using DevExpress.XtraBars;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
-using System.Data.SqlClient;
 using System.Drawing;
 using System.Linq;
 using System.Text;
@@ -12,367 +11,230 @@ using System.Windows.Forms;
 
 namespace QLDSV_TC
 {
-
     public partial class frmSinhVien : DevExpress.XtraEditors.XtraForm
     {
-
-        
-        int vitri = 0;
-        string maSV = "";
+        private bool check_select = false;
+        private String mLop = "";
+        private String hanhDong = "";
         public frmSinhVien()
         {
             InitializeComponent();
         }
 
-        private void LayThongTinLop(String cmd)
+        private void lOPBindingNavigatorSaveItem_Click(object sender, EventArgs e)
         {
-            DataTable dt = new DataTable();
-            if (Program.conn.State == ConnectionState.Closed)
-            {
-                Program.conn.Open();
-            }
-
-            SqlDataAdapter da = new SqlDataAdapter(cmd, Program.conn);
-            da.Fill(dt);
-            Program.conn.Close();
-
-            cmbLop.DataSource = dt;
-            cmbLop.DisplayMember = "TENLOP";
-            cmbLop.ValueMember = "MALOP";
-            
+            this.Validate();
+            this.lOPBindingSource.EndEdit();
+            this.tableAdapterManager.UpdateAll(this.dS);
 
         }
 
         private void frmSinhVien_Load(object sender, EventArgs e)
         {
-
-
-            DS.EnforceConstraints = false;
-
-            // Sau này có trường hợp tài khoản được kết nối với dataset có thể đổi
-            // lại mật khẩu thì sẽ báo lỗi 
-            // nên phải dùng tài khoản đang login để tableAdapter kết nối
-            this.SINHVIENTableAdapter.Connection.ConnectionString = Program.connstr;
-            this.SINHVIENTableAdapter.Fill(this.DS.SINHVIEN);
-
-            this.DANGKYTableAdapter.Connection.ConnectionString = Program.connstr;
-            this.DANGKYTableAdapter.Fill(this.DS.DANGKY);
-
-            Program.XoaItemPKT();
-            cmbKhoa.DataSource = Program.bds_dspm; // sao chép bds_dspm đã load ở form đăng nhập           
-            cmbKhoa.DisplayMember = "TENKHOA";
-            cmbKhoa.ValueMember = "TENSERVER";
-            cmbKhoa.SelectedIndex = Program.mKhoa;
-            if (Program.KetNoi() == 0) {
-                MessageBox.Show("Lỗi lấy thông tin lớp!");
-                
-            }
-            LayThongTinLop("SELECT * FROM V_Lay_MALOP_TENLOP");
+            dS.EnforceConstraints = false;
             
-            txtMaLop.Text = cmbLop.SelectedValue.ToString();
-            // Chỉ có PGV mới được chuyển khoa để thao tác
-            if (Program.mGroup == "PGV")
+            // TODO: This line of code loads data into the 'dS.LOP' table. You can move, or remove it, as needed.
+            this.lOPTableAdapter.Fill(this.dS.LOP);
+
+            // TODO: This line of code loads data into the 'dS.SINHVIEN' table. You can move, or remove it, as needed.
+            this.sINHVIENTableAdapter.Fill(this.dS.SINHVIEN);
+
+            // TODO: This line of code loads data into the 'dS.DANGKY' table. You can move, or remove it, as needed.
+            this.dANGKYTableAdapter.Fill(this.dS.DANGKY);
+
+            cbxCN.DataSource = Program.bds_dspm; // sao chép ở frmDangNhap
+            cbxCN.DisplayMember = "TENKHOA";
+            cbxCN.ValueMember = "TENSERVER";
+            cbxCN.SelectedIndex = Program.mKhoa;
+
+            if (Program.mGroup == "KHOA")
             {
-                cmbKhoa.Enabled = true;
-            } 
-            else
-            {
-                cmbKhoa.Enabled = false;
+                cbxCN.Enabled = false;
             }
         }
 
-
-
-        private void btnThem_ItemClick(object sender, DevExpress.XtraBars.ItemClickEventArgs e)
+        private void cbxCN_SelectedIndexChanged(object sender, EventArgs e)
         {
-            // Phải giữ lại vị trí để khi thêm mới 
-            // ta nhấn nút undo thì nó sẽ trở lại mẫu 
-            // tin thứ i
-            vitri = bdsSinhVien.Position;
-            panelControl2.Enabled = true;
-            bdsSinhVien.AddNew();
+            // xử lí để không cbx không tự động chọn
+            if (cbxCN.SelectedIndex != 0)
+            {
+                check_select = true;
+            }
+            //lấy tài khoản login để đăng nhập qua site khác
+            if (check_select == true)
+            {
+                if (cbxCN.SelectedIndex != Program.mKhoa)
+                {
+                    Program.mlogin = Program.remotelogin;
+                    Program.password = Program.remotepassword;
+                }
+                else
+                {
+                    Program.mlogin = Program.mloginDN;
+                    Program.password = Program.passwordDN;
+                }
 
-            // Khi click chuột vào nút thêm thì lưu lại sự kiện để 
-            
+                Program.servername = cbxCN.SelectedValue.ToString();
 
-            dtpNgaySinh.EditValue = "";
-            chkPhai.Checked = false;
-            chkDaNghiHoc.Checked = false;
+                if (Program.KetNoi() == 0)
+                {
+                    MessageBox.Show("Lỗi kết nối về chi nhánh mới", "", MessageBoxButtons.OK);
+                }
+                else
+                {
+                    this.lOPTableAdapter.Connection.ConnectionString = Program.connstr; // Tạo kết nối để sau này thay đổi mật khẩu dữ liệu k bị lỗi
+                    this.lOPTableAdapter.Fill(this.dS.LOP);
 
-            txtMaLop.Text = cmbLop.SelectedValue.ToString();
-
-            btnThem.Enabled = btnHieuChinh.Enabled
-                = btnXoa.Enabled = btnReload.Enabled
-                = btnInDS.Enabled = btnThoat.Enabled
-                = cmbKhoa.Enabled = false;
-
-            btnGhi.Enabled = btnPhucHoi.Enabled = true;
-
-            gcSinhVien.Enabled = false;
-            gcSinhVien.Visible = false;
+                    this.sINHVIENTableAdapter.Connection.ConnectionString = Program.connstr;
+                    this.sINHVIENTableAdapter.Fill(this.dS.SINHVIEN);
+                }
+            }
         }
 
-        private void btnPhucHoi_ItemClick(object sender, DevExpress.XtraBars.ItemClickEventArgs e)
+        private void EnableButton(bool b)
         {
-            
-            bdsSinhVien.CancelEdit();
-            if (btnThem.Enabled == false)
-            {
-                bdsSinhVien.Position = vitri;
-            }
-            gcSinhVien.Enabled = true;
-            gcSinhVien.Visible = true;
-            
-            panelControl2.Enabled = false;
+            // phần 1
+            gbThem.Enabled = b;
+            btnGhi.Enabled = btnHuy.Enabled = b;
 
-            maSV = "";
-
-            btnThem.Enabled = btnHieuChinh.Enabled 
-                = btnXoa.Enabled = btnReload.Enabled
-                = btnInDS.Enabled = btnThoat.Enabled = true;
-
-            if (Program.mGroup == "PGV")
-            {
-                cmbKhoa.Enabled = true;
-            } else
-            {
-                cmbKhoa.Enabled = false;
-            }
-            
-            btnGhi.Enabled = btnPhucHoi.Enabled = false;
+            //phần 2
+            lOPGridControl.Enabled = sINHVIENGridControl.Enabled = !b;
+            btnThem.Enabled = btnSua.Enabled = btnXoa.Enabled = btnPhucHoi.Enabled = btnLamMoi.Enabled = !b;
+            cbxCN.Enabled = !b;
         }
 
-        private void btnHieuChinh_ItemClick(object sender, DevExpress.XtraBars.ItemClickEventArgs e)
+        private void btnThem_ItemClick(object sender, ItemClickEventArgs e)
         {
-            // Lấy vị trí của sinh viên được sửa thông tin
-            // để sau khi sửa xong lưu lại (hoặc nhấn nút phục hồi)
-            // lấy vitri chỉ đến sinh viên vừa được chọn
-            vitri = bdsSinhVien.Position;
-            maSV = txtMaSV.Text;
-            //
-            int idxLopHienTai = cmbLop.FindStringExact(txtMaLop.Text);
-            if (idxLopHienTai >= 0)
-            {
-                cmbLop.SelectedIndex = idxLopHienTai;
-            }
-
-            panelControl2.Enabled = true;
-
-            btnThem.Enabled = btnHieuChinh.Enabled
-                = btnXoa.Enabled = btnReload.Enabled
-                = btnInDS.Enabled = btnThoat.Enabled
-                = cmbKhoa.Enabled = false;
-
-            btnGhi.Enabled = btnPhucHoi.Enabled = true;
-
-            gcSinhVien.Enabled = false;
-            gcSinhVien.Visible = false;
+            mLop = ((DataRowView)lOPBindingSource[lOPBindingSource.Position])["MALOP"].ToString();
+            EnableButton(true);
+            this.sINHVIENBindingSource.AddNew();
+            txtMaLop.Text = mLop;
+            hanhDong = "ADD";
         }
 
-        private void btnReload_ItemClick(object sender, DevExpress.XtraBars.ItemClickEventArgs e)
+        private void btnSua_ItemClick(object sender, ItemClickEventArgs e)
         {
-            // Dữ liệu phân tán được dùng ở nhiều nơi nên
-            // đôi khi ta phải nhấn reload để tải dữ liệu 
-            // mà được người khác sử dụng về
+            mLop = ((DataRowView)lOPBindingSource[lOPBindingSource.Position])["MALOP"].ToString();
+            EnableButton(true);
+            txtMaLop.Text = mLop;
+            hanhDong = "UPDATE";
+        }
+
+        private void btnGhi_ItemClick(object sender, ItemClickEventArgs e)
+        {
+            // Thiếu kiểm tra các txt.Text
+            if (hanhDong == "ADD" && CheckIDSinhVien() == false) // dữ liệu chưa phù hợp
+            {
+                return;
+            }
             try
             {
-                this.SINHVIENTableAdapter.Connection.ConnectionString = Program.connstr;
-                this.SINHVIENTableAdapter.Fill(this.DS.SINHVIEN);
-            } catch (Exception ex)
-            {
-                MessageBox.Show("Lỗi reload: " + ex.Message, "", MessageBoxButtons.OK);
-                return;
+                this.sINHVIENBindingSource.EndEdit();
+                this.sINHVIENBindingSource.ResetCurrentItem();
+                this.sINHVIENTableAdapter.Update(this.dS.SINHVIEN);
             }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Lỗi ghi sinh viên!!\n" + ex.Message, "", MessageBoxButtons.OK);
+            }
+
+            this.EnableButton(false);
         }
 
-        private void btnXoa_ItemClick(object sender, DevExpress.XtraBars.ItemClickEventArgs e)
+        private bool CheckIDSinhVien()
         {
-         
-            if (bdsDangKy.Count > 0)
+            if (txtMaSV.Text == "")
             {
-                MessageBox.Show("Không thể xóa sinh viên này vì sinh viên đã đăng ký lớp tín chỉ", "", MessageBoxButtons.OK);
+                MessageBox.Show("Vui lòng nhập đầy đủ thông tin", "", MessageBoxButtons.OK);
+                return false;
+            }
+            // Kiểm tra trùng mã lớp
+            string query1 = "DECLARE  @return_value int \n"
+                            + "EXEC  @return_value = SP_KIEM_TRA_TON_TAI_MASV \n"
+                            + "@MASV = N'" + txtMaSV.Text + "' \n"
+                            + "SELECT  'Return Value' = @return_value ";
+            int resultMa = Program.CheckDataHelper(query1);
+            if (resultMa == -1)
+            {
+                MessageBox.Show("Lỗi kết nối với database. Mời ban xem lại !", "", MessageBoxButtons.OK);
+                return false;
+            }
+            if (resultMa == 1)
+            {
+                return false;
+            }
+            
+
+            return true;
+        }
+
+        private void btnXoa_ItemClick(object sender, ItemClickEventArgs e)
+        {
+            if (dANGKYBindingSource.Count > 0)
+            {
+                MessageBox.Show("Không thể xóa sinh viên này vì đã đăng kí Lớp tín chỉ ",
+                    "", MessageBoxButtons.OK);
                 return;
             }
-
-            if (MessageBox.Show("Bạn có chắc muốn xóa sinh viên này?",
-                   "Xác nhận",
-                   MessageBoxButtons.YesNo,
-                   MessageBoxIcon.Question,
-                   MessageBoxDefaultButton.Button1)
-                == System.Windows.Forms.DialogResult.Yes) {
+            if (MessageBox.Show("Bạn có thực sự muốn xóa sinh viên này ?",
+                "Xác nhận", MessageBoxButtons.OKCancel) == DialogResult.OK)
+            {
                 try
                 {
-                    maSV = ((DataRowView)bdsSinhVien[bdsSinhVien.Position])["MASV"].ToString();
-                    // Xóa trên giao diện trước
-                    bdsSinhVien.RemoveCurrent();
-                    
-                    // Cập nhật trên database sau
-                    this.SINHVIENTableAdapter.Connection.ConnectionString = Program.connstr;
-                    this.SINHVIENTableAdapter.Update(this.DS.SINHVIEN);
-
-                    // Thực hiện reload
-                    btnReload.PerformClick();
-                } catch (Exception ex)
+                    sINHVIENBindingSource.RemoveCurrent(); // Xóa ở máy hiện tại trước
+                    this.sINHVIENTableAdapter.Update(this.dS.SINHVIEN);
+                }
+                catch (Exception ex)
                 {
-                    MessageBox.Show("Lỗi xóa sinh viên!\n" + ex.Message, "", MessageBoxButtons.OK);
-                    // Khi mình xóa nhân viên ở giao diện
-                    // mà gặp lỗi nào đó không xóa được 
-                    // ở trên database thì phải fill lại 
-                    // sinh viên ở giao diện để tránh mâu thuẫn
-                    this.SINHVIENTableAdapter.Fill(this.DS.SINHVIEN);
-                    bdsSinhVien.Position = bdsSinhVien.Find("MASV", maSV);
+                    MessageBox.Show("Lỗi xóa sinh viên của hệ thống. Hãy xóa lại\n" + ex.Message,
+                    "", MessageBoxButtons.OK);
+                    // Load lại danh sách nhân viên, vì có thể xóa trên giao diện nhưng chưa xóa trên db
+                    this.sINHVIENTableAdapter.Fill(this.dS.SINHVIEN);
                     return;
                 }
             }
-            if (bdsSinhVien.Count == 0) btnXoa.Enabled = false;
         }
 
-        private void btnGhi_ItemClick(object sender, DevExpress.XtraBars.ItemClickEventArgs e)
+        private void btnHuy_ItemClick(object sender, ItemClickEventArgs e)
         {
-            if (Validator.isEmptyText(txtMaSV.Text))
-            {
-                MessageBox.Show("Không được để trống mã sinh viên!", "", MessageBoxButtons.OK);
-                txtMaSV.Focus();
-                return;
-            }
-            if (Validator.isContainSpecialCharacters(txtMaSV.Text))
-            {
-                MessageBox.Show("Mã sinh viên không được chứa ký tự đặc biệt hoặc khoảng trắng");
-                txtMaSV.Focus();
-                return;
-            }
-            if (Validator.isEmptyText(txtHo.Text))
-            {
-                MessageBox.Show("Không được để trống ô họ, tên lót!", "", MessageBoxButtons.OK);
-                txtHo.Focus();
-                return;
-            }
-            if (Validator.isEmptyText(txtTen.Text))
-            {
-                MessageBox.Show("Không được để trống ô tên!", "", MessageBoxButtons.OK);
-                txtTen.Focus();
-                return;
-            }
+            this.sINHVIENBindingSource.CancelEdit();
+            this.sINHVIENTableAdapter.Fill(this.dS.SINHVIEN);
+            EnableButton(false);
+        }
 
-            if (Validator.isEmptyText(dtpNgaySinh.EditValue.ToString()))
-            {
-                MessageBox.Show("Giá trị ngày sinh không hợp lệ!", "", MessageBoxButtons.OK);
-                dtpNgaySinh.Focus();
-                return;
-            }
-
-            // begin check maSV exist
-            if (maSV != txtMaSV.Text)
-            {
-
-                Program.KetNoi();
-                // Chạy sp kiểm tra sinh viên đã tồn tại ở 1 trong những phân mảnh hay chưa
-                int state = Program.ExecSqlNonQuery($"EXEC SP_KIEM_TRA_TON_TAI_MASV '{txtMaSV.Text.Trim()}'");
-                if (state != 0)
-                {
-                    // Nếu state = 1 thì có nghĩa là
-                    // database đã có sinh viên có mã được nhập 
-                    return;
-                }
-
-            }
-
+        private void btnLamMoi_ItemClick(object sender, ItemClickEventArgs e)
+        {
             try
             {
-                bdsSinhVien.EndEdit();
-                bdsSinhVien.ResetCurrentItem();
-                this.SINHVIENTableAdapter.Connection.ConnectionString = Program.connstr;
-                this.SINHVIENTableAdapter.Update(this.DS.SINHVIEN);
-            } catch (Exception ex)
+                this.lOPTableAdapter.Fill(this.dS.LOP);
+                this.sINHVIENTableAdapter.Fill(this.dS.SINHVIEN);
+            }
+            catch (Exception ex)
             {
-                MessageBox.Show("Lỗi ghi sinh viên!\n" + ex.Message, "", MessageBoxButtons.OK);
+                MessageBox.Show("Lỗi Reload " + ex.Message, "", MessageBoxButtons.OK);
                 return;
-            }
-            gcSinhVien.Enabled = true;
-            gcSinhVien.Visible = true;
-            btnThem.Enabled = btnHieuChinh.Enabled
-                = btnXoa.Enabled = btnReload.Enabled
-                = btnInDS.Enabled = btnThoat.Enabled 
-                = true;
-
-            btnGhi.Enabled = btnPhucHoi.Enabled = false;
-
-            if (Program.mGroup == "PGV")
-            {
-                cmbKhoa.Enabled = true;
-            }
-            else
-            {
-                cmbKhoa.Enabled = false;
-            }
-
-            panelControl2.Enabled = false;
-        }
-
-        private void cmbKhoa_SelectedIndexChanged(object sender, EventArgs e)
-        { 
-            // Nếu cmbKhoa không có dữ liệu thì không làm gì hết
-            if (cmbKhoa.SelectedValue.ToString() == "System.Data.DataRowView")
-                return;
-            // Lấy dữ liệu servername để kết nối
-            Program.servername = cmbKhoa.SelectedValue.ToString();
-
-            // Nếu servername chưa trùng với vai trò đăng nhập
-            // thì lấy tài khoản hỗ trợ kết nối để kết nối 
-            // sang phân mảnh mới
-            if (cmbKhoa.SelectedIndex != Program.mKhoa)
-            {
-                Program.mlogin = Program.remotelogin;
-                Program.password = Program.remotepassword;
-            } 
-            else
-            {
-                // Còn nếu vai trò đăng nhập hiện tại đã khớp
-                // thì lấy tài khoản đang đăng nhập
-                Program.mlogin = Program.mloginDN;
-                Program.password = Program.passwordDN;
-            }
-
-            if (Program.KetNoi() == 0)
-            {
-                MessageBox.Show("Lỗi kết nối về chi nhánh mới!", "", MessageBoxButtons.OK);
-                return;
-            }
-            else
-            {
-                this.SINHVIENTableAdapter.Connection.ConnectionString = Program.connstr;
-                this.SINHVIENTableAdapter.Fill(this.DS.SINHVIEN);
-
-                this.DANGKYTableAdapter.Connection.ConnectionString = Program.connstr;
-                this.DANGKYTableAdapter.Fill(this.DS.DANGKY);
-
-
-                // Load lại thông tin lớp theo khoa
-                LayThongTinLop("SELECT * FROM V_Lay_MALOP_TENLOP");
-                cmbLop.SelectedIndex = 1;
-                cmbLop.SelectedIndex = 0;
-                txtMaLop.Text = cmbLop.SelectedValue.ToString();
             }
         }
 
-        private void cmbLop_SelectedIndexChanged(object sender, EventArgs e)
+        private void btnThoat_ItemClick(object sender, ItemClickEventArgs e)
         {
-            if (cmbLop.SelectedValue.ToString() != "System.Data.DataRowView")
+            if (btnGhi.Enabled) // nếu thông tin chưa được ghi
             {
-                txtMaLop.Text = cmbLop.SelectedValue.ToString();
+                if (MessageBox.Show("Thông tin chưa được lưu. \n" +
+                    "Bạn có thực sự muốn thoát ?",
+                    "Xác nhận", MessageBoxButtons.OKCancel) == DialogResult.OK)
+                {
+                    this.Close();
+                }
+                else
+                {
+                    return;
+                }
             }
-        }
-
-        private void btnThoat_ItemClick(object sender, DevExpress.XtraBars.ItemClickEventArgs e)
-        {
-            if (MessageBox.Show("Bạn có chắc muốn đóng cửa sổ sinh viên?",
-                   "Xác nhận",
-                   MessageBoxButtons.YesNo,
-                   MessageBoxIcon.Question,
-                   MessageBoxDefaultButton.Button1)
-                == System.Windows.Forms.DialogResult.Yes)
+            else
             {
                 this.Close();
+                return;
             }
         }
     }

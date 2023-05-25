@@ -30,11 +30,14 @@ namespace QLDSV_TC
         {
             dS.EnforceConstraints = false;
             // TODO: This line of code loads data into the 'dS.DANGKY' table. You can move, or remove it, as needed.
+            this.dANGKYTableAdapter.Connection.ConnectionString = Program.connstr;
             this.dANGKYTableAdapter.Fill(this.dS.DANGKY);
             // TODO: This line of code loads data into the 'dS.LOPTINCHI' table. You can move, or remove it, as needed.
+            this.LtcTableAdapter.Connection.ConnectionString = Program.connstr;
             this.LtcTableAdapter.Fill(this.dS.LOPTINCHI);
 
             mkhoa = ((DataRowView)LtcBindingSource[0])["MAKHOA"].ToString();
+            Program.XoaItemPKT();
             cbxCN.DataSource = Program.bds_dspm; // sao chép ở frmDangNhap
             cbxCN.DisplayMember = "TENKHOA";
             cbxCN.ValueMember = "TENSERVER";
@@ -102,13 +105,14 @@ namespace QLDSV_TC
         private void EnableButton(bool b)
         {
             // phần 1
-            gbThem.Enabled = b;
+            panelControl3.Enabled = b;
             btnGhi.Enabled = btnHuy.Enabled = b;
 
             //phần 2
+            panelControl2.Visible = !b;
             lOPTINCHIGridControl.Enabled = !b;
             btnThem.Enabled = btnSua.Enabled = btnXoa.Enabled = btnPhucHoi.Enabled = btnLamMoi.Enabled = !b;
-            cbxCN.Enabled = !b;
+            cbxCN.Enabled = cbLtcDaHuy.Enabled = btnMoLai.Enabled = !b;
         }
 
         private void btnThem_ItemClick(object sender, ItemClickEventArgs e)
@@ -275,6 +279,7 @@ namespace QLDSV_TC
         private void btnHuy_ItemClick(object sender, ItemClickEventArgs e)
         {
             this.LtcBindingSource.CancelEdit();
+            this.LtcTableAdapter.Connection.ConnectionString = Program.connstr;
             this.LtcTableAdapter.Fill(this.dS.LOPTINCHI);
             EnableButton(false);
         }
@@ -296,6 +301,7 @@ namespace QLDSV_TC
                     String query = "UPDATE LOPTINCHI SET HUYLOP = 1 WHERE MALTC = " + maLtc + "";
                     SuaDuLieu(query);
                     // load lại dữ liệu
+                    this.LtcTableAdapter.Connection.ConnectionString = Program.connstr;
                     this.LtcTableAdapter.Fill(this.dS.LOPTINCHI);
                 }
                 catch (Exception ex)
@@ -303,6 +309,7 @@ namespace QLDSV_TC
                     MessageBox.Show("Lỗi xóa lớp tín chỉ của hệ thống. Hãy xóa lại\n" + ex.Message,
                     "", MessageBoxButtons.OK);
                     // Load lại danh sách LTC, vì có thể xóa trên giao diện nhưng chưa xóa trên db
+                    this.LtcTableAdapter.Connection.ConnectionString = Program.connstr;
                     this.LtcTableAdapter.Fill(this.dS.LOPTINCHI);
                     return;
                 }
@@ -376,16 +383,16 @@ namespace QLDSV_TC
             {
                 LoadLtcDaHuy();
                 dgvLtcDaHuy.Visible = true;
-                bar1.Visible = true;
-                gbThem.Visible = false;
+                btnMoLai.Enabled = true;
+                panelControl3.Visible = false;
                 lOPTINCHIGridControl.Visible = false;
                 btnThem.Enabled = btnSua.Enabled = btnXoa.Enabled = btnPhucHoi.Enabled = btnLamMoi.Enabled = btnGhi.Enabled = btnHuy.Enabled = false;
             }
             else
             {
                 dgvLtcDaHuy.Visible = false;
-                bar1.Visible = false;
-                gbThem.Visible = true;
+                btnMoLai.Enabled = false;
+                panelControl3.Visible = true;
                 this.LtcTableAdapter.Fill(this.dS.LOPTINCHI);
                 this.lOPTINCHIGridControl.Visible = true;
                 btnThem.Enabled = btnSua.Enabled = btnXoa.Enabled = btnPhucHoi.Enabled = btnLamMoi.Enabled = true;
