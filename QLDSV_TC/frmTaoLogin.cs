@@ -187,6 +187,7 @@ namespace QLDSV_TC
             {
                 MessageBox.Show("Mật khẩu không được chứa ký tự trắng", "");
                 txtPass.Focus();
+                return;
             }
 
             string lgName = txtLogin.Text.Trim();

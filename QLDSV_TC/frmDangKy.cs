@@ -32,6 +32,8 @@ namespace QLDSV_TC
 
         private void frmDangKy_Load(object sender, EventArgs e)
         {
+            // TODO: This line of code loads data into the 'dS.SP_LTC_DAMO' table. You can move, or remove it, as needed.
+            this.sP_LTC_DAMOTableAdapter.Fill(this.dS.SP_LTC_DAMO);
             dS.EnforceConstraints = false;
             // TODO: This line of code loads data into the 'dS.DANGKY' table. You can move, or remove it, as needed.
             this.dANGKYTableAdapter.Fill(this.dS.DANGKY);
@@ -59,7 +61,7 @@ namespace QLDSV_TC
 
         public void LoadLtcDaDangKy()
         {
-            String sql = "EXEC SP_LTC_DADANGKY '"+Program.username+"'";
+            String sql = "EXEC SP_LTC_DADANGKY '"+Program.username.Trim() +"'";
             DataTable dt = Program.ExecSqlDataTable(sql);
             this.LtcDangKygridControl.DataSource = dt;
         }
@@ -121,7 +123,7 @@ namespace QLDSV_TC
                 string maLtc = gridView.GetRowCellValue(rowIndex, "MALTC").ToString();
 
                 txtMaLTC.Text = maLtc;
-                txtMaSV.Text = Program.username;
+                txtMaSV.Text = Program.username.Trim();
             }
             btnDangKy.Enabled = true;
             btnHuyDK.Enabled = false;
@@ -142,7 +144,7 @@ namespace QLDSV_TC
                 string maLtc = gridViewDK.GetRowCellValue(rowIndex, "MALTC").ToString();
 
                 txtMaLTC.Text = maLtc;
-                txtMaSV.Text = Program.username;
+                txtMaSV.Text = Program.username.Trim();
             }
             btnHuyDK.Enabled = true;
             btnDangKy.Enabled = false;
@@ -176,13 +178,19 @@ namespace QLDSV_TC
             {
                 return;
             }
+
+            if (Program.ExecSqlNonQuery($"EXEC CHECK_TRUNG_LTC_NIENKHOA_HOCKY_MONHOC_DADANGKY {txtMaLTC.Text}, '{txtMaSV.Text.Trim()}'") == 1)
+            {
+                return;
+            }
+
+            
             if (MessageBox.Show("Bạn có muốn đăng ký LTC này ?",
                 "Xác nhận", MessageBoxButtons.OKCancel) == DialogResult.OK)
             {
                 if (CheckLTC_DADANGKY() == 2) // đã đăng ký nhưng đã hủy trước đó
                 {
-                    String query = "UPDATE DANGKY SET HUYDANGKY = 0 \n"
-                    + "WHERE MALTC = " + txtMaLTC.Text + " AND MASV = '" + Program.username + "'";
+                    string query = "EXEC UPDATE_HUYDANGKY_LTC '" + txtMaLTC.Text + "', '" + Program.username.Trim() + "', " + 0 + "";
                     SuaDuLieu(query);
 
                     // load lại dữ liệu
@@ -199,8 +207,8 @@ namespace QLDSV_TC
                     this.dANGKYTableAdapter.Update(this.dS.DANGKY);
 
                     //Cho phép Null nên phải set lại thành False
-                    String query = "UPDATE DANGKY SET HUYDANGKY = 0 \n"
-                   + "WHERE MALTC = " + txtMaLTC.Text + " AND MASV = '" + Program.username + "'";
+                    string query = "EXEC UPDATE_HUYDANGKY_LTC '" + txtMaLTC.Text + "', '" + Program.username.Trim() + "', " + 0 + "";
+      
                     SuaDuLieu(query);
 
                     MessageBox.Show("Bạn đã đăng ký lớp tín chỉ thành công!!", "", MessageBoxButtons.OK);
@@ -227,7 +235,7 @@ namespace QLDSV_TC
             // Kiểm tra trùng mã lớp
             string query1 = "DECLARE  @return_value int \n"
                             + "EXEC @return_value = SP_CHECK_LTC_DADANGKY \n"
-                            + "@MASV = '"+Program.username+"', @MALTC = "+txtMaLTC.Text+" \n"
+                            + "@MASV = '"+Program.username.Trim()+"', @MALTC = "+txtMaLTC.Text+" \n"
                             + "SELECT  'Return Value' = @return_value";
             int resultMa = Program.CheckDataHelper(query1);
             if (resultMa == -1)
@@ -261,8 +269,7 @@ namespace QLDSV_TC
                 try
                 {
 
-                    String query = "UPDATE DANGKY SET HUYDANGKY = 1 \n"
-                    + "WHERE MALTC = " + txtMaLTC.Text + " AND MASV = '" + Program.username + "'";
+                    String query = "EXEC UPDATE_HUYDANGKY_LTC '" + txtMaLTC.Text + "', '" + Program.username.Trim() + "', " + 1 + "";
                     SuaDuLieu(query);
 
                     // load lại dữ liệu

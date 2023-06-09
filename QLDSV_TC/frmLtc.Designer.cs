@@ -71,12 +71,9 @@
             this.label2 = new System.Windows.Forms.Label();
             this.cbxMonHoc = new System.Windows.Forms.ComboBox();
             this.cbxGiangVien = new System.Windows.Forms.ComboBox();
-            this.txtHocKy = new DevExpress.XtraEditors.SpinEdit();
             this.txtMaMH = new DevExpress.XtraEditors.TextEdit();
-            this.txtNhom = new DevExpress.XtraEditors.SpinEdit();
             this.txtMaGV = new DevExpress.XtraEditors.TextEdit();
             this.txtMaKhoa = new DevExpress.XtraEditors.TextEdit();
-            this.txtSVToiThieu = new DevExpress.XtraEditors.SpinEdit();
             this.hUYLOPCheckEdit = new DevExpress.XtraEditors.CheckEdit();
             this.LtcTableAdapter = new QLDSV_TC.DSTableAdapters.LOPTINCHITableAdapter();
             this.tableAdapterManager = new QLDSV_TC.DSTableAdapters.TableAdapterManager();
@@ -100,8 +97,11 @@
             this.cbLtcDaHuy = new System.Windows.Forms.CheckBox();
             this.panelControl1 = new DevExpress.XtraEditors.PanelControl();
             this.panelControl3 = new DevExpress.XtraEditors.PanelControl();
-            this.barButtonItem1 = new DevExpress.XtraBars.BarButtonItem();
             this.groupControl1 = new DevExpress.XtraEditors.GroupControl();
+            this.txtSVToiThieu = new DevExpress.XtraEditors.TextEdit();
+            this.txtHocKy = new DevExpress.XtraEditors.TextEdit();
+            this.txtNhom = new DevExpress.XtraEditors.TextEdit();
+            this.barButtonItem1 = new DevExpress.XtraBars.BarButtonItem();
             nIENKHOALabel = new System.Windows.Forms.Label();
             hOCKYLabel = new System.Windows.Forms.Label();
             mAMHLabel = new System.Windows.Forms.Label();
@@ -115,12 +115,9 @@
             ((System.ComponentModel.ISupportInitialize)(this.LtcBindingSource)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dS)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.gridView2)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.txtHocKy.Properties)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.txtMaMH.Properties)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.txtNhom.Properties)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.txtMaGV.Properties)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.txtMaKhoa.Properties)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.txtSVToiThieu.Properties)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.hUYLOPCheckEdit.Properties)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dANGKYBindingSource)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.panelControl2)).BeginInit();
@@ -133,6 +130,9 @@
             this.panelControl3.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.groupControl1)).BeginInit();
             this.groupControl1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.txtSVToiThieu.Properties)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.txtHocKy.Properties)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.txtNhom.Properties)).BeginInit();
             this.SuspendLayout();
             // 
             // nIENKHOALabel
@@ -530,23 +530,6 @@
             this.cbxGiangVien.TabIndex = 18;
             this.cbxGiangVien.SelectedIndexChanged += new System.EventHandler(this.cbxGiangVien_SelectedIndexChanged);
             // 
-            // txtHocKy
-            // 
-            this.txtHocKy.DataBindings.Add(new System.Windows.Forms.Binding("EditValue", this.LtcBindingSource, "HOCKY", true));
-            this.txtHocKy.EditValue = new decimal(new int[] {
-            0,
-            0,
-            0,
-            0});
-            this.txtHocKy.Location = new System.Drawing.Point(533, 72);
-            this.txtHocKy.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.txtHocKy.MenuManager = this.barManager1;
-            this.txtHocKy.Name = "txtHocKy";
-            this.txtHocKy.Properties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
-            new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)});
-            this.txtHocKy.Size = new System.Drawing.Size(168, 28);
-            this.txtHocKy.TabIndex = 5;
-            // 
             // txtMaMH
             // 
             this.txtMaMH.DataBindings.Add(new System.Windows.Forms.Binding("EditValue", this.LtcBindingSource, "MAMH", true));
@@ -558,23 +541,6 @@
             this.txtMaMH.Size = new System.Drawing.Size(168, 28);
             this.txtMaMH.TabIndex = 7;
             this.txtMaMH.EditValueChanged += new System.EventHandler(this.txtMaMH_EditValueChanged);
-            // 
-            // txtNhom
-            // 
-            this.txtNhom.DataBindings.Add(new System.Windows.Forms.Binding("EditValue", this.LtcBindingSource, "NHOM", true));
-            this.txtNhom.EditValue = new decimal(new int[] {
-            0,
-            0,
-            0,
-            0});
-            this.txtNhom.Location = new System.Drawing.Point(780, 70);
-            this.txtNhom.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.txtNhom.MenuManager = this.barManager1;
-            this.txtNhom.Name = "txtNhom";
-            this.txtNhom.Properties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
-            new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)});
-            this.txtNhom.Size = new System.Drawing.Size(168, 28);
-            this.txtNhom.TabIndex = 9;
             // 
             // txtMaGV
             // 
@@ -598,23 +564,6 @@
             this.txtMaKhoa.Name = "txtMaKhoa";
             this.txtMaKhoa.Size = new System.Drawing.Size(168, 28);
             this.txtMaKhoa.TabIndex = 13;
-            // 
-            // txtSVToiThieu
-            // 
-            this.txtSVToiThieu.DataBindings.Add(new System.Windows.Forms.Binding("EditValue", this.LtcBindingSource, "SOSVTOITHIEU", true));
-            this.txtSVToiThieu.EditValue = new decimal(new int[] {
-            0,
-            0,
-            0,
-            0});
-            this.txtSVToiThieu.Location = new System.Drawing.Point(533, 180);
-            this.txtSVToiThieu.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.txtSVToiThieu.MenuManager = this.barManager1;
-            this.txtSVToiThieu.Name = "txtSVToiThieu";
-            this.txtSVToiThieu.Properties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
-            new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)});
-            this.txtSVToiThieu.Size = new System.Drawing.Size(168, 28);
-            this.txtSVToiThieu.TabIndex = 15;
             // 
             // hUYLOPCheckEdit
             // 
@@ -690,7 +639,7 @@
             this.lOPTINCHIGridControl.MainView = this.gridView1;
             this.lOPTINCHIGridControl.MenuManager = this.barManager1;
             this.lOPTINCHIGridControl.Name = "lOPTINCHIGridControl";
-            this.lOPTINCHIGridControl.Size = new System.Drawing.Size(1380, 432);
+            this.lOPTINCHIGridControl.Size = new System.Drawing.Size(1380, 315);
             this.lOPTINCHIGridControl.TabIndex = 1;
             this.lOPTINCHIGridControl.ViewCollection.AddRange(new DevExpress.XtraGrid.Views.Base.BaseView[] {
             this.gridView1});
@@ -834,26 +783,18 @@
             this.panelControl3.Size = new System.Drawing.Size(1384, 0);
             this.panelControl3.TabIndex = 19;
             // 
-            // barButtonItem1
-            // 
-            this.barButtonItem1.Caption = "Mở lại";
-            this.barButtonItem1.Id = 8;
-            this.barButtonItem1.ImageOptions.Image = ((System.Drawing.Image)(resources.GetObject("barButtonItem1.ImageOptions.Image")));
-            this.barButtonItem1.ImageOptions.LargeImage = ((System.Drawing.Image)(resources.GetObject("barButtonItem1.ImageOptions.LargeImage")));
-            this.barButtonItem1.Name = "barButtonItem1";
-            // 
             // groupControl1
             // 
+            this.groupControl1.Controls.Add(this.txtSVToiThieu);
+            this.groupControl1.Controls.Add(this.txtHocKy);
+            this.groupControl1.Controls.Add(this.txtNhom);
             this.groupControl1.Controls.Add(this.cbxNienKhoa);
             this.groupControl1.Controls.Add(hOCKYLabel);
             this.groupControl1.Controls.Add(nIENKHOALabel);
             this.groupControl1.Controls.Add(sOSVTOITHIEULabel);
             this.groupControl1.Controls.Add(this.label3);
             this.groupControl1.Controls.Add(this.txtMaKhoa);
-            this.groupControl1.Controls.Add(this.txtNhom);
-            this.groupControl1.Controls.Add(this.txtHocKy);
             this.groupControl1.Controls.Add(nHOMLabel);
-            this.groupControl1.Controls.Add(this.txtSVToiThieu);
             this.groupControl1.Controls.Add(this.label2);
             this.groupControl1.Controls.Add(mAKHOALabel);
             this.groupControl1.Controls.Add(mAGVLabel);
@@ -864,11 +805,46 @@
             this.groupControl1.Controls.Add(hUYLOPLabel);
             this.groupControl1.Controls.Add(this.cbxMonHoc);
             this.groupControl1.Controls.Add(this.txtMaGV);
-            this.groupControl1.Location = new System.Drawing.Point(145, 42);
+            this.groupControl1.Location = new System.Drawing.Point(147, 22);
             this.groupControl1.Name = "groupControl1";
-            this.groupControl1.Size = new System.Drawing.Size(1061, 272);
+            this.groupControl1.Size = new System.Drawing.Size(1061, 249);
             this.groupControl1.TabIndex = 23;
             this.groupControl1.Text = "Thông tin lớp tín chỉ";
+            // 
+            // txtSVToiThieu
+            // 
+            this.txtSVToiThieu.DataBindings.Add(new System.Windows.Forms.Binding("EditValue", this.LtcBindingSource, "SOSVTOITHIEU", true));
+            this.txtSVToiThieu.Location = new System.Drawing.Point(533, 181);
+            this.txtSVToiThieu.MenuManager = this.barManager1;
+            this.txtSVToiThieu.Name = "txtSVToiThieu";
+            this.txtSVToiThieu.Size = new System.Drawing.Size(168, 28);
+            this.txtSVToiThieu.TabIndex = 25;
+            // 
+            // txtHocKy
+            // 
+            this.txtHocKy.DataBindings.Add(new System.Windows.Forms.Binding("EditValue", this.LtcBindingSource, "HOCKY", true));
+            this.txtHocKy.Location = new System.Drawing.Point(533, 67);
+            this.txtHocKy.MenuManager = this.barManager1;
+            this.txtHocKy.Name = "txtHocKy";
+            this.txtHocKy.Size = new System.Drawing.Size(168, 28);
+            this.txtHocKy.TabIndex = 24;
+            // 
+            // txtNhom
+            // 
+            this.txtNhom.DataBindings.Add(new System.Windows.Forms.Binding("EditValue", this.LtcBindingSource, "NHOM", true));
+            this.txtNhom.Location = new System.Drawing.Point(780, 72);
+            this.txtNhom.MenuManager = this.barManager1;
+            this.txtNhom.Name = "txtNhom";
+            this.txtNhom.Size = new System.Drawing.Size(102, 28);
+            this.txtNhom.TabIndex = 23;
+            // 
+            // barButtonItem1
+            // 
+            this.barButtonItem1.Caption = "Mở lại";
+            this.barButtonItem1.Id = 8;
+            this.barButtonItem1.ImageOptions.Image = ((System.Drawing.Image)(resources.GetObject("barButtonItem1.ImageOptions.Image")));
+            this.barButtonItem1.ImageOptions.LargeImage = ((System.Drawing.Image)(resources.GetObject("barButtonItem1.ImageOptions.LargeImage")));
+            this.barButtonItem1.Name = "barButtonItem1";
             // 
             // frmLtc
             // 
@@ -890,12 +866,9 @@
             ((System.ComponentModel.ISupportInitialize)(this.LtcBindingSource)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.dS)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.gridView2)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.txtHocKy.Properties)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.txtMaMH.Properties)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.txtNhom.Properties)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.txtMaGV.Properties)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.txtMaKhoa.Properties)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.txtSVToiThieu.Properties)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.hUYLOPCheckEdit.Properties)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.dANGKYBindingSource)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.panelControl2)).EndInit();
@@ -910,6 +883,9 @@
             ((System.ComponentModel.ISupportInitialize)(this.groupControl1)).EndInit();
             this.groupControl1.ResumeLayout(false);
             this.groupControl1.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.txtSVToiThieu.Properties)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.txtHocKy.Properties)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.txtNhom.Properties)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -928,12 +904,9 @@
         private DS dS;
         private DSTableAdapters.LOPTINCHITableAdapter LtcTableAdapter;
         private DSTableAdapters.TableAdapterManager tableAdapterManager;
-        private DevExpress.XtraEditors.SpinEdit txtHocKy;
         private DevExpress.XtraEditors.TextEdit txtMaMH;
-        private DevExpress.XtraEditors.SpinEdit txtNhom;
         private DevExpress.XtraEditors.TextEdit txtMaGV;
         private DevExpress.XtraEditors.TextEdit txtMaKhoa;
-        private DevExpress.XtraEditors.SpinEdit txtSVToiThieu;
         private DevExpress.XtraEditors.CheckEdit hUYLOPCheckEdit;
         private DSTableAdapters.DANGKYTableAdapter dANGKYTableAdapter;
         private System.Windows.Forms.BindingSource dANGKYBindingSource;
@@ -981,5 +954,8 @@
         private DevExpress.XtraGrid.Columns.GridColumn colSOSVTOITHIEU1;
         private DevExpress.XtraGrid.Columns.GridColumn colHUYLOP1;
         private DevExpress.XtraEditors.GroupControl groupControl1;
+        private DevExpress.XtraEditors.TextEdit txtSVToiThieu;
+        private DevExpress.XtraEditors.TextEdit txtHocKy;
+        private DevExpress.XtraEditors.TextEdit txtNhom;
     }
 }

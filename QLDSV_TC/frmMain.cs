@@ -21,7 +21,7 @@ namespace QLDSV_TC
         {
             btnSinhVien.Enabled = btnLopHoc.Enabled = btnMonHoc.Enabled
                 = btnLopTinChi.Enabled = btnDiem.Enabled = btnHocPhi.Enabled
-                = btnDangKy.Enabled = Active;
+                = btnDangKy.Enabled = btnChuyenLop.Enabled = Active;
         }
 
         public void autoDangNhap(string tk, string password, string vaiTro, string servername, int mKhoa)
@@ -83,8 +83,8 @@ namespace QLDSV_TC
         {
             if (Program.mGroup == "SV")
             {
-                lbHoTen.Text = $"Mã SV: {Program.username} -";
-                lbMa.Text = $"Họ tên sinh viên: {Program.mHoTen} -";
+                lbMa.Text = $"Mã SV: {Program.username} -";
+                lbHoTen.Text = $"Họ tên sinh viên: {Program.mHoTen} -";
                 // Chỉ có nhóm sinh viên mới không được tạo tài khoản 
                 Program.frmChinh.btnTaoTK.Enabled = false;
 
@@ -109,7 +109,7 @@ namespace QLDSV_TC
                     {
                         btnSinhVien.Enabled = btnLopHoc.Enabled
                             = btnMonHoc.Enabled = btnLopTinChi.Enabled
-                            = btnDiem.Enabled = true;
+                            = btnDiem.Enabled = btnChuyenLop.Enabled = true;
           
                         break;
                     }
@@ -123,7 +123,7 @@ namespace QLDSV_TC
                     {
                         btnSinhVien.Enabled = btnLopHoc.Enabled
                             = btnMonHoc.Enabled = btnLopTinChi.Enabled
-                            = btnDiem.Enabled = true;
+                            = btnDiem.Enabled = btnChuyenLop.Enabled = true;
                         btnHocPhi.Enabled = btnDangKy.Enabled = false;
                         break;
                     }
@@ -234,9 +234,13 @@ namespace QLDSV_TC
             f.Show();
 
             autoDangNhap("KT", "123456", "GV", "DELLLATITUDEE65\\MSSQLSERVER01", 0);
-            // DELLLATITUDEE65\MSSQLSERVER01
-            // DELLLATITUDEE65\MSSQLSERVER02
-            // DELLLATITUDEE65\MSSQLSERVER03
+            // DELLLATITUDEE65\MSSQLSERVER01 - Công nghệ thông tin
+            // PGV: KT - 123456
+            // KHOA: HTT - 123456
+            // SV: n20dccn083 - 123456
+            // DELLLATITUDEE65\MSSQLSERVER02 - Viễn thông
+            // DELLLATITUDEE65\MSSQLSERVER03 - Học phí
+            // KT: ML - 123456
         }
 
         private void btnLopHoc_ItemClick(object sender, DevExpress.XtraBars.ItemClickEventArgs e)
@@ -291,6 +295,62 @@ namespace QLDSV_TC
             } else
             {
                 frmChuyenLop f = new frmChuyenLop();
+                f.MdiParent = this;
+                f.Show();
+            }
+        }
+
+        private void btnDangKy_ItemClick(object sender, DevExpress.XtraBars.ItemClickEventArgs e)
+        {
+            Form frm = this.CheckExists(typeof(frmDangKy));
+            if (frm != null)
+            {
+                frm.Activate();
+            } else
+            {
+                frmDangKy f = new frmDangKy();
+                f.MdiParent = this;
+                f.Show();
+            }
+        }
+
+        private void btnMonHoc_ItemClick(object sender, DevExpress.XtraBars.ItemClickEventArgs e)
+        {
+            Form frm = CheckExists(typeof(frmMonHoc));
+            if (frm != null)
+            {
+                frm.Activate();
+            } else
+            {
+                frmMonHoc f = new frmMonHoc();
+                f.MdiParent = this;
+                f.Show();
+            }
+        }
+
+        private void btnHocPhi_ItemClick(object sender, DevExpress.XtraBars.ItemClickEventArgs e)
+        {
+            Form frm = CheckExists(typeof(frmHocPhi));
+            if (frm != null)
+            {
+                frm.Activate();
+            } else
+            {
+                frmHocPhi f = new frmHocPhi();
+                f.MdiParent = this;
+                f.Show();
+            }
+        }
+
+        private void btnDSLTC_ItemClick(object sender, DevExpress.XtraBars.ItemClickEventArgs e)
+        {
+            Form frm = CheckExists(typeof(frptDanhSachLTC));
+            if (frm != null)
+            {
+                frm.Activate();
+            } else
+            {
+                frptDanhSachLTC f = new frptDanhSachLTC();
                 f.MdiParent = this;
                 f.Show();
             }

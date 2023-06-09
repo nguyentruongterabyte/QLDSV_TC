@@ -33,6 +33,10 @@
             this.lOPBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.dS = new QLDSV_TC.DS();
             this.gridView1 = new DevExpress.XtraGrid.Views.Grid.GridView();
+            this.colMALOP = new DevExpress.XtraGrid.Columns.GridColumn();
+            this.colTENLOP = new DevExpress.XtraGrid.Columns.GridColumn();
+            this.colKHOAHOC = new DevExpress.XtraGrid.Columns.GridColumn();
+            this.colMAKHOA = new DevExpress.XtraGrid.Columns.GridColumn();
             this.lOPTableAdapter = new QLDSV_TC.DSTableAdapters.LOPTableAdapter();
             this.tableAdapterManager = new QLDSV_TC.DSTableAdapters.TableAdapterManager();
             this.sINHVIENTableAdapter = new QLDSV_TC.DSTableAdapters.SINHVIENTableAdapter();
@@ -41,6 +45,15 @@
             this.sINHVIENGridControl = new DevExpress.XtraGrid.GridControl();
             this.sINHVIENBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.gridView2 = new DevExpress.XtraGrid.Views.Grid.GridView();
+            this.colMASV = new DevExpress.XtraGrid.Columns.GridColumn();
+            this.colHO = new DevExpress.XtraGrid.Columns.GridColumn();
+            this.colTEN = new DevExpress.XtraGrid.Columns.GridColumn();
+            this.colPHAI = new DevExpress.XtraGrid.Columns.GridColumn();
+            this.colDIACHI = new DevExpress.XtraGrid.Columns.GridColumn();
+            this.colNGAYSINH = new DevExpress.XtraGrid.Columns.GridColumn();
+            this.colMALOP1 = new DevExpress.XtraGrid.Columns.GridColumn();
+            this.colDANGHIHOC = new DevExpress.XtraGrid.Columns.GridColumn();
+            this.colPASSWORD = new DevExpress.XtraGrid.Columns.GridColumn();
             this.panelControl3 = new DevExpress.XtraEditors.PanelControl();
             this.label4 = new System.Windows.Forms.Label();
             this.txtMaSVMoi = new System.Windows.Forms.TextBox();
@@ -51,23 +64,9 @@
             this.btnChuyenLop = new System.Windows.Forms.Button();
             this.btnChonLop = new System.Windows.Forms.Button();
             this.btnChonSV = new System.Windows.Forms.Button();
-            this.colMALOP = new DevExpress.XtraGrid.Columns.GridColumn();
-            this.colTENLOP = new DevExpress.XtraGrid.Columns.GridColumn();
-            this.colKHOAHOC = new DevExpress.XtraGrid.Columns.GridColumn();
-            this.colMAKHOA = new DevExpress.XtraGrid.Columns.GridColumn();
-            this.colMASV = new DevExpress.XtraGrid.Columns.GridColumn();
-            this.colHO = new DevExpress.XtraGrid.Columns.GridColumn();
-            this.colTEN = new DevExpress.XtraGrid.Columns.GridColumn();
-            this.colPHAI = new DevExpress.XtraGrid.Columns.GridColumn();
-            this.colDIACHI = new DevExpress.XtraGrid.Columns.GridColumn();
-            this.colNGAYSINH = new DevExpress.XtraGrid.Columns.GridColumn();
-            this.colMALOP1 = new DevExpress.XtraGrid.Columns.GridColumn();
-            this.colDANGHIHOC = new DevExpress.XtraGrid.Columns.GridColumn();
-            this.colPASSWORD = new DevExpress.XtraGrid.Columns.GridColumn();
             this.panelControl4 = new DevExpress.XtraEditors.PanelControl();
             this.panelControl5 = new DevExpress.XtraEditors.PanelControl();
             this.panelControl1 = new DevExpress.XtraEditors.PanelControl();
-            this.panelControl2 = new DevExpress.XtraEditors.PanelControl();
             ((System.ComponentModel.ISupportInitialize)(this.lOPGridControl)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.lOPBindingSource)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dS)).BeginInit();
@@ -83,8 +82,6 @@
             this.panelControl5.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.panelControl1)).BeginInit();
             this.panelControl1.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.panelControl2)).BeginInit();
-            this.panelControl2.SuspendLayout();
             this.SuspendLayout();
             // 
             // lOPGridControl
@@ -121,6 +118,38 @@
             this.gridView1.DetailHeight = 284;
             this.gridView1.GridControl = this.lOPGridControl;
             this.gridView1.Name = "gridView1";
+            // 
+            // colMALOP
+            // 
+            this.colMALOP.FieldName = "MALOP";
+            this.colMALOP.Name = "colMALOP";
+            this.colMALOP.Visible = true;
+            this.colMALOP.VisibleIndex = 0;
+            this.colMALOP.Width = 64;
+            // 
+            // colTENLOP
+            // 
+            this.colTENLOP.FieldName = "TENLOP";
+            this.colTENLOP.Name = "colTENLOP";
+            this.colTENLOP.Visible = true;
+            this.colTENLOP.VisibleIndex = 1;
+            this.colTENLOP.Width = 64;
+            // 
+            // colKHOAHOC
+            // 
+            this.colKHOAHOC.FieldName = "KHOAHOC";
+            this.colKHOAHOC.Name = "colKHOAHOC";
+            this.colKHOAHOC.Visible = true;
+            this.colKHOAHOC.VisibleIndex = 2;
+            this.colKHOAHOC.Width = 64;
+            // 
+            // colMAKHOA
+            // 
+            this.colMAKHOA.FieldName = "MAKHOA";
+            this.colMAKHOA.Name = "colMAKHOA";
+            this.colMAKHOA.Visible = true;
+            this.colMAKHOA.VisibleIndex = 3;
+            this.colMAKHOA.Width = 64;
             // 
             // lOPTableAdapter
             // 
@@ -196,6 +225,78 @@
             this.gridView2.DetailHeight = 284;
             this.gridView2.GridControl = this.sINHVIENGridControl;
             this.gridView2.Name = "gridView2";
+            // 
+            // colMASV
+            // 
+            this.colMASV.FieldName = "MASV";
+            this.colMASV.Name = "colMASV";
+            this.colMASV.Visible = true;
+            this.colMASV.VisibleIndex = 0;
+            this.colMASV.Width = 64;
+            // 
+            // colHO
+            // 
+            this.colHO.FieldName = "HO";
+            this.colHO.Name = "colHO";
+            this.colHO.Visible = true;
+            this.colHO.VisibleIndex = 1;
+            this.colHO.Width = 64;
+            // 
+            // colTEN
+            // 
+            this.colTEN.FieldName = "TEN";
+            this.colTEN.Name = "colTEN";
+            this.colTEN.Visible = true;
+            this.colTEN.VisibleIndex = 2;
+            this.colTEN.Width = 64;
+            // 
+            // colPHAI
+            // 
+            this.colPHAI.FieldName = "PHAI";
+            this.colPHAI.Name = "colPHAI";
+            this.colPHAI.Visible = true;
+            this.colPHAI.VisibleIndex = 3;
+            this.colPHAI.Width = 64;
+            // 
+            // colDIACHI
+            // 
+            this.colDIACHI.FieldName = "DIACHI";
+            this.colDIACHI.Name = "colDIACHI";
+            this.colDIACHI.Visible = true;
+            this.colDIACHI.VisibleIndex = 4;
+            this.colDIACHI.Width = 64;
+            // 
+            // colNGAYSINH
+            // 
+            this.colNGAYSINH.FieldName = "NGAYSINH";
+            this.colNGAYSINH.Name = "colNGAYSINH";
+            this.colNGAYSINH.Visible = true;
+            this.colNGAYSINH.VisibleIndex = 5;
+            this.colNGAYSINH.Width = 64;
+            // 
+            // colMALOP1
+            // 
+            this.colMALOP1.FieldName = "MALOP";
+            this.colMALOP1.Name = "colMALOP1";
+            this.colMALOP1.Visible = true;
+            this.colMALOP1.VisibleIndex = 6;
+            this.colMALOP1.Width = 64;
+            // 
+            // colDANGHIHOC
+            // 
+            this.colDANGHIHOC.FieldName = "DANGHIHOC";
+            this.colDANGHIHOC.Name = "colDANGHIHOC";
+            this.colDANGHIHOC.Visible = true;
+            this.colDANGHIHOC.VisibleIndex = 7;
+            this.colDANGHIHOC.Width = 64;
+            // 
+            // colPASSWORD
+            // 
+            this.colPASSWORD.FieldName = "PASSWORD";
+            this.colPASSWORD.Name = "colPASSWORD";
+            this.colPASSWORD.Visible = true;
+            this.colPASSWORD.VisibleIndex = 8;
+            this.colPASSWORD.Width = 64;
             // 
             // panelControl3
             // 
@@ -281,7 +382,7 @@
             // 
             // btnChonLop
             // 
-            this.btnChonLop.Location = new System.Drawing.Point(290, 6);
+            this.btnChonLop.Location = new System.Drawing.Point(218, 10);
             this.btnChonLop.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.btnChonLop.Name = "btnChonLop";
             this.btnChonLop.Size = new System.Drawing.Size(102, 36);
@@ -292,7 +393,7 @@
             // 
             // btnChonSV
             // 
-            this.btnChonSV.Location = new System.Drawing.Point(482, 6);
+            this.btnChonSV.Location = new System.Drawing.Point(338, 10);
             this.btnChonSV.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.btnChonSV.Name = "btnChonSV";
             this.btnChonSV.Size = new System.Drawing.Size(95, 36);
@@ -301,112 +402,10 @@
             this.btnChonSV.UseVisualStyleBackColor = true;
             this.btnChonSV.Click += new System.EventHandler(this.btnChonSV_Click);
             // 
-            // colMALOP
-            // 
-            this.colMALOP.FieldName = "MALOP";
-            this.colMALOP.Name = "colMALOP";
-            this.colMALOP.Visible = true;
-            this.colMALOP.VisibleIndex = 0;
-            this.colMALOP.Width = 64;
-            // 
-            // colTENLOP
-            // 
-            this.colTENLOP.FieldName = "TENLOP";
-            this.colTENLOP.Name = "colTENLOP";
-            this.colTENLOP.Visible = true;
-            this.colTENLOP.VisibleIndex = 1;
-            this.colTENLOP.Width = 64;
-            // 
-            // colKHOAHOC
-            // 
-            this.colKHOAHOC.FieldName = "KHOAHOC";
-            this.colKHOAHOC.Name = "colKHOAHOC";
-            this.colKHOAHOC.Visible = true;
-            this.colKHOAHOC.VisibleIndex = 2;
-            this.colKHOAHOC.Width = 64;
-            // 
-            // colMAKHOA
-            // 
-            this.colMAKHOA.FieldName = "MAKHOA";
-            this.colMAKHOA.Name = "colMAKHOA";
-            this.colMAKHOA.Visible = true;
-            this.colMAKHOA.VisibleIndex = 3;
-            this.colMAKHOA.Width = 64;
-            // 
-            // colMASV
-            // 
-            this.colMASV.FieldName = "MASV";
-            this.colMASV.Name = "colMASV";
-            this.colMASV.Visible = true;
-            this.colMASV.VisibleIndex = 0;
-            this.colMASV.Width = 64;
-            // 
-            // colHO
-            // 
-            this.colHO.FieldName = "HO";
-            this.colHO.Name = "colHO";
-            this.colHO.Visible = true;
-            this.colHO.VisibleIndex = 1;
-            this.colHO.Width = 64;
-            // 
-            // colTEN
-            // 
-            this.colTEN.FieldName = "TEN";
-            this.colTEN.Name = "colTEN";
-            this.colTEN.Visible = true;
-            this.colTEN.VisibleIndex = 2;
-            this.colTEN.Width = 64;
-            // 
-            // colPHAI
-            // 
-            this.colPHAI.FieldName = "PHAI";
-            this.colPHAI.Name = "colPHAI";
-            this.colPHAI.Visible = true;
-            this.colPHAI.VisibleIndex = 3;
-            this.colPHAI.Width = 64;
-            // 
-            // colDIACHI
-            // 
-            this.colDIACHI.FieldName = "DIACHI";
-            this.colDIACHI.Name = "colDIACHI";
-            this.colDIACHI.Visible = true;
-            this.colDIACHI.VisibleIndex = 4;
-            this.colDIACHI.Width = 64;
-            // 
-            // colNGAYSINH
-            // 
-            this.colNGAYSINH.FieldName = "NGAYSINH";
-            this.colNGAYSINH.Name = "colNGAYSINH";
-            this.colNGAYSINH.Visible = true;
-            this.colNGAYSINH.VisibleIndex = 5;
-            this.colNGAYSINH.Width = 64;
-            // 
-            // colMALOP1
-            // 
-            this.colMALOP1.FieldName = "MALOP";
-            this.colMALOP1.Name = "colMALOP1";
-            this.colMALOP1.Visible = true;
-            this.colMALOP1.VisibleIndex = 6;
-            this.colMALOP1.Width = 64;
-            // 
-            // colDANGHIHOC
-            // 
-            this.colDANGHIHOC.FieldName = "DANGHIHOC";
-            this.colDANGHIHOC.Name = "colDANGHIHOC";
-            this.colDANGHIHOC.Visible = true;
-            this.colDANGHIHOC.VisibleIndex = 7;
-            this.colDANGHIHOC.Width = 64;
-            // 
-            // colPASSWORD
-            // 
-            this.colPASSWORD.FieldName = "PASSWORD";
-            this.colPASSWORD.Name = "colPASSWORD";
-            this.colPASSWORD.Visible = true;
-            this.colPASSWORD.VisibleIndex = 8;
-            this.colPASSWORD.Width = 64;
-            // 
             // panelControl4
             // 
+            this.panelControl4.Controls.Add(this.btnChonSV);
+            this.panelControl4.Controls.Add(this.btnChonLop);
             this.panelControl4.Controls.Add(this.label1);
             this.panelControl4.Controls.Add(this.cbxCN);
             this.panelControl4.Dock = System.Windows.Forms.DockStyle.Top;
@@ -427,23 +426,12 @@
             // 
             // panelControl1
             // 
-            this.panelControl1.Controls.Add(this.panelControl2);
             this.panelControl1.Controls.Add(this.lOPGridControl);
             this.panelControl1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panelControl1.Location = new System.Drawing.Point(0, 51);
             this.panelControl1.Name = "panelControl1";
             this.panelControl1.Size = new System.Drawing.Size(1064, 245);
             this.panelControl1.TabIndex = 9;
-            // 
-            // panelControl2
-            // 
-            this.panelControl2.Controls.Add(this.btnChonLop);
-            this.panelControl2.Controls.Add(this.btnChonSV);
-            this.panelControl2.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.panelControl2.Location = new System.Drawing.Point(2, 197);
-            this.panelControl2.Name = "panelControl2";
-            this.panelControl2.Size = new System.Drawing.Size(1060, 46);
-            this.panelControl2.TabIndex = 7;
             // 
             // frmChuyenLop
             // 
@@ -475,8 +463,6 @@
             this.panelControl5.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.panelControl1)).EndInit();
             this.panelControl1.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.panelControl2)).EndInit();
-            this.panelControl2.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
@@ -520,6 +506,5 @@
         private DevExpress.XtraEditors.PanelControl panelControl4;
         private DevExpress.XtraEditors.PanelControl panelControl5;
         private DevExpress.XtraEditors.PanelControl panelControl1;
-        private DevExpress.XtraEditors.PanelControl panelControl2;
     }
 }

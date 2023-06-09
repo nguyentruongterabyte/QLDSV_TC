@@ -46,6 +46,13 @@ namespace QLDSV_TC
             cbxCN.ValueMember = "TENSERVER";
             cbxCN.SelectedIndex = 1;
             cbxCN.SelectedIndex = Program.mKhoa;
+            if (Program.mGroup == "KHOA")
+            {
+                cbxCN.Enabled = false;
+            } else
+            {
+                cbxCN.Enabled = true;
+            }
         }
 
         private void btnChonLop_Click(object sender, EventArgs e)
@@ -107,7 +114,7 @@ namespace QLDSV_TC
                 {
                     if (mkhoaLop == mkhoaSV) // chuyển sinh viên vào lớp cùng khoa
                     {
-                        String query = "UPDATE SINHVIEN SET MALOP = '" + txtMaLopMoi.Text + "' WHERE MASV = '" + txtMaSV.Text + "'";
+                        String query = "EXEC SP_CHUYENLOP_CUNGKHOA '" + txtMaLopMoi.Text.Trim() + "', '" + txtMaSV.Text.Trim() + "'";
                         SuaDuLieu(query);
                         this.sINHVIENTableAdapter.Fill(this.dS.SINHVIEN);
                     }
@@ -122,8 +129,17 @@ namespace QLDSV_TC
                         {
                             return;
                         }
-                        String query = "EXEC SP_CHUYENLOP @MaSVMoi = '" + txtMaSVMoi.Text.Trim() + "', @MaLopMoi = '" + txtMaLopMoi.Text.Trim() + "', @MaSVCu = '" + txtMaSV.Text.Trim() + "'";
-                        SuaDuLieu(query);
+                        String query = "EXEC SP_CHUYENLOP @MaSVMoi = '" + txtMaSVMoi.Text.Trim() + "', @MaLopMoi = '" + txtMaLopMoi.Text + "', @MaSVCu = '" + txtMaSV.Text + "'";
+                        int state = SuaDuLieu(query);
+                        if (state == 0)
+                        {
+                            MessageBox.Show("Chuyển lớp thành công !!!", "", MessageBoxButtons.OK);
+                        }
+                        else
+                        {
+                            MessageBox.Show("Chuyển lớp thất bại");
+                   
+                        }
                         this.sINHVIENTableAdapter.Fill(this.dS.SINHVIEN);
                     }
                     this.sINHVIENTableAdapter.Connection.ConnectionString = Program.connstr;
@@ -131,8 +147,6 @@ namespace QLDSV_TC
                     // TODO: This line of code loads data into the 'dS.LOP' table. You can move, or remove it, as needed.
                     this.lOPTableAdapter.Connection.ConnectionString = Program.connstr;
                     this.lOPTableAdapter.Fill(this.dS.LOP);
-
-                    MessageBox.Show("Chuyển lớp thành công !!!", "", MessageBoxButtons.OK);
 
                 }
                 catch (Exception ex)
@@ -145,7 +159,7 @@ namespace QLDSV_TC
             
         }
 
-        public void SuaDuLieu(String strLenh)
+        public int SuaDuLieu(String strLenh)
         {
             SqlCommand sqlcmd = new SqlCommand(strLenh, Program.conn);
             sqlcmd.CommandType = CommandType.Text;
@@ -153,12 +167,13 @@ namespace QLDSV_TC
             try
             {
                 sqlcmd.ExecuteNonQuery();
+                return 0;
             }
             catch (Exception ex)
             {
                 Program.conn.Close();
                 MessageBox.Show("Lỗi cập nhật dữ liệu \n" + ex.Message, "", MessageBoxButtons.OK);
-                return;
+                return 1;
             }
         }
 
@@ -203,24 +218,24 @@ namespace QLDSV_TC
         private bool CheckIDSinhVien()
         {
             // Kiểm tra trùng mã sv
-            string query1 = "DECLARE  @return_value int \n"
-                            + "EXEC  @return_value = SP_CHECKID \n"
-                            + "@Ma = N'" + txtMaSVMoi.Text + "',@Loai = N'MASV' \n"
-                            + "SELECT  'Return Value' = @return_value ";
-            int resultMa = Program.CheckDataHelper(query1);
-            if (resultMa == -1)
-            {
-                MessageBox.Show("Lỗi kết nối với database. Mời ban xem lại !", "", MessageBoxButtons.OK);
-                return false;
-            }
-            if (resultMa == 1)
-            {
-                MessageBox.Show("Mã sinh viên đã tồn tại ở khoa hiện tại !", "", MessageBoxButtons.OK);
-                return false;
-            }
-            if (resultMa == 2)
-            {
-                MessageBox.Show("Mã sinh viên đã tồn tại ở khoa khác !", "", MessageBoxButtons.OK);
+            string query1 = $"EXEC SP_KIEM_TRA_TON_TAI_MASV '{txtMaSVMoi.Text}'";
+            //if (resultMa == -1)
+            //{
+            //    MessageBox.Show("Lỗi kết nối với database. Mời ban xem lại !", "", MessageBoxButtons.OK);
+            //    return false;
+            //}
+            //if (resultMa == 1)
+            //{
+            //    MessageBox.Show("Mã sinh viên đã tồn tại ở khoa hiện tại !", "", MessageBoxButtons.OK);
+            //    return false;
+            //}
+            //if (resultMa == 2)
+            //{
+            //    MessageBox.Show("Mã sinh viên đã tồn tại ở khoa khác !", "", MessageBoxButtons.OK);
+            //    return false;
+            //}
+
+            if (Program.ExecSqlNonQuery(query1) == 1) {
                 return false;
             }
 

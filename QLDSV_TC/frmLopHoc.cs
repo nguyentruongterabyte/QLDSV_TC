@@ -174,6 +174,7 @@ namespace QLDSV_TC
                 {
                     MessageBox.Show("Lỗi xóa lớp học!\n" + ex.Message, "", MessageBoxButtons.OK);
 
+                    this.LOPHOCTableAdapter.Connection.ConnectionString = Program.connstr;
                     this.LOPHOCTableAdapter.Fill(this.DS.LOP);
                     bdsLopHoc.Position = bdsLopHoc.Find("MALOP", maLop);
                     return;
@@ -181,7 +182,7 @@ namespace QLDSV_TC
                 
             }
             if (bdsLopHoc.Count == 0) {
-                btnXoa.Enabled = false;
+                btnXoa.Enabled = btnHieuChinh.Enabled = false;
             }
         }
 
