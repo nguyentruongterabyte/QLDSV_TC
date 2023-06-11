@@ -69,37 +69,34 @@ namespace QLDSV_TC
 
         private void cbxCN_SelectedIndexChanged(object sender, EventArgs e)
         {
-            // xử lí để không cbx không tự động chọn
-            if (cbxCN.SelectedIndex != 0)
-            {
-                check_select = true;
-            }
-            //lấy tài khoản login để đăng nhập qua site khác
-            if (check_select == true)
-            {
-                if (cbxCN.SelectedIndex != Program.mKhoa)
-                {
-                    Program.mlogin = Program.remotelogin;
-                    Program.password = Program.remotepassword;
-                }
-                else
-                {
-                    Program.mlogin = Program.mloginDN;
-                    Program.password = Program.passwordDN;
-                }
 
-                Program.servername = cbxCN.SelectedValue.ToString();
+            if (cbxCN.SelectedValue.ToString() == "System.Data.DataRowView")
+                return;
+            Program.servername = cbxCN.SelectedValue.ToString();
 
-                if (Program.KetNoi() == 0)
-                {
-                    MessageBox.Show("Lỗi kết nối về chi nhánh mới", "", MessageBoxButtons.OK);
-                }
-                else
-                {
-                    this.LtcTableAdapter.Connection.ConnectionString = Program.connstr; // Tạo kết nối để sau này thay đổi mật khẩu dữ liệu k bị lỗi
-                    this.LtcTableAdapter.Fill(this.dS.LOPTINCHI);
-                }
+            if (cbxCN.SelectedIndex != Program.mKhoa)
+            {
+                Program.mlogin = Program.remotelogin;
+                Program.password = Program.remotepassword;
             }
+            else
+            {
+                Program.mlogin = Program.mloginDN;
+                Program.password = Program.passwordDN;
+            }
+
+            if (Program.KetNoi() == 0)
+            {
+                MessageBox.Show("Lỗi kết nối về chi nhánh mới", "", MessageBoxButtons.OK);
+                return;
+            }
+            else
+            {
+                this.LtcTableAdapter.Connection.ConnectionString = Program.connstr; // Tạo kết nối để sau này thay đổi mật khẩu dữ liệu k bị lỗi
+                this.LtcTableAdapter.Fill(this.dS.LOPTINCHI);
+            }
+
+            
         }
 
         private void EnableButton(bool b)
@@ -142,6 +139,7 @@ namespace QLDSV_TC
             {
                 this.LtcBindingSource.EndEdit();
                 this.LtcBindingSource.ResetCurrentItem();
+                this.LtcTableAdapter.Connection.ConnectionString = Program.connstr;
                 this.LtcTableAdapter.Update(this.dS.LOPTINCHI);
             }
             catch (Exception ex)
@@ -320,6 +318,7 @@ namespace QLDSV_TC
         {
             try
             {
+                this.LtcTableAdapter.Connection.ConnectionString = Program.connstr;
                 this.LtcTableAdapter.Fill(this.dS.LOPTINCHI);
             }
             catch (Exception ex)
@@ -423,6 +422,7 @@ namespace QLDSV_TC
                     String query = "UPDATE LOPTINCHI SET HUYLOP = 0 WHERE MALTC = " + maLtc + "";
                     SuaDuLieu(query);
                     // load lại dữ liệu
+                    this.LtcTableAdapter.Connection.ConnectionString = Program.connstr;
                     this.LtcTableAdapter.Fill(this.dS.LOPTINCHI);
                     LoadLtcDaHuy();
                 }

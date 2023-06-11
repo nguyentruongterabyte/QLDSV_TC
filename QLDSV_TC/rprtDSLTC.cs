@@ -17,7 +17,7 @@ namespace QLDSV_TC
             InitializeComponent();
             
             this.sqlDataSource1.Connection.ConnectionString = Program.connstr;
-            Program.KetNoi();
+           
             this.sqlDataSource1.Queries[0].Parameters[0].Value = NienKhoa;
             this.sqlDataSource1.Queries[0].Parameters[1].Value = HocKy;
             this.sqlDataSource1.Fill();

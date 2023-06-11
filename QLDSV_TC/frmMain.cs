@@ -1,4 +1,5 @@
-﻿using System;
+﻿using DevExpress.XtraPrinting.Native.Lines;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -110,13 +111,14 @@ namespace QLDSV_TC
                         btnSinhVien.Enabled = btnLopHoc.Enabled
                             = btnMonHoc.Enabled = btnLopTinChi.Enabled
                             = btnDiem.Enabled = btnChuyenLop.Enabled = true;
-          
+                        rprtPhieuDiemSV.Visible = rprtPGVKhoa.Visible = true;
                         break;
                     }
                 case "PKT":
                     {
                     
                         btnHocPhi.Enabled = true; 
+                        rprtHocPhiRibbon.Visible = true;
                         break;
                     }
                 case "KHOA":
@@ -125,17 +127,27 @@ namespace QLDSV_TC
                             = btnMonHoc.Enabled = btnLopTinChi.Enabled
                             = btnDiem.Enabled = btnChuyenLop.Enabled = true;
                         btnHocPhi.Enabled = btnDangKy.Enabled = false;
+                        rprtPhieuDiemSV.Visible = rprtPGVKhoa.Visible = true;
                         break;
                     }
                 case "SV":
                     {
                         
-                        ribBaoCao.Visible = false;
-                        btnDangKy.Enabled = true;  
+                        btnDangKy.Enabled = true;
+                        rprtPhieuDiemSV.Visible = true;
                         break;
                     }
             }
            
+        }
+
+        private Form isFormOpen(Type fType)
+        {
+            // Lấy tất cả các Form hiện tại trong ứng dụng
+            var openForms = Application.OpenForms.Cast<Form>();
+
+            // Tìm kiếm Form của Type đã chỉ định
+            return openForms.FirstOrDefault(form => form.GetType() == fType);
         }
 
         private Form CheckExists(Type fType)
@@ -233,7 +245,7 @@ namespace QLDSV_TC
             f.MdiParent = this;
             f.Show();
 
-            autoDangNhap("KT", "123456", "GV", "DELLLATITUDEE65\\MSSQLSERVER01", 0);
+            //autoDangNhap("ml", "123456", "GV", "DELLLATITUDEE65\\MSSQLSERVER03", 2);
             // DELLLATITUDEE65\MSSQLSERVER01 - Công nghệ thông tin
             // PGV: KT - 123456
             // KHOA: HTT - 123456
@@ -344,14 +356,66 @@ namespace QLDSV_TC
 
         private void btnDSLTC_ItemClick(object sender, DevExpress.XtraBars.ItemClickEventArgs e)
         {
-            Form frm = CheckExists(typeof(frptDanhSachLTC));
+            Form frm = isFormOpen(typeof(frptDanhSachLTC));
             if (frm != null)
             {
                 frm.Activate();
             } else
             {
                 frptDanhSachLTC f = new frptDanhSachLTC();
-                f.MdiParent = this;
+                f.Show();
+            }
+        }
+
+        private void btnDSSVDangKyLTC_ItemClick(object sender, DevExpress.XtraBars.ItemClickEventArgs e)
+        {
+            Form frm = isFormOpen(typeof(frptDSSVDangKyLTC));
+            if (frm != null)
+            {
+                frm.Activate();
+
+            } else
+            {
+                frptDSSVDangKyLTC f = new frptDSSVDangKyLTC();
+                f.Show();
+            }
+        }
+
+        private void btnInPhieuDiem_ItemClick(object sender, DevExpress.XtraBars.ItemClickEventArgs e)
+        {
+            Form frm = isFormOpen(typeof(frptPhieuDiem));
+            if (frm != null)
+            {
+                frm.Activate();
+            } else
+            {
+                frptPhieuDiem f = new frptPhieuDiem();
+                f.Show();
+            }
+        }
+
+        private void btnDSBangDiem_ItemClick(object sender, DevExpress.XtraBars.ItemClickEventArgs e)
+        {
+            Form frm = isFormOpen(typeof(frptBangDiemMH));
+            if (frm != null)
+            {
+                frm.Activate();
+            } else
+            {
+                frptBangDiemMH f = new frptBangDiemMH();
+                f.Show();
+            }
+        }
+
+        private void btnDSDongHocPhi_ItemClick(object sender, DevExpress.XtraBars.ItemClickEventArgs e)
+        {
+            Form frm = isFormOpen(typeof(frptDSDongHocPhi));
+            if (frm != null)
+            {
+                frm.Activate();
+            } else
+            {
+                frptDSDongHocPhi f = new frptDSDongHocPhi();
                 f.Show();
             }
         }

@@ -179,40 +179,38 @@ namespace QLDSV_TC
 
         private void cbxCN_SelectedIndexChanged(object sender, EventArgs e)
         {
-            // xử lí để không cbx không tự động chọn
-            if (cbxCN.SelectedIndex != 0)
+
+            if (cbxCN.SelectedValue.ToString() == "System.Data.DataRowView")
+                return;
+            Program.servername = cbxCN.SelectedValue.ToString();
+
+            if (cbxCN.SelectedIndex != Program.mKhoa)
             {
-                check_select = true;
+                Program.mlogin = Program.remotelogin;
+                Program.password = Program.remotepassword;
             }
-            //lấy tài khoản login để đăng nhập qua site khác
-            if (check_select == true)
+            else
             {
-                if (cbxCN.SelectedIndex != Program.mKhoa)
-                {
-                    Program.mlogin = Program.remotelogin;
-                    Program.password = Program.remotepassword;
-                }
-                else
-                {
-                    Program.mlogin = Program.mloginDN;
-                    Program.password = Program.passwordDN;
-                }
-
-                Program.servername = cbxCN.SelectedValue.ToString();
-
-                if (Program.KetNoi() == 0)
-                {
-                    MessageBox.Show("Lỗi kết nối về chi nhánh mới", "", MessageBoxButtons.OK);
-                }
-                else
-                {
-                    this.lOPTableAdapter.Connection.ConnectionString = Program.connstr; // Tạo kết nối để sau này thay đổi mật khẩu dữ liệu k bị lỗi
-                    this.lOPTableAdapter.Fill(this.dS.LOP);
-
-                    this.sINHVIENTableAdapter.Connection.ConnectionString = Program.connstr;
-                    this.sINHVIENTableAdapter.Fill(this.dS.SINHVIEN);
-                }
+                Program.mlogin = Program.mloginDN;
+                Program.password = Program.passwordDN;
             }
+
+
+            if (Program.KetNoi() == 0)
+            {
+                MessageBox.Show("Lỗi kết nối về chi nhánh mới", "", MessageBoxButtons.OK);
+                return;
+            }
+            else
+            {
+                this.lOPTableAdapter.Connection.ConnectionString = Program.connstr; // Tạo kết nối để sau này thay đổi mật khẩu dữ liệu k bị lỗi
+                this.lOPTableAdapter.Fill(this.dS.LOP);
+
+                this.sINHVIENTableAdapter.Connection.ConnectionString = Program.connstr;
+                this.sINHVIENTableAdapter.Fill(this.dS.SINHVIEN);
+            }
+
+           
         }
 
         private bool CheckIDSinhVien()

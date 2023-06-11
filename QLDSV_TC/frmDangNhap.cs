@@ -65,7 +65,7 @@ namespace QLDSV_TC
         {
             try
             {
-                Program.servername = cmbKhoa.SelectedValue.ToString();
+                Program.servername = cmbKhoa.SelectedValue.ToString().Trim();
             }
             catch (Exception) { }
         }

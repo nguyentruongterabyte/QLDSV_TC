@@ -134,17 +134,65 @@
     <Compile Include="frmMonHoc.Designer.cs">
       <DependentUpon>frmMonHoc.cs</DependentUpon>
     </Compile>
+    <Compile Include="frptBangDiemMH.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frptBangDiemMH.Designer.cs">
+      <DependentUpon>frptBangDiemMH.cs</DependentUpon>
+    </Compile>
     <Compile Include="frptDanhSachLTC.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="frptDanhSachLTC.Designer.cs">
       <DependentUpon>frptDanhSachLTC.cs</DependentUpon>
     </Compile>
+    <Compile Include="frptDSDongHocPhi.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frptDSDongHocPhi.Designer.cs">
+      <DependentUpon>frptDSDongHocPhi.cs</DependentUpon>
+    </Compile>
+    <Compile Include="frptDSSVDangKyLTC.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frptDSSVDangKyLTC.Designer.cs">
+      <DependentUpon>frptDSSVDangKyLTC.cs</DependentUpon>
+    </Compile>
+    <Compile Include="frptPhieuDiem.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frptPhieuDiem.Designer.cs">
+      <DependentUpon>frptPhieuDiem.cs</DependentUpon>
+    </Compile>
+    <Compile Include="rprtBangDiemMH.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="rprtBangDiemMH.Designer.cs">
+      <DependentUpon>rprtBangDiemMH.cs</DependentUpon>
+    </Compile>
+    <Compile Include="rprtDSDongHocPhi.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="rprtDSDongHocPhi.Designer.cs">
+      <DependentUpon>rprtDSDongHocPhi.cs</DependentUpon>
+    </Compile>
     <Compile Include="rprtDSLTC.cs">
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="rprtDSLTC.Designer.cs">
       <DependentUpon>rprtDSLTC.cs</DependentUpon>
+    </Compile>
+    <Compile Include="rprtDSSVDangKyLTC.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="rprtDSSVDangKyLTC.Designer.cs">
+      <DependentUpon>rprtDSSVDangKyLTC.cs</DependentUpon>
+    </Compile>
+    <Compile Include="rprtPhieuDiem.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="rprtPhieuDiem.Designer.cs">
+      <DependentUpon>rprtPhieuDiem.cs</DependentUpon>
     </Compile>
     <Compile Include="Validator.cs" />
     <Compile Include="frmDangNhap.cs">
@@ -225,8 +273,20 @@
     <EmbeddedResource Include="FrmTest.resx">
       <DependentUpon>FrmTest.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="frptBangDiemMH.resx">
+      <DependentUpon>frptBangDiemMH.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="frptDanhSachLTC.resx">
       <DependentUpon>frptDanhSachLTC.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frptDSDongHocPhi.resx">
+      <DependentUpon>frptDSDongHocPhi.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frptDSSVDangKyLTC.resx">
+      <DependentUpon>frptDSSVDangKyLTC.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frptPhieuDiem.resx">
+      <DependentUpon>frptPhieuDiem.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\licenses.licx" />
     <EmbeddedResource Include="Properties\Resources.resx">
@@ -239,8 +299,20 @@
       <DependentUpon>Resources.resx</DependentUpon>
       <DesignTime>True</DesignTime>
     </Compile>
+    <EmbeddedResource Include="rprtBangDiemMH.resx">
+      <DependentUpon>rprtBangDiemMH.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="rprtDSDongHocPhi.resx">
+      <DependentUpon>rprtDSDongHocPhi.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="rprtDSLTC.resx">
       <DependentUpon>rprtDSLTC.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="rprtDSSVDangKyLTC.resx">
+      <DependentUpon>rprtDSSVDangKyLTC.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="rprtPhieuDiem.resx">
+      <DependentUpon>rprtPhieuDiem.cs</DependentUpon>
     </EmbeddedResource>
     <None Include="App.config" />
     <None Include="DS.xsc">

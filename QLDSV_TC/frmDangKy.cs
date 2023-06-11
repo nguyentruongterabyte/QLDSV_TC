@@ -25,7 +25,7 @@ namespace QLDSV_TC
         private void lOPTINCHIBindingNavigatorSaveItem_Click(object sender, EventArgs e)
         {
             this.Validate();
-            this.lOPTINCHIBindingSource.EndEdit();
+            this.bdsLopTC.EndEdit();
             this.tableAdapterManager.UpdateAll(this.dS);
 
         }
@@ -33,21 +33,25 @@ namespace QLDSV_TC
         private void frmDangKy_Load(object sender, EventArgs e)
         {
             // TODO: This line of code loads data into the 'dS.SP_LTC_DAMO' table. You can move, or remove it, as needed.
-            this.sP_LTC_DAMOTableAdapter.Fill(this.dS.SP_LTC_DAMO);
             dS.EnforceConstraints = false;
             // TODO: This line of code loads data into the 'dS.DANGKY' table. You can move, or remove it, as needed.
+            this.sP_LTC_DAMOTableAdapter.Connection.ConnectionString = Program.connstr;
+            this.sP_LTC_DAMOTableAdapter.Fill(this.dS.SP_LTC_DAMO);
+
+            this.dANGKYTableAdapter.Connection.ConnectionString = Program.connstr;
             this.dANGKYTableAdapter.Fill(this.dS.DANGKY);
 
+            this.lOPTINCHITableAdapter.Connection.ConnectionString = Program.connstr;
             this.lOPTINCHITableAdapter.Fill(this.dS.LOPTINCHI);
 
             load_CBX();
             LoadLtcDaMo();
             LoadLtcDaDangKy();
 
-            // Lấy GridView hiện tại của ltcDAMO
+            //Lấy GridView hiện tại của ltcDAMO
             gridView = LtcDaMogridControl.MainView as GridView;
 
-            // Đăng ký sự kiện FocusedRowChanged cua LtcDaMo
+            //Đăng ký sự kiện FocusedRowChanged cua LtcDaMo
             gridView.FocusedRowChanged += GridView_FocusedRowChanged;
 
             dANGKYBindingSource.AddNew();
@@ -57,6 +61,8 @@ namespace QLDSV_TC
 
             // Đăng ký sự kiện FocusedRowChanged
             gridViewDK.FocusedRowChanged += GridView_FocusedRowChanged_DK;
+
+
         }
 
         public void LoadLtcDaDangKy()
@@ -64,6 +70,13 @@ namespace QLDSV_TC
             String sql = "EXEC SP_LTC_DADANGKY '"+Program.username.Trim() +"'";
             DataTable dt = Program.ExecSqlDataTable(sql);
             this.LtcDangKygridControl.DataSource = dt;
+            if (dt.Rows.Count == 1)
+            {
+                btnDangKy.Enabled = true;
+            } else
+            {
+                btnDangKy.Enabled = false;
+            }
         }
 
         public void LoadLtcDaMo()
@@ -71,6 +84,13 @@ namespace QLDSV_TC
             String sql = "EXEC SP_LTC_DAMO";
             DataTable dt = Program.ExecSqlDataTable(sql);
             this.LtcDaMogridControl.DataSource = dt;
+            if (dt.Rows.Count == 1)
+            {
+                btnDangKy.Enabled = true;
+            } else
+            {
+                btnDangKy.Enabled = false;
+            }
         }
 
         private  void load_CBX()
@@ -79,9 +99,15 @@ namespace QLDSV_TC
 
             //items.Add(new KeyValuePair<string, string>("TATCA", "Tất cả"));
             items.Add(new KeyValuePair<string, string>("2015-2016", "2015-2016"));
+            items.Add(new KeyValuePair<string, string>("2016-2017", "2016-2017"));
+            items.Add(new KeyValuePair<string, string>("2017-2018", "2017-2018"));
+            items.Add(new KeyValuePair<string, string>("2018-2019", "2018-2019"));
+            items.Add(new KeyValuePair<string, string>("2019-2020", "2019-2020"));
+            items.Add(new KeyValuePair<string, string>("2020-2021", "2020-2021"));
             items.Add(new KeyValuePair<string, string>("2021-2022", "2021-2022"));
             items.Add(new KeyValuePair<string, string>("2022-2023", "2022-2023"));
             items.Add(new KeyValuePair<string, string>("2023-2024", "2023-2024"));
+            items.Add(new KeyValuePair<string, string>("2024-2025", "2024-2025"));
 
             cbxNienKhoa.DataSource = items;
             cbxNienKhoa.ValueMember = "Key";
@@ -105,9 +131,13 @@ namespace QLDSV_TC
             String sql = "EXEC SP_TIM_LTC_NIENKHOA_HOCKY @NIENKHOA = '"+cbxNienKhoa.SelectedValue.ToString() + "', @HOCKY = "+cbxHocKy.SelectedValue.ToString()+"";
             DataTable dt = Program.ExecSqlDataTable(sql);
             this.LtcDaMogridControl.DataSource = dt;
+            if (dt.Rows.Count == 1)
+            {
+                btnDangKy.Enabled = true;
+            }
         }
 
-        // Phương thức xử lý sự kiện FocusedRowChanged
+        //Phương thức xử lý sự kiện FocusedRowChanged
         private void GridView_FocusedRowChanged(object sender, DevExpress.XtraGrid.Views.Base.FocusedRowChangedEventArgs e)
         {
             int rowIndex = gridView.FocusedRowHandle;
@@ -288,6 +318,48 @@ namespace QLDSV_TC
                     return;
                 }
             }
+        }
+
+        private void gridView2_MouseDown(object sender, MouseEventArgs e)
+        {
+            int rowIndex = gridViewDK.FocusedRowHandle;
+            if (rowIndex >= 0)
+            {
+                // Lấy dữ liệu từ dòng được chọn
+                //object rowData = gridView.GetRow(e.FocusedRowHandle);
+
+                // Xử lý dữ liệu
+                rowIndex = gridViewDK.FocusedRowHandle;
+
+                // Lấy giá trị của cột "MaSV" tại dòng đang được chọn
+                string maLtc = gridViewDK.GetRowCellValue(rowIndex, "MALTC").ToString();
+
+                txtMaLTC.Text = maLtc;
+                txtMaSV.Text = Program.username.Trim();
+            }
+            btnHuyDK.Enabled = true;
+            btnDangKy.Enabled = false;
+        }
+
+        private void gridView3_MouseDown(object sender, MouseEventArgs e)
+        {
+            int rowIndex = gridView.FocusedRowHandle;
+            if (rowIndex >= 0)
+            {
+                // Lấy dữ liệu từ dòng được chọn
+                //object rowData = gridView.GetRow(e.FocusedRowHandle);
+
+                // Xử lý dữ liệu
+                rowIndex = gridView.FocusedRowHandle;
+
+                // Lấy giá trị của cột "MaSV" tại dòng đang được chọn
+                string maLtc = gridView.GetRowCellValue(rowIndex, "MALTC").ToString();
+
+                txtMaLTC.Text = maLtc;
+                txtMaSV.Text = Program.username.Trim();
+            }
+            btnDangKy.Enabled = true;
+            btnHuyDK.Enabled = false;
         }
     }
 }

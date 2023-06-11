@@ -136,7 +136,7 @@
             this.groupControl1.Controls.Add(this.label2);
             this.groupControl1.Controls.Add(this.numHocKy);
             this.groupControl1.Controls.Add(this.cmbNienKhoa);
-            this.groupControl1.Location = new System.Drawing.Point(456, 64);
+            this.groupControl1.Location = new System.Drawing.Point(44, 12);
             this.groupControl1.Name = "groupControl1";
             this.groupControl1.Size = new System.Drawing.Size(459, 344);
             this.groupControl1.TabIndex = 12;
@@ -146,11 +146,10 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1384, 450);
+            this.ClientSize = new System.Drawing.Size(550, 373);
             this.Controls.Add(this.groupControl1);
             this.Name = "frptDanhSachLTC";
             this.Text = "In danh sách lớp tín chỉ";
-            this.WindowState = System.Windows.Forms.FormWindowState.Maximized;
             this.Load += new System.EventHandler(this.frptDanhSachLTC_Load);
             ((System.ComponentModel.ISupportInitialize)(this.numHocKy)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.groupControl1)).EndInit();

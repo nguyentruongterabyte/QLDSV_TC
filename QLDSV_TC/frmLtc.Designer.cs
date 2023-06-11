@@ -419,6 +419,7 @@
             this.gridView2.DetailHeight = 284;
             this.gridView2.GridControl = this.dgvLtcDaHuy;
             this.gridView2.Name = "gridView2";
+            this.gridView2.OptionsBehavior.Editable = false;
             // 
             // colMALTC
             // 
@@ -658,6 +659,7 @@
             this.colHUYLOP1});
             this.gridView1.GridControl = this.lOPTINCHIGridControl;
             this.gridView1.Name = "gridView1";
+            this.gridView1.OptionsBehavior.Editable = false;
             // 
             // colMALTC1
             // 

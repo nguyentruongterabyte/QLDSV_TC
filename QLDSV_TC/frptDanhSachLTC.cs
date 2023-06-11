@@ -64,6 +64,8 @@ namespace QLDSV_TC
             cmbKhoa.ValueMember = "TENSERVER";
 
             cmbKhoa.SelectedIndex = Program.mKhoa;
+
+            cmbKhoa.SelectedIndex = Program.mKhoa;
             if (Program.mGroup == "PGV")
             {
                 cmbKhoa.Enabled = true;
@@ -80,7 +82,7 @@ namespace QLDSV_TC
             rpt.lbKhoa.Text = cmbKhoa.Text;
             rpt.lbHocKy.Text = numHocKy.Text;
             rpt.lbNienKhoa.Text = cmbNienKhoa.Text;
-
+            Program.KetNoi();
             ReportPrintTool print = new ReportPrintTool(rpt);
             print.ShowPreviewDialog();
         }

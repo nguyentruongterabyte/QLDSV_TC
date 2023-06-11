@@ -32,22 +32,31 @@ namespace QLDSV_TC
         private void frmSinhVien_Load(object sender, EventArgs e)
         {
             dS.EnforceConstraints = false;
-            
+
             // TODO: This line of code loads data into the 'dS.LOP' table. You can move, or remove it, as needed.
+            this.lOPTableAdapter.Connection.ConnectionString = Program.connstr;
             this.lOPTableAdapter.Fill(this.dS.LOP);
 
             // TODO: This line of code loads data into the 'dS.SINHVIEN' table. You can move, or remove it, as needed.
+            this.sINHVIENTableAdapter.Connection.ConnectionString = Program.connstr;
             this.sINHVIENTableAdapter.Fill(this.dS.SINHVIEN);
 
             // TODO: This line of code loads data into the 'dS.DANGKY' table. You can move, or remove it, as needed.
+            this.dANGKYTableAdapter.Connection.ConnectionString = Program.connstr;
             this.dANGKYTableAdapter.Fill(this.dS.DANGKY);
+
+            Program.XoaItemPKT();
 
             cbxCN.DataSource = Program.bds_dspm; // sao chép ở frmDangNhap
             cbxCN.DisplayMember = "TENKHOA";
             cbxCN.ValueMember = "TENSERVER";
             cbxCN.SelectedIndex = Program.mKhoa;
+           
 
-            if (Program.mGroup == "KHOA")
+            if (Program.mGroup == "PGV")
+            {
+                cbxCN.Enabled = true;
+            } else
             {
                 cbxCN.Enabled = false;
             }
@@ -55,40 +64,40 @@ namespace QLDSV_TC
 
         private void cbxCN_SelectedIndexChanged(object sender, EventArgs e)
         {
-            // xử lí để không cbx không tự động chọn
-            if (cbxCN.SelectedIndex != 0)
+
+            if (cbxCN.SelectedValue.ToString() == "System.Data.DataRowView")
+                return;
+            Program.servername = cbxCN.SelectedValue.ToString();
+
+            if (cbxCN.SelectedIndex != Program.mKhoa)
             {
-                check_select = true;
+                Program.mlogin = Program.remotelogin;
+                Program.password = Program.remotepassword;
             }
-            //lấy tài khoản login để đăng nhập qua site khác
-            if (check_select == true)
+            else
             {
-                if (cbxCN.SelectedIndex != Program.mKhoa)
-                {
-                    Program.mlogin = Program.remotelogin;
-                    Program.password = Program.remotepassword;
-                }
-                else
-                {
-                    Program.mlogin = Program.mloginDN;
-                    Program.password = Program.passwordDN;
-                }
-
-                Program.servername = cbxCN.SelectedValue.ToString();
-
-                if (Program.KetNoi() == 0)
-                {
-                    MessageBox.Show("Lỗi kết nối về chi nhánh mới", "", MessageBoxButtons.OK);
-                }
-                else
-                {
-                    this.lOPTableAdapter.Connection.ConnectionString = Program.connstr; // Tạo kết nối để sau này thay đổi mật khẩu dữ liệu k bị lỗi
-                    this.lOPTableAdapter.Fill(this.dS.LOP);
-
-                    this.sINHVIENTableAdapter.Connection.ConnectionString = Program.connstr;
-                    this.sINHVIENTableAdapter.Fill(this.dS.SINHVIEN);
-                }
+                Program.mlogin = Program.mloginDN;
+                Program.password = Program.passwordDN;
             }
+
+
+
+            if (Program.KetNoi() == 0)
+            {
+                MessageBox.Show("Lỗi kết nối về chi nhánh mới", "", MessageBoxButtons.OK);
+                return;
+            }
+            else
+            {
+                this.lOPTableAdapter.Connection.ConnectionString = Program.connstr; // Tạo kết nối để sau này thay đổi mật khẩu dữ liệu k bị lỗi
+                this.lOPTableAdapter.Fill(this.dS.LOP);
+
+                this.sINHVIENTableAdapter.Connection.ConnectionString = Program.connstr;
+                this.sINHVIENTableAdapter.Fill(this.dS.SINHVIEN);
+            }
+
+
+           
         }
 
         private void EnableButton(bool b)
@@ -132,6 +141,7 @@ namespace QLDSV_TC
                 this.sINHVIENBindingSource.EndEdit();
                 this.sINHVIENBindingSource.ResetCurrentItem();
                 this.sINHVIENTableAdapter.Update(this.dS.SINHVIEN);
+                btnLamMoi.PerformClick();
             }
             catch (Exception ex)
             {
@@ -188,7 +198,9 @@ namespace QLDSV_TC
                 {
                     MessageBox.Show("Lỗi xóa sinh viên của hệ thống. Hãy xóa lại\n" + ex.Message,
                     "", MessageBoxButtons.OK);
+
                     // Load lại danh sách nhân viên, vì có thể xóa trên giao diện nhưng chưa xóa trên db
+                    this.sINHVIENTableAdapter.Connection.ConnectionString = Program.connstr;
                     this.sINHVIENTableAdapter.Fill(this.dS.SINHVIEN);
                     return;
                 }
@@ -198,6 +210,7 @@ namespace QLDSV_TC
         private void btnHuy_ItemClick(object sender, ItemClickEventArgs e)
         {
             this.sINHVIENBindingSource.CancelEdit();
+            this.sINHVIENTableAdapter.Connection.ConnectionString = Program.connstr;
             this.sINHVIENTableAdapter.Fill(this.dS.SINHVIEN);
             EnableButton(false);
         }
@@ -206,7 +219,10 @@ namespace QLDSV_TC
         {
             try
             {
+                this.lOPTableAdapter.Connection.ConnectionString = Program.connstr;
                 this.lOPTableAdapter.Fill(this.dS.LOP);
+
+                this.sINHVIENTableAdapter.Connection.ConnectionString = Program.connstr;
                 this.sINHVIENTableAdapter.Fill(this.dS.SINHVIEN);
             }
             catch (Exception ex)
@@ -236,6 +252,11 @@ namespace QLDSV_TC
                 this.Close();
                 return;
             }
+        }
+
+        private void btnPhucHoi_ItemClick(object sender, ItemClickEventArgs e)
+        {
+
         }
     }
 }

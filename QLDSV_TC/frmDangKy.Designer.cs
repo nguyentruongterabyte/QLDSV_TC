@@ -32,9 +32,17 @@
             System.Windows.Forms.Label mASVLabel;
             System.Windows.Forms.Label mALTCLabel1;
             this.LtcDaMogridControl = new DevExpress.XtraGrid.GridControl();
-            this.gridView3 = new DevExpress.XtraGrid.Views.Grid.GridView();
-            this.lOPTINCHIBindingSource = new System.Windows.Forms.BindingSource(this.components);
+            this.bdsLopTCDaMo = new System.Windows.Forms.BindingSource(this.components);
             this.dS = new QLDSV_TC.DS();
+            this.gridView3 = new DevExpress.XtraGrid.Views.Grid.GridView();
+            this.colMALTC = new DevExpress.XtraGrid.Columns.GridColumn();
+            this.colNIENKHOA = new DevExpress.XtraGrid.Columns.GridColumn();
+            this.colHOCKY = new DevExpress.XtraGrid.Columns.GridColumn();
+            this.colNHOM = new DevExpress.XtraGrid.Columns.GridColumn();
+            this.colTENMH = new DevExpress.XtraGrid.Columns.GridColumn();
+            this.colTENGV = new DevExpress.XtraGrid.Columns.GridColumn();
+            this.colSOSVDADANGKY = new DevExpress.XtraGrid.Columns.GridColumn();
+            this.bdsLopTC = new System.Windows.Forms.BindingSource(this.components);
             this.dANGKYBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.LtcDangKygridControl = new DevExpress.XtraGrid.GridControl();
             this.gridView2 = new DevExpress.XtraGrid.Views.Grid.GridView();
@@ -57,21 +65,14 @@
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.bar2 = new DevExpress.XtraBars.Bar();
             this.panelControl1 = new DevExpress.XtraEditors.PanelControl();
-            this.sP_LTC_DAMOBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.sP_LTC_DAMOTableAdapter = new QLDSV_TC.DSTableAdapters.SP_LTC_DAMOTableAdapter();
-            this.colMALTC = new DevExpress.XtraGrid.Columns.GridColumn();
-            this.colNIENKHOA = new DevExpress.XtraGrid.Columns.GridColumn();
-            this.colHOCKY = new DevExpress.XtraGrid.Columns.GridColumn();
-            this.colNHOM = new DevExpress.XtraGrid.Columns.GridColumn();
-            this.colTENMH = new DevExpress.XtraGrid.Columns.GridColumn();
-            this.colTENGV = new DevExpress.XtraGrid.Columns.GridColumn();
-            this.colSOSVDADANGKY = new DevExpress.XtraGrid.Columns.GridColumn();
             mASVLabel = new System.Windows.Forms.Label();
             mALTCLabel1 = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.LtcDaMogridControl)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.gridView3)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.lOPTINCHIBindingSource)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.bdsLopTCDaMo)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dS)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.gridView3)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.bdsLopTC)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dANGKYBindingSource)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.LtcDangKygridControl)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.gridView2)).BeginInit();
@@ -84,7 +85,6 @@
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.panelControl1)).BeginInit();
             this.panelControl1.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.sP_LTC_DAMOBindingSource)).BeginInit();
             this.SuspendLayout();
             // 
             // mASVLabel
@@ -107,7 +107,7 @@
             // 
             // LtcDaMogridControl
             // 
-            this.LtcDaMogridControl.DataSource = this.sP_LTC_DAMOBindingSource;
+            this.LtcDaMogridControl.DataSource = this.bdsLopTCDaMo;
             this.LtcDaMogridControl.Dock = System.Windows.Forms.DockStyle.Fill;
             this.LtcDaMogridControl.EmbeddedNavigator.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.LtcDaMogridControl.Location = new System.Drawing.Point(3, 16);
@@ -118,6 +118,16 @@
             this.LtcDaMogridControl.TabIndex = 1;
             this.LtcDaMogridControl.ViewCollection.AddRange(new DevExpress.XtraGrid.Views.Base.BaseView[] {
             this.gridView3});
+            // 
+            // bdsLopTCDaMo
+            // 
+            this.bdsLopTCDaMo.DataMember = "SP_LTC_DAMO";
+            this.bdsLopTCDaMo.DataSource = this.dS;
+            // 
+            // dS
+            // 
+            this.dS.DataSetName = "DS";
+            this.dS.SchemaSerializationMode = System.Data.SchemaSerializationMode.IncludeSchema;
             // 
             // gridView3
             // 
@@ -133,16 +143,68 @@
             this.gridView3.GridControl = this.LtcDaMogridControl;
             this.gridView3.Name = "gridView3";
             this.gridView3.OptionsBehavior.Editable = false;
+            this.gridView3.MouseDown += new System.Windows.Forms.MouseEventHandler(this.gridView3_MouseDown);
             // 
-            // lOPTINCHIBindingSource
+            // colMALTC
             // 
-            this.lOPTINCHIBindingSource.DataMember = "LOPTINCHI";
-            this.lOPTINCHIBindingSource.DataSource = this.dS;
+            this.colMALTC.Caption = "Mã LTC";
+            this.colMALTC.FieldName = "MALTC";
+            this.colMALTC.Name = "colMALTC";
+            this.colMALTC.Visible = true;
+            this.colMALTC.VisibleIndex = 0;
             // 
-            // dS
+            // colNIENKHOA
             // 
-            this.dS.DataSetName = "DS";
-            this.dS.SchemaSerializationMode = System.Data.SchemaSerializationMode.IncludeSchema;
+            this.colNIENKHOA.Caption = "Niên khóa";
+            this.colNIENKHOA.FieldName = "NIENKHOA";
+            this.colNIENKHOA.Name = "colNIENKHOA";
+            this.colNIENKHOA.Visible = true;
+            this.colNIENKHOA.VisibleIndex = 1;
+            // 
+            // colHOCKY
+            // 
+            this.colHOCKY.Caption = "Học kỳ";
+            this.colHOCKY.FieldName = "HOCKY";
+            this.colHOCKY.Name = "colHOCKY";
+            this.colHOCKY.Visible = true;
+            this.colHOCKY.VisibleIndex = 2;
+            // 
+            // colNHOM
+            // 
+            this.colNHOM.Caption = "Nhóm";
+            this.colNHOM.FieldName = "NHOM";
+            this.colNHOM.Name = "colNHOM";
+            this.colNHOM.Visible = true;
+            this.colNHOM.VisibleIndex = 3;
+            // 
+            // colTENMH
+            // 
+            this.colTENMH.Caption = "Tên môn học";
+            this.colTENMH.FieldName = "TENMH";
+            this.colTENMH.Name = "colTENMH";
+            this.colTENMH.Visible = true;
+            this.colTENMH.VisibleIndex = 4;
+            // 
+            // colTENGV
+            // 
+            this.colTENGV.Caption = "Tên giảng viên";
+            this.colTENGV.FieldName = "TENGV";
+            this.colTENGV.Name = "colTENGV";
+            this.colTENGV.Visible = true;
+            this.colTENGV.VisibleIndex = 5;
+            // 
+            // colSOSVDADANGKY
+            // 
+            this.colSOSVDADANGKY.Caption = "Số sinh viên đã ĐK";
+            this.colSOSVDADANGKY.FieldName = "SOSVDADANGKY";
+            this.colSOSVDADANGKY.Name = "colSOSVDADANGKY";
+            this.colSOSVDADANGKY.Visible = true;
+            this.colSOSVDADANGKY.VisibleIndex = 6;
+            // 
+            // bdsLopTC
+            // 
+            this.bdsLopTC.DataMember = "LOPTINCHI";
+            this.bdsLopTC.DataSource = this.dS;
             // 
             // dANGKYBindingSource
             // 
@@ -168,6 +230,7 @@
             this.gridView2.GridControl = this.LtcDangKygridControl;
             this.gridView2.Name = "gridView2";
             this.gridView2.OptionsBehavior.Editable = false;
+            this.gridView2.MouseDown += new System.Windows.Forms.MouseEventHandler(this.gridView2_MouseDown);
             // 
             // cbxNienKhoa
             // 
@@ -247,7 +310,7 @@
             // 
             // lOPTINCHIGridControl
             // 
-            this.lOPTINCHIGridControl.DataSource = this.lOPTINCHIBindingSource;
+            this.lOPTINCHIGridControl.DataSource = this.bdsLopTC;
             this.lOPTINCHIGridControl.Dock = System.Windows.Forms.DockStyle.Fill;
             this.lOPTINCHIGridControl.EmbeddedNavigator.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.lOPTINCHIGridControl.Location = new System.Drawing.Point(3, 16);
@@ -369,70 +432,9 @@
             this.panelControl1.Size = new System.Drawing.Size(1384, 54);
             this.panelControl1.TabIndex = 16;
             // 
-            // sP_LTC_DAMOBindingSource
-            // 
-            this.sP_LTC_DAMOBindingSource.DataMember = "SP_LTC_DAMO";
-            this.sP_LTC_DAMOBindingSource.DataSource = this.dS;
-            // 
             // sP_LTC_DAMOTableAdapter
             // 
             this.sP_LTC_DAMOTableAdapter.ClearBeforeFill = true;
-            // 
-            // colMALTC
-            // 
-            this.colMALTC.Caption = "Mã LTC";
-            this.colMALTC.FieldName = "MALTC";
-            this.colMALTC.Name = "colMALTC";
-            this.colMALTC.Visible = true;
-            this.colMALTC.VisibleIndex = 0;
-            // 
-            // colNIENKHOA
-            // 
-            this.colNIENKHOA.Caption = "Niên khóa";
-            this.colNIENKHOA.FieldName = "NIENKHOA";
-            this.colNIENKHOA.Name = "colNIENKHOA";
-            this.colNIENKHOA.Visible = true;
-            this.colNIENKHOA.VisibleIndex = 1;
-            // 
-            // colHOCKY
-            // 
-            this.colHOCKY.Caption = "Học kỳ";
-            this.colHOCKY.FieldName = "HOCKY";
-            this.colHOCKY.Name = "colHOCKY";
-            this.colHOCKY.Visible = true;
-            this.colHOCKY.VisibleIndex = 2;
-            // 
-            // colNHOM
-            // 
-            this.colNHOM.Caption = "Nhóm";
-            this.colNHOM.FieldName = "NHOM";
-            this.colNHOM.Name = "colNHOM";
-            this.colNHOM.Visible = true;
-            this.colNHOM.VisibleIndex = 3;
-            // 
-            // colTENMH
-            // 
-            this.colTENMH.Caption = "Tên môn học";
-            this.colTENMH.FieldName = "TENMH";
-            this.colTENMH.Name = "colTENMH";
-            this.colTENMH.Visible = true;
-            this.colTENMH.VisibleIndex = 4;
-            // 
-            // colTENGV
-            // 
-            this.colTENGV.Caption = "Tên giảng viên";
-            this.colTENGV.FieldName = "TENGV";
-            this.colTENGV.Name = "colTENGV";
-            this.colTENGV.Visible = true;
-            this.colTENGV.VisibleIndex = 5;
-            // 
-            // colSOSVDADANGKY
-            // 
-            this.colSOSVDADANGKY.Caption = "Số sinh viên đã ĐK";
-            this.colSOSVDADANGKY.FieldName = "SOSVDADANGKY";
-            this.colSOSVDADANGKY.Name = "colSOSVDADANGKY";
-            this.colSOSVDADANGKY.Visible = true;
-            this.colSOSVDADANGKY.VisibleIndex = 6;
             // 
             // frmDangKy
             // 
@@ -448,9 +450,10 @@
             this.WindowState = System.Windows.Forms.FormWindowState.Maximized;
             this.Load += new System.EventHandler(this.frmDangKy_Load);
             ((System.ComponentModel.ISupportInitialize)(this.LtcDaMogridControl)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.gridView3)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.lOPTINCHIBindingSource)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.bdsLopTCDaMo)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.dS)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.gridView3)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.bdsLopTC)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.dANGKYBindingSource)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.LtcDangKygridControl)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.gridView2)).EndInit();
@@ -465,7 +468,6 @@
             ((System.ComponentModel.ISupportInitialize)(this.panelControl1)).EndInit();
             this.panelControl1.ResumeLayout(false);
             this.panelControl1.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.sP_LTC_DAMOBindingSource)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -476,7 +478,7 @@
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.ComboBox cbxHocKy;
         private System.Windows.Forms.ComboBox cbxNienKhoa;
-        private System.Windows.Forms.BindingSource lOPTINCHIBindingSource;
+        private System.Windows.Forms.BindingSource bdsLopTC;
         private DS dS;
         private DSTableAdapters.LOPTINCHITableAdapter lOPTINCHITableAdapter;
         private DSTableAdapters.TableAdapterManager tableAdapterManager;
@@ -497,7 +499,7 @@
         private DevExpress.XtraGrid.Views.Grid.GridView gridView1;
         private DevExpress.XtraBars.Bar bar2;
         private DevExpress.XtraEditors.PanelControl panelControl1;
-        private System.Windows.Forms.BindingSource sP_LTC_DAMOBindingSource;
+        private System.Windows.Forms.BindingSource bdsLopTCDaMo;
         private DSTableAdapters.SP_LTC_DAMOTableAdapter sP_LTC_DAMOTableAdapter;
         private DevExpress.XtraGrid.Columns.GridColumn colMALTC;
         private DevExpress.XtraGrid.Columns.GridColumn colNIENKHOA;
